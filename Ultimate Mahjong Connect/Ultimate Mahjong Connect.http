@@ -1,0 +1,6 @@
+@Ultimate_Mahjong_Connect_HostAddress = http://localhost:5257
+
+GET {{Ultimate_Mahjong_Connect_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
