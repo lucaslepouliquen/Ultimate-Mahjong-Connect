@@ -20,10 +20,6 @@ namespace MahjongGameVerifier
             var player1 = new Client("John", "Doe", 30, "john@example.com");
             var player2 = new Client("Jane", "Smith", 25, "jane@example.com");
 
-            // Simulez la réussite du niveau 5 pour le joueur 1
-            player1.ApplyBonusForLevel5Completion();
-            Console.WriteLine($"Score du joueur 1 après application du bonus : {player1.Score}");
-
             // Autres vérifications peuvent être ajoutées selon les besoins
 
             Console.WriteLine("Vérification terminée. Appuyez sur une touche pour quitter.");

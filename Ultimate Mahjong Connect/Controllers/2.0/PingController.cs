@@ -1,4 +1,7 @@
-﻿namespace Ultimate_Mahjong_Connect.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+
+namespace Ultimate_Mahjong_Connect.Controllers;
 
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
