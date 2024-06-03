@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
-namespace Ultimate_Mahjong_Connect.Controllers;
+namespace Ultimate_Mahjong_Connect.Controllers.V2;
 
 [ApiVersion("2.0")]
-[Route("api/v{version:apiVersion}/[controller]")]
+[Route("api/v{version:ApiVersion}/[controller]")]
 [ApiController]
 public class PingController : ControllerBase
 {

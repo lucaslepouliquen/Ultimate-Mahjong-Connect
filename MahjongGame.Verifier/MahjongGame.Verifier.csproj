@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Business.Core.Net.csproj" />
     <ProjectReference Include="..\UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Core.Net.csproj" />
   </ItemGroup>
 

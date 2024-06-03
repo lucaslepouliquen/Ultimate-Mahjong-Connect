@@ -1,6 +1,6 @@
 ﻿using static System.Net.Mime.MediaTypeNames;
 
-namespace UltimateMahjongConnect.Core.Net
+namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class Tile
     {
@@ -16,7 +16,7 @@ namespace UltimateMahjongConnect.Core.Net
             Y = y;
             Image = image;
             IsRemoved = false;
-            IsMatched = false; 
+            IsMatched = false;
         }
     }
 }

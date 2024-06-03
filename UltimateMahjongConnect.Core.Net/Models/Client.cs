@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MahjongConnect.Logic
+namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class Client
     {

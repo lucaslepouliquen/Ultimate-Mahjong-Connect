@@ -5,11 +5,17 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Server.WebApi.Net", "Ultimate Mahjong Connect\UltimateMahjongConnect.Server.WebApi.Net.csproj", "{CED99A4E-1A45-4342-86FE-010097A73843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMahjongConnect.Business.Core.Net", "UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Business.Core.Net.csproj", "{FD9D5288-E1F0-4085-AAA8-54D20EDC7153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Business.Core.Net", "UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Business.Core.Net.csproj", "{FD9D5288-E1F0-4085-AAA8-54D20EDC7153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMahjongConnect.Core.Net", "UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Core.Net.csproj", "{18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Core.Net", "UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Core.Net.csproj", "{18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MahjongGame.Verifier", "MahjongGame.Verifier\MahjongGame.Verifier.csproj", "{E30FA038-B144-48E8-92C1-5EF4284A6673}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Test.Core.Net", "UltimateMahjongConnect.Test\UltimateMahjongConnect.Test.Core.Net.csproj", "{E4698391-84D0-4492-B0F0-6054738D0EF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE} = {18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE}
+		{FD9D5288-E1F0-4085-AAA8-54D20EDC7153} = {FD9D5288-E1F0-4085-AAA8-54D20EDC7153}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,10 @@ Global
 		{E30FA038-B144-48E8-92C1-5EF4284A6673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E30FA038-B144-48E8-92C1-5EF4284A6673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E30FA038-B144-48E8-92C1-5EF4284A6673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4698391-84D0-4492-B0F0-6054738D0EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4698391-84D0-4492-B0F0-6054738D0EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4698391-84D0-4492-B0F0-6054738D0EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4698391-84D0-4492-B0F0-6054738D0EF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

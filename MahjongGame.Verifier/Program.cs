@@ -1,6 +1,4 @@
-﻿using System;
-using MahjongConnect.Logic;
-using static UltimateMahjongConnect.Core.Net.MahjongBoard;
+﻿using UltimateMahjongConnect.Core.Net.Models;
 
 namespace MahjongGameVerifier
 {
@@ -9,7 +7,7 @@ namespace MahjongGameVerifier
         static void Main(string[] args)
         {
             // Créez une instance de jeu Mahjong avec des dimensions de plateau de 10x10
-            var game = new MahjongGame(10, 10);
+            var game = new MahjongBoard(10, 10);
 
             // Affichez quelques informations sur le jeu pour vérification
             Console.WriteLine("Jeu de Mahjong créé avec succès !");
