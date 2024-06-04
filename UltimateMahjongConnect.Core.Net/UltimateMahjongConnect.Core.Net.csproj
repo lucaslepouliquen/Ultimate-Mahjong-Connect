@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UltimateMahjongConnect.Database.Net\UltimateMahjongConnect.Database.Net.csproj" />
+  </ItemGroup>
+
 </Project>
