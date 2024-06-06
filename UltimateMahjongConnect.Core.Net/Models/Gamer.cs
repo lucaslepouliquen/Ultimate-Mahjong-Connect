@@ -2,19 +2,17 @@
 
 namespace UltimateMahjongConnect.Core.Net.Models
 {
-    public class Client
+    public class Gamer
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Pseudonyme { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
         public int Score { get; set; }
         private int _completedLevels;
 
-        public Client(string firstName, string lastName, int age, string email)
+        public Gamer(string pseudonyme, int age, string email)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Pseudonyme = pseudonyme;
             Age = age;
             Email = email;
             Score = 0; // Score initial
