@@ -1,23 +1,24 @@
 ﻿using UltimateMahjongConnect.Core.Net.Interfaces;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class MahjongTile : IMahjongTile
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public string Image { get; set; }
-        public bool IsRemoved { get; set; }
-        public bool IsMatched { get; set; }
+        private MahjongTileCategory Category;
+        private string Image;
+        private bool IsRemoved;
+        private bool IsMatched;
 
-        public MahjongTile(int x, int y, string image)
+        public MahjongTile()
         {
-            X = x;
-            Y = y;
-            Image = image;
             IsRemoved = false;
             IsMatched = false;
+        }
+
+        public MahjongTile(MahjongTileCategory category, string image) : this()
+        {
+            Category = category;
+            Image = image;
         }
 
         public List<MahjongTile> GetTiles()
@@ -35,16 +36,17 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 (MahjongTileCategory.Seasons, new string[] { "spring.jpg", "summer.jpg", "autumn.jpg", "winter.jpg" })
             };
 
-            foreach (var mapping in tileImageMappings)
+            foreach (var (category, images) in tileImageMappings)
             {
-                var category = mapping.Category;
-                var images = mapping.Images;
-                for (int i = 0; i < images.Length; i++)
+                foreach (var image in images)
                 {
-                    tiles.Add(new MahjongTile(i, (int)category, images[i]));
+                    int repetitions = (category == MahjongTileCategory.Bamboo || category == MahjongTileCategory.Circles || category == MahjongTileCategory.Characters || category == MahjongTileCategory.Winds || category == MahjongTileCategory.Dragons) ? 4 : 1;
+                    for (int i = 0; i < repetitions; i++)
+                    {
+                        tiles.Add(new MahjongTile(category, image));
+                    }
                 }
             }
-
             return tiles;
         }
     }

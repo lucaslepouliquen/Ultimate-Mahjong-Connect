@@ -7,31 +7,19 @@ using UltimateMahjongConnect.Core.Net.Interfaces;
 
 namespace UltimateMahjongConnect.Test
 {
-    public class MahjongTileProviderTests
+    public class MahjongTileTests
     {
         [Fact]
-        public void GetTiles_Returns144Tiles()
+        public void ShouldReturns144Tiles()
         {
             // Arrange
-            var mockMahjongTileProvider = new Mock<IMahjongTile>();
-            mockMahjongTileProvider.Setup(provider => provider.GetTiles()).Returns(CreateTestTiles());
-
-            var mahjongTileProvider = mockMahjongTileProvider.Object;
+            var mahjongTile = new MahjongTile();
 
             // Act
-            var tiles = mahjongTileProvider.GetTiles();
+            var tiles = mahjongTile.GetTiles();
 
             // Assert
             Assert.Equal(144, tiles.Count);
-        }
-
-        private List<MahjongTile> CreateTestTiles()
-        {
-            var tiles = new List<MahjongTile>();
-
-            // Ajoutez ici la logique de création des tuiles de test en fonction des règles du Mahjong
-
-            return tiles;
         }
     }
 }
