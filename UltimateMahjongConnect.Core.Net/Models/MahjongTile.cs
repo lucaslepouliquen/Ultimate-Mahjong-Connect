@@ -38,9 +38,9 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             foreach (var (category, images) in tileImageMappings)
             {
+                int repetitions = GetRepetitions(category);
                 foreach (var image in images)
                 {
-                    int repetitions = (category == MahjongTileCategory.Bamboo || category == MahjongTileCategory.Circles || category == MahjongTileCategory.Characters || category == MahjongTileCategory.Winds || category == MahjongTileCategory.Dragons) ? 4 : 1;
                     for (int i = 0; i < repetitions; i++)
                     {
                         tiles.Add(new MahjongTile(category, image));
@@ -48,6 +48,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 }
             }
             return tiles;
+        }
+
+        private int GetRepetitions(MahjongTileCategory category)
+        {
+            var fieldInfo = category.GetType().GetField(category.ToString());
+            var attributes = fieldInfo.GetCustomAttributes(typeof(TileRepetitionAttribute), false);
+            return attributes.Length > 0 ? ((TileRepetitionAttribute)attributes[0]).Repetitions : 1;
         }
     }
 }

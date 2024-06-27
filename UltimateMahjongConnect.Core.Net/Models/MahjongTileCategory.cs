@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UltimateMahjongConnect.Core.Net.Models
+﻿namespace UltimateMahjongConnect.Core.Net.Models
 {
     public enum MahjongTileCategory
     {
-        Bamboo,
-        Circles,
-        Characters,
-        Winds,
-        Dragons,
-        Flowers,
-        Seasons
+        [TileRepetition(4)] Bamboo,
+        [TileRepetition(4)] Circles,
+        [TileRepetition(4)] Characters,
+        [TileRepetition(4)] Winds,
+        [TileRepetition(4)] Dragons,
+        [TileRepetition(1)] Flowers,
+        [TileRepetition(1)] Seasons
     }
 }
