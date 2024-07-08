@@ -1,9 +1,4 @@
-using System.Collections.Generic;
-using Xunit;
-using Moq;
-using UltimateMahjongConnect.Core.Net;
 using UltimateMahjongConnect.Core.Net.Models;
-using UltimateMahjongConnect.Core.Net.Interfaces;
 
 namespace UltimateMahjongConnect.Test
 {

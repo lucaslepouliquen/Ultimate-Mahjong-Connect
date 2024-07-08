@@ -5,7 +5,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
     public class MahjongTile : IMahjongTile
     {
         private MahjongTileCategory Category;
-        private string Image;
+        private int Value;
         private bool IsRemoved;
         private bool IsMatched;
 
@@ -15,46 +15,49 @@ namespace UltimateMahjongConnect.Core.Net.Models
             IsMatched = false;
         }
 
-        public MahjongTile(MahjongTileCategory category, string image) : this()
+        public MahjongTile(MahjongTileCategory category, int value) : this()
         {
             Category = category;
-            Image = image;
+            Value = value;
         }
 
         public List<MahjongTile> GetTiles()
         {
             var tiles = new List<MahjongTile>();
+            var tileCategories = Enum.GetValues(typeof(MahjongTileCategory));
 
-            var tileImageMappings = new List<(MahjongTileCategory Category, string[] Images)>
-            {
-                (MahjongTileCategory.Bamboo, new string[] { "bamboo1.jpg", "bamboo2.jpg", "bamboo3.jpg", "bamboo4.jpg", "bamboo5.jpg", "bamboo6.jpg", "bamboo7.jpg", "bamboo8.jpg", "bamboo9.jpg" }),
-                (MahjongTileCategory.Circles, new string[] { "circle1.jpg", "circle2.jpg", "circle3.jpg", "circle4.jpg", "circle5.jpg", "circle6.jpg", "circle7.jpg", "circle8.jpg", "circle9.jpg" }),
-                (MahjongTileCategory.Characters, new string[] { "character1.jpg", "character2.jpg", "character3.jpg", "character4.jpg", "character5.jpg", "character6.jpg", "character7.jpg", "character8.jpg", "character9.jpg" }),
-                (MahjongTileCategory.Winds, new string[] { "east.jpg", "west.jpg", "north.jpg", "south.jpg" }),
-                (MahjongTileCategory.Dragons, new string[] { "red_dragon.jpg", "green_dragon.jpg", "white_dragon.jpg" }),
-                (MahjongTileCategory.Flowers, new string[] { "plum_flower.jpg", "orchid.jpg", "chrysanthemum.jpg", "bamboo_flower.jpg" }),
-                (MahjongTileCategory.Seasons, new string[] { "spring.jpg", "summer.jpg", "autumn.jpg", "winter.jpg" })
-            };
-
-            foreach (var (category, images) in tileImageMappings)
+            foreach (MahjongTileCategory category in tileCategories)
             {
                 int repetitions = GetRepetitions(category);
-                foreach (var image in images)
+                int maxValue = category switch
+                {
+                    MahjongTileCategory.Bamboo or MahjongTileCategory.Circles or MahjongTileCategory.Characters => 8,
+                    MahjongTileCategory.Winds => 3,
+                    MahjongTileCategory.Dragons => 2,
+                    MahjongTileCategory.Flowers or MahjongTileCategory.Seasons => 3,
+                    _ => throw new ArgumentOutOfRangeException(nameof(category), category, "Unknown Mahjong tile category")
+                };
+
+                for (int value = 0; value <= maxValue; value++)
                 {
                     for (int i = 0; i < repetitions; i++)
                     {
-                        tiles.Add(new MahjongTile(category, image));
+                        var tileValue = (category == MahjongTileCategory.Flowers || category == MahjongTileCategory.Seasons) ? 1 : value;
+                        tiles.Add(new MahjongTile(category, tileValue));
                     }
                 }
             }
+
             return tiles;
         }
+
 
         private int GetRepetitions(MahjongTileCategory category)
         {
             var fieldInfo = category.GetType().GetField(category.ToString());
             var attributes = fieldInfo.GetCustomAttributes(typeof(TileRepetitionAttribute), false);
-            return attributes.Length > 0 ? ((TileRepetitionAttribute)attributes[0]).Repetitions : 1;
+            var repetitions = attributes.Length > 0 ? ((TileRepetitionAttribute)attributes[0]).Repetitions : 1;
+            return repetitions;
         }
     }
 }
