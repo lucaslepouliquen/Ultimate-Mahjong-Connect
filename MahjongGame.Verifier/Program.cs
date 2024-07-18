@@ -1,4 +1,5 @@
-﻿using UltimateMahjongConnect.Core.Net.Models;
+﻿using System;
+using UltimateMahjongConnect.Core.Net.Models;
 
 namespace MahjongGameVerifier
 {
@@ -6,22 +7,45 @@ namespace MahjongGameVerifier
     {
         static void Main(string[] args)
         {
-            // Créez une instance de jeu Mahjong avec des dimensions de plateau de 10x10
-            var game = new MahjongBoard(10, 10);
+            // Créez une instance de MahjongTile
+            var mahjongTile = new MahjongTile();
+
+            // Créez une instance de MahjongBoard avec des dimensions de plateau de 12x12
+            var game = new MahjongBoard(mahjongTile);
+
+            // Initialisez le plateau de manière déterministe
+            game.InitializeBoardDeterministically();
 
             // Affichez quelques informations sur le jeu pour vérification
             Console.WriteLine("Jeu de Mahjong créé avec succès !");
-            Console.WriteLine($"Nombre de lignes : {game.Rows}");
-            Console.WriteLine($"Nombre de colonnes : {game.Columns}");
+            Console.WriteLine($"Nombre de lignes : 12");
+            Console.WriteLine($"Nombre de colonnes : 12");
 
-            // Ajoutez des joueurs pour tester
-            var player1 = new Client("John", "Doe", 30, "john@example.com");
-            var player2 = new Client("Jane", "Smith", 25, "jane@example.com");
-
-            // Autres vérifications peuvent être ajoutées selon les besoins
+            // Affichez le plateau initialisé
+            DisplayBoard(game);
 
             Console.WriteLine("Vérification terminée. Appuyez sur une touche pour quitter.");
             Console.ReadKey();
+        }
+
+        static void DisplayBoard(MahjongBoard board)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    var tile = board[i, j];
+                    if (tile != null)
+                    {
+                        Console.Write($"[{tile.Category}-{tile.Value}] ");
+                    }
+                    else
+                    {
+                        Console.Write("[Empty] ");
+                    }
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
