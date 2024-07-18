@@ -32,28 +32,36 @@ namespace UltimateMahjongConnect.Core.Net.Models
             foreach (MahjongTileCategory category in tileCategories)
             {
                 int repetitions = GetRepetitions(category);
-                int maxValue = category switch
-                {
-                    MahjongTileCategory.Bamboo or MahjongTileCategory.Circles or MahjongTileCategory.Characters => 8,
-                    MahjongTileCategory.Winds => 3,
-                    MahjongTileCategory.Dragons => 2,
-                    MahjongTileCategory.Flowers or MahjongTileCategory.Seasons => 3,
-                    _ => throw new ArgumentOutOfRangeException(nameof(category), category, "Unknown Mahjong tile category")
-                };
-
-                for (int value = 0; value <= maxValue; value++)
-                {
-                    for (int i = 0; i < repetitions; i++)
-                    {
-                        var tileValue = (category == MahjongTileCategory.Flowers || category == MahjongTileCategory.Seasons) ? 1 : value;
-                        tiles.Add(new MahjongTile(category, tileValue));
-                    }
-                }
+                int maxValue = GetMaxValue(category);
+                tiles.AddRange(CreateTilesForCategory(category, repetitions, maxValue));
             }
 
             return tiles;
         }
 
+        private IEnumerable<MahjongTile> CreateTilesForCategory(MahjongTileCategory category, int repetitions, int maxValue)
+        {
+            for (int value = 0; value <= maxValue; value++)
+            {
+                for (int i = 0; i < repetitions; i++)
+                {
+                    var tileValue = (category == MahjongTileCategory.Flowers || category == MahjongTileCategory.Seasons) ? 1 : value;
+                    yield return new MahjongTile(category, tileValue);
+                }
+            }
+        }
+
+        private static int GetMaxValue(MahjongTileCategory category)
+        {
+            return category switch
+            {
+                MahjongTileCategory.Bamboo or MahjongTileCategory.Circles or MahjongTileCategory.Characters => 8,
+                MahjongTileCategory.Winds => 3,
+                MahjongTileCategory.Dragons => 2,
+                MahjongTileCategory.Flowers or MahjongTileCategory.Seasons => 3,
+                _ => throw new ArgumentOutOfRangeException(nameof(category), category, "Unknown Mahjong tile category")
+            };
+        }
 
         private int GetRepetitions(MahjongTileCategory category)
         {
