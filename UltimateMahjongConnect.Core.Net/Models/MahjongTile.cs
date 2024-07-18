@@ -8,6 +8,8 @@ namespace UltimateMahjongConnect.Core.Net.Models
         private int _value;
         private bool _isRemoved;
         private bool _isMatched;
+        public int Category => (int)_category;
+        public int Value => _value;
 
         public bool IsRemoved => _isRemoved;
         public bool IsMatched => _isMatched;
