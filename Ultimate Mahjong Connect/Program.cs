@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using RDLoreal.Microbio.Server.WebApi.Net.Configurations;
+using UltimateMahjongConnect.Core.Net.Interfaces;
+using UltimateMahjongConnect.Core.Net.Models;
 using UltimateMahjongConnect.Database.Net.Models;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -25,6 +27,10 @@ builder.Services.AddApiVersioning(options =>
 builder.Services.AddApiVersioningService().AddSwaggerGen().ConfigureOptions<SwaggerGenConfiguration>();
 
 builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
+
+//Register Mahjong services
+builder.Services.AddTransient<IMahjongTile, MahjongTile>();
+builder.Services.AddTransient<IMahjongBoard, MahjongBoard>();
 
 var app = builder.Build();
 
