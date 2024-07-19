@@ -24,6 +24,15 @@ namespace MahjongGameVerifier
             // Affichez le plateau initialisé
             DisplayBoard(game);
 
+            game.InitializeBoardRandom();
+
+            // Affichez quelques informations sur le jeu pour vérification
+            Console.WriteLine("Jeu de Mahjong créé avec succès !");
+            Console.WriteLine($"Nombre de lignes : 12");
+            Console.WriteLine($"Nombre de colonnes : 12");
+
+            DisplayBoard(game);
+
             Console.WriteLine("Vérification terminée. Appuyez sur une touche pour quitter.");
             Console.ReadKey();
         }
