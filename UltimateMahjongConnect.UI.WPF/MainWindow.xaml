@@ -14,5 +14,11 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <controls:HeaderControl Grid.Row="1"/>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem FontSize="20" Content=" (c) LLP Game Company"/>
+        </StatusBar>
     </Grid>
 </Window>

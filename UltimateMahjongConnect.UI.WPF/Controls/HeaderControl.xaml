@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource HeaderBackgroundBrush}">
-            
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Image Source="/Images/logo.png" Width="100" Margin="5"/>
+            <TextBlock Text="Mahjong Connect" FontSize="30" 
+                       Foreground="{StaticResource HeaderForegroundBrush}" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="Version 1.0" FontSize="16" 
+                       VerticalAlignment="Bottom" Margin="10 0 0 0"></TextBlock>
+        </StackPanel>
     </Grid>
 </UserControl>
