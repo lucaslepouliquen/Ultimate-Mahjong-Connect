@@ -19,6 +19,10 @@ namespace UltimateMahjongConnect.UI.WPF
     {
         private readonly MainViewModel _viewModel;
 
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
         public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
