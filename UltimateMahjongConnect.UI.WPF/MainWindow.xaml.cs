@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
 {
@@ -16,9 +17,19 @@ namespace UltimateMahjongConnect.UI.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly MainViewModel _viewModel;
+
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = viewModel;
+            Loaded += MainWindow_Loaded;
+        }
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.LoadAsync();
         }
     }
 }
