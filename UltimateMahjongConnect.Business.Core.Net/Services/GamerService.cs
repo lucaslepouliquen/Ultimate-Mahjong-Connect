@@ -1,4 +1,5 @@
-﻿using UltimateMahjongConnect.Database.Net.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using UltimateMahjongConnect.Database.Net.Models;
 
 namespace UltimateMahjongConnect.Service.Services
 {
@@ -15,6 +16,16 @@ namespace UltimateMahjongConnect.Service.Services
         {
             _context.Gamers.Add(gamer);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Gamer>> GetAllGamerAsync()
+        {
+            return await _context.Gamers.ToListAsync();
+        }
+
+        public async Task<Gamer?> GetGamerByPseudonymeAsync(string pseudonyme)
+        {
+            return await _context.Gamers.FirstOrDefaultAsync(g => g.Pseudonyme == pseudonyme);
         }
     }
 }
