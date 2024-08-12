@@ -4,10 +4,12 @@ namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class Gamer
     {
-        public string Pseudonyme { get; set; }
+        public string? Pseudonyme { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
         public int Score { get; set; }
+        public string? Password { get; set; }
+
         private int _completedLevels;
 
         public Gamer(string pseudonyme, int age, string email)
