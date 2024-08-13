@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace UltimateMahjongConnect.UI.WPF.ViewModel
+﻿namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
