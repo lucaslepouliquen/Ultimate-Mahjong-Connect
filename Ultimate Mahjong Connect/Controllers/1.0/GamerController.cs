@@ -3,6 +3,8 @@ using UltimateMahjongConnect.Service.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class GamerController : Controller
     {
         private readonly GamerService _gamerService;
