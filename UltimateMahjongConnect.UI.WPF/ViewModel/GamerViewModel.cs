@@ -1,27 +1,40 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using AutoMapper;
 using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Service.Services;
+using UltimateMahjongConnect.UI.WPF.Model;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class GamerViewModel : ValidationViewModelBase
     {
-        private readonly Gamer _gamer;
+        private readonly GamerModel _gamerModel;
+        private readonly GamerService _gamerService;
+        private readonly IMapper _mapper;
 
-        public GamerViewModel(Gamer gamer)
+        public GamerViewModel(GamerModel gamerModel)
         {
-            _gamer = gamer; 
+            _gamerModel = gamerModel; 
+        }
+
+        private List<GamerModel>? _gamers;
+        public List<GamerModel>? Gamers
+        {
+            get => _gamers;
+            set
+            {
+                _gamers = value;
+                RaisePropertyChanged();
+            }
         }
 
         public string? Pseudonyme
         {
-            get => _gamer.Pseudonyme;
+            get => _gamerModel.Pseudonyme;
             set
             {
-                _gamer.Pseudonyme = value;
+                _gamerModel.Pseudonyme = value;
                 RaisePropertyChanged();
-                if(string.IsNullOrEmpty(_gamer.Pseudonyme))
+                if(string.IsNullOrEmpty(_gamerModel.Pseudonyme))
                 {
                     AddError("Pseudonyme", "Pseudonyme cannot be empty");
                 }
@@ -34,12 +47,12 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         
         public string? Password
         {
-            get => _gamer.Password; 
+            get => _gamerModel.Password; 
             set
             {
-                _gamer.Password = value;
+                _gamerModel.Password = value;
                 RaisePropertyChanged();
-                if (string.IsNullOrEmpty(_gamer.Password))
+                if (string.IsNullOrEmpty(_gamerModel.Password))
                 {
                     AddError("Password", "Password cannot be empty");
                 }
@@ -48,6 +61,12 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                     ClearErrors("Password");
                 }
             }
+        }
+
+        public async Task LoadGamerAsync()
+        {
+            var gamersDto = await _gamerService.GetAllGamerAsync();
+            Gamers = _mapper.Map<List<GamerModel>>(gamersDto);
         }
     }
 }
