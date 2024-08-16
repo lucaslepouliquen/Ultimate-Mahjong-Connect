@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ardalis.GuardClauses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,25 +9,32 @@ namespace UltimateMahjongConnect.UI.WPF.Model
 {
     public class GamerModel
     {
+        public int Id { get; set; }
         public string? Pseudonyme { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
         public string? Password { get; set; }
+        public int? Score { get; set; }
+
 
         public GamerModel()
         {
             Pseudonyme = "";
             Age = 0;
             Email = "";
-            Password = "";  
+            Password = "";
+            Score = 0;
         }
 
-        public GamerModel(string pseudonyme, int age, string email, string password)
+        public GamerModel(string pseudonyme, int age, string email, string password, int score)
         {
+            Guard.Against.NullOrWhiteSpace(pseudonyme);
+            Guard.Against.NullOrWhiteSpace(password);
             Pseudonyme = pseudonyme;
             Age = age;
             Email = email;
             Password = password;
+            Score = score;
         }
     }
 }

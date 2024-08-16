@@ -3,8 +3,9 @@
     public class MainViewModel : ViewModelBase
     {
         private ViewModelBase? _selectedViewModel;
-        public MainViewModel() 
+        public MainViewModel(GamersViewModel gamersViewModel) 
         {
+            GamersViewModel = gamersViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
         }
 
@@ -18,6 +19,8 @@
                 RaisePropertyChanged();
             }
         }
+
+        public GamersViewModel GamersViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
         public async override Task LoadAsync()
         {

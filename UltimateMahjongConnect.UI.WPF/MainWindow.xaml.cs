@@ -27,7 +27,7 @@ namespace UltimateMahjongConnect.UI.WPF
         {
             InitializeComponent();
             _viewModel = viewModel;
-            DataContext = viewModel;
+            DataContext = _viewModel;
             Loaded += MainWindow_Loaded;
         }
 
