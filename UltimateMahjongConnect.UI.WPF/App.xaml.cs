@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using UltimateMahjongConnect.Service;
+using UltimateMahjongConnect.Service.Services;
+using UltimateMahjongConnect.UI.WPF.Data;
+using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
 {
@@ -24,7 +27,12 @@ namespace UltimateMahjongConnect.UI.WPF
         private void ConfigureServices(IServiceCollection services)
         {
             AutoMapperConfig.RegisterMappings(services);
-            services.AddTransient<MainWindow>();
+            services.AddTransient<IGamerDataProvider, GamerDataProvider>();
+            services.AddTransient<GamerService>();
+            services.AddTransient<GamersViewModel>();
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<MainWindow>(provider =>
+                new MainWindow(provider.GetRequiredService<MainViewModel>()));
         }       
     }
 }
