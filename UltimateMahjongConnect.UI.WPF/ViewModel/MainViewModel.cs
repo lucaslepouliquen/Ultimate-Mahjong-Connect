@@ -6,6 +6,7 @@
         public MainViewModel(GamersViewModel gamersViewModel) 
         {
             GamersViewModel = gamersViewModel;
+            SelectedViewModel = gamersViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
         }
 

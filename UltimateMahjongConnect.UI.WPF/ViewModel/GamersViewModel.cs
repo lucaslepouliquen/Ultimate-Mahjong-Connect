@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using UltimateMahjongConnect.Service.Services;
 using UltimateMahjongConnect.UI.WPF.Data;
 using UltimateMahjongConnect.UI.WPF.Model;
@@ -15,8 +18,10 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         public GamersViewModel(IGamerDataProvider gamerDataProvider)
         {
-            _gamerDataProvider = gamerDataProvider; 
+            _gamerDataProvider = gamerDataProvider;
+            DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
+        public DelegateCommand DeleteCommand { get; }
 
         private List<GamerModel>? _gamers;
         public List<GamerModel>? Gamers
@@ -29,6 +34,20 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             }
         }
 
+        public ObservableCollection<GamerItemViewModel>? GamersList { get; set; }
+
+        public GamerItemViewModel? SelectedGamer
+        {
+            get => _selectedGamer;
+            set
+            {
+                _selectedGamer = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsGamerSelected));
+                DeleteCommand.RaiseCanExecuteChanged();
+            }
+        }
+        public bool IsGamerSelected => SelectedGamer is not null;
         public NavigationSide NavigationSide
         {
             get => _navigationSide;
@@ -51,12 +70,16 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             NavigationSide = NavigationSide == NavigationSide.Left
                 ? NavigationSide.Right
                 : NavigationSide.Left;
-        }   
-    }
+        }
 
-    public enum NavigationSide
-    {
-        Left,
-        Right
+        private void Delete(object? obj)
+        {
+            if(SelectedGamer is not null) 
+            {
+                GamersList?.Remove(SelectedGamer);
+                SelectedGamer = null;
+            }
+        }
+        private bool CanDelete(object? parameter) => SelectedGamer is not null;
     }
 }

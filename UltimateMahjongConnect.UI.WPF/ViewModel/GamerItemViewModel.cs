@@ -12,6 +12,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         }
 
         public int Id => _model.Id;
+        public int Score { get; set; }
 
         public string? Pseudonyme
         {
