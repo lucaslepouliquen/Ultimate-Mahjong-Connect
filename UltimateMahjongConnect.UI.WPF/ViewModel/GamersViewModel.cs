@@ -18,18 +18,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
         public DelegateCommand DeleteCommand { get; }
-
-        private List<GamerModel>? _gamers;
-        public List<GamerModel>? Gamers
-        {
-            get => _gamers;
-            set
-            {
-                _gamers = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        public ObservableCollection<GamerItemViewModel>? Gamers { get; set; } = new();
         public ObservableCollection<GamerItemViewModel>? GamersList { get; set; }
 
         public GamerItemViewModel? SelectedGamer
@@ -57,7 +46,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         public async Task LoadGamerAsync()
         {
             var gamersDto = await _gamerService.GetAllGamerAsync();
-            Gamers = _mapper.Map<List<GamerModel>>(gamersDto);
+            Gamers = _mapper.Map<ObservableCollection<GamerItemViewModel>>(gamersDto);
         }
 
 
@@ -85,7 +74,9 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                 return;
             }
 
-            var gamers = await _gamerService.GetAllGamerAsync();
+            var gamersDto = await _gamerService.GetAllGamerAsync();
+            var gamers = _mapper.Map<List<GamerModel>>(gamersDto);
+
             if (gamers is not null)
             {
                 foreach (var gamer in gamers)
