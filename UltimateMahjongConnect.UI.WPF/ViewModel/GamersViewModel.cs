@@ -1,24 +1,20 @@
 ﻿using AutoMapper;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using UltimateMahjongConnect.Service.Services;
-using UltimateMahjongConnect.UI.WPF.Data;
+using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.UI.WPF.Model;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class GamersViewModel : ValidationViewModelBase
     {
-        private readonly IGamerDataProvider _gamerDataProvider;
-        private readonly GamerService _gamerService;
+        private readonly IGamerService _gamerService;
         private readonly IMapper _mapper;
         private GamerItemViewModel? _selectedGamer;
         private NavigationSide _navigationSide;
 
-        public GamersViewModel(IGamerDataProvider gamerDataProvider)
+        public GamersViewModel(IGamerService gamerService)
         {
-            _gamerDataProvider = gamerDataProvider;
+            _gamerService = gamerService;
             DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
         public DelegateCommand DeleteCommand { get; }
@@ -81,5 +77,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             }
         }
         private bool CanDelete(object? parameter) => SelectedGamer is not null;
+
+
     }
 }

@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using UltimateMahjongConnect.Database.Net.Models;
 using UltimateMahjongConnect.Service;
+using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.Service.Services;
 using UltimateMahjongConnect.UI.WPF.Data;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
@@ -26,8 +29,10 @@ namespace UltimateMahjongConnect.UI.WPF
 
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbSQLContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=UltimateMahjongConnect;Trusted_Connection=True;MultipleActiveResultSets=true"));
             AutoMapperConfig.RegisterMappings(services);
-            services.AddTransient<IGamerDataProvider, GamerDataProvider>();
+            services.AddTransient<IGamerService, GamerService>();
             services.AddTransient<GamerService>();
             services.AddTransient<GamersViewModel>();
             services.AddTransient<MainViewModel>();

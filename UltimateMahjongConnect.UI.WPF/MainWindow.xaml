@@ -25,7 +25,7 @@
         <Menu FontSize="20">
             <MenuItem Header="_View">
                 <MenuItem Header="_Gamers"
-                          Command="{Binding ShowGamersCommand}"
+                          Command="{Binding SelectViewModelCommand}"
                           CommandParameter="{Binding GamersViewModel}"/> 
             </MenuItem>
         </Menu>
