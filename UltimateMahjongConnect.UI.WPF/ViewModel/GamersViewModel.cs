@@ -78,6 +78,21 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         }
         private bool CanDelete(object? parameter) => SelectedGamer is not null;
 
+        public async override Task LoadAsync()
+        {
+            if (Gamers.Any())
+            {
+                return;
+            }
 
+            var gamers = await _gamerService.GetAllGamerAsync();
+            if (gamers is not null)
+            {
+                foreach (var gamer in gamers)
+                {
+                    Gamers.Add(new GamerItemViewModel(gamer));
+                }
+            }
+        }
     }
 }
