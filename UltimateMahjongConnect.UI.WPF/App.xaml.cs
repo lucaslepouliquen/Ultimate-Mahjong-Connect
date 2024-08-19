@@ -5,7 +5,6 @@ using UltimateMahjongConnect.Database.Net.Models;
 using UltimateMahjongConnect.Service;
 using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.Service.Services;
-using UltimateMahjongConnect.UI.WPF.Data;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
