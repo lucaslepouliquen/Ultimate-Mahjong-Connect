@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Service.Interface;
 
 namespace UltimateMahjongConnect.Service.Services
 {
-    public class GamerService
+    public class GamerService : IGamerService
     {
         private readonly ApplicationDbSQLContext _context;
 
