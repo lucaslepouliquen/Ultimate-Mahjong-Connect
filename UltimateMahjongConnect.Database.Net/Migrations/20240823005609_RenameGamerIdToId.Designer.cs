@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UltimateMahjongConnect.Database.Net.Models;
 
@@ -10,9 +11,11 @@ using UltimateMahjongConnect.Database.Net.Models;
 namespace UltimateMahjongConnect.Database.Net.Migrations
 {
     [DbContext(typeof(ApplicationDbSQLContext))]
-    partial class ApplicationDbSQLContextModelSnapshot : ModelSnapshot
+    [Migration("20240823005609_RenameGamerIdToId")]
+    partial class RenameGamerIdToId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
