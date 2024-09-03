@@ -19,6 +19,7 @@ namespace UltimateMahjongConnect.UI.WPF.Model
 
         public GamerModel()
         {
+            Id = 0;
             Pseudonyme = "";
             Age = 0;
             Email = "";
@@ -26,10 +27,17 @@ namespace UltimateMahjongConnect.UI.WPF.Model
             Score = 0;
         }
 
+        public GamerModel(int id, string pseudonyme)
+        {
+            Id = id;
+            Pseudonyme = pseudonyme;
+        }
+
         public GamerModel(string pseudonyme, int age, string email, string password, int score)
         {
             Guard.Against.NullOrWhiteSpace(pseudonyme);
             Guard.Against.NullOrWhiteSpace(password);
+            Guard.Against.NullOrWhiteSpace(email);
             Pseudonyme = pseudonyme;
             Age = age;
             Email = email;

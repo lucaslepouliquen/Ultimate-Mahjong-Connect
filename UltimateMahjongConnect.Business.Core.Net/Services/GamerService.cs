@@ -13,18 +13,18 @@ namespace UltimateMahjongConnect.Service.Services
             _context = context;
         }
 
-        public async Task AddGamerAsync(Gamer gamer)
+        public async Task AddGamerAsync(GamerEntity gamer)
         {
             _context.Gamers.Add(gamer);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Gamer>> GetAllGamerAsync()
+        public async Task<List<GamerEntity>> GetAllGamerAsync()
         {
             return await _context.Gamers.ToListAsync();
         }
 
-        public async Task<Gamer?> GetGamerByPseudonymeAsync(string pseudonyme)
+        public async Task<GamerEntity?> GetGamerByPseudonymeAsync(string pseudonyme)
         {
             return await _context.Gamers.FirstOrDefaultAsync(g => g.Pseudonyme == pseudonyme);
         }

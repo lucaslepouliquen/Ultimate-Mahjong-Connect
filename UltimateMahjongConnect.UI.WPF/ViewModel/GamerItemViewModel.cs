@@ -6,6 +6,11 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
     {
         private readonly GamerModel _model;
 
+        public GamerItemViewModel()
+        {
+            _model = new GamerModel();
+        }
+
         public GamerItemViewModel(GamerModel model)
         {
             _model = model;

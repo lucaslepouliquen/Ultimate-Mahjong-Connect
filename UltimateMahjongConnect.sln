@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.UI.WPF", "UltimateMahjongConnect.UI.WPF\UltimateMahjongConnect.UI.WPF.csproj", "{B5193643-8717-4856-8A23-4FD72D71D7AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMahjongConnect.UI.WPF.Tests", "UltimateMahjongConnect.UI.WPF.Tests\UltimateMahjongConnect.UI.WPF.Tests.csproj", "{AFFD7328-4BAD-4C17-89ED-71626DD913B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{B5193643-8717-4856-8A23-4FD72D71D7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5193643-8717-4856-8A23-4FD72D71D7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5193643-8717-4856-8A23-4FD72D71D7AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFD7328-4BAD-4C17-89ED-71626DD913B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFD7328-4BAD-4C17-89ED-71626DD913B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFD7328-4BAD-4C17-89ED-71626DD913B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFD7328-4BAD-4C17-89ED-71626DD913B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

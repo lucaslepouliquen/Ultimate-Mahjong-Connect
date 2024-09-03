@@ -4,8 +4,8 @@ namespace UltimateMahjongConnect.Service.Interface
 {
     public interface IGamerService
     {
-        Task AddGamerAsync(Gamer gamer);
-        Task<List<Gamer>> GetAllGamerAsync();
-        Task<Gamer?> GetGamerByPseudonymeAsync(string pseudonyme);
+        Task AddGamerAsync(GamerEntity gamer);
+        Task<List<GamerEntity>> GetAllGamerAsync();
+        Task<GamerEntity?> GetGamerByPseudonymeAsync(string pseudonyme);
     }
 }
