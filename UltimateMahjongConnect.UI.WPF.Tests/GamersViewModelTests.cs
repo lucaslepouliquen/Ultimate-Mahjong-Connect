@@ -5,8 +5,6 @@ using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 using UltimateMahjongConnect.Database.Net.Models;
 using UltimateMahjongConnect.UI.WPF.Model;
-using UltimateMahjongConnect.Service.Profiles;
-using UltimateMahjongConnect.UI.WPF.Profiles;
 using UltimateMahjongConnect.UI.WPF.Tests;
 
 namespace UltimateMahjongConnect.Test
@@ -24,27 +22,42 @@ namespace UltimateMahjongConnect.Test
             _gamersViewModel = new GamersViewModel(_gamerServiceMock.Object, _mapper);
         }
 
-        [Fact]
-        public async Task LoadGamerAsync_ShouldSetGamers()
+        public static IEnumerable<object[]> GetGamerEntityAndViewModelsTestData()
+        {
+            yield return new object[]
+            {
+                new List<GamerEntity>(),
+                new List<GamerModel>() 
+            };
+
+            yield return new object[]
+            {
+                new List<GamerEntity>
+                {
+                    new GamerEntity { Id = 1, Pseudonyme = "Gamer1" },
+                    new GamerEntity { Id = 2, Pseudonyme = "Gamer2" }
+                },
+                new List<GamerModel>
+                {
+                    new GamerModel { Id = 1, Pseudonyme = "Gamer1" },
+                    new GamerModel { Id = 2, Pseudonyme = "Gamer2" }
+                }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetGamerEntityAndViewModelsTestData))]
+        public async Task LoadGamerAsync_ShouldLoadCorrectGamers(List<GamerEntity> gamersEntity, List<GamerModel> expectedGamers)
         {
             // Arrange
-            var gamersEntity = new List<GamerEntity>
-                        {
-                            new GamerEntity { Id = 1, Pseudonyme = "Gamer1" },
-                            new GamerEntity { Id = 2, Pseudonyme = "Gamer2" }
-                        };
-            var gamers = new ObservableCollection<GamerItemViewModel>
-                        {
-                            new GamerItemViewModel(new GamerModel { Id = 1, Pseudonyme = "Gamer1" }),
-                            new GamerItemViewModel(new GamerModel { Id = 2, Pseudonyme = "Gamer2" })
-                        };
             _gamerServiceMock.Setup(x => x.GetAllGamerAsync()).ReturnsAsync(gamersEntity);
 
             // Act
             await _gamersViewModel.LoadGamerAsync();
 
             // Assert
-            Assert.Equal(gamers.Select(g => g.Id), _gamersViewModel.Gamers.Select(g => g.Id));
+            Assert.Equal(expectedGamers.Select(g => g.Id), _gamersViewModel.Gamers.Select(g => g.Id));
+            Assert.Equal(expectedGamers.Select(g => g.Pseudonyme), _gamersViewModel.Gamers.Select(g => g.Pseudonyme));
         }
 
         [Fact]
@@ -58,6 +71,29 @@ namespace UltimateMahjongConnect.Test
 
             // Assert
             Assert.Equal(NavigationSide.Right, _gamersViewModel.NavigationSide);
+        }
+
+        [Fact]
+        public void Delete_ShouldDeleteGamer()
+        {
+            //Arrange
+            var gamer1 = new GamerItemViewModel(new GamerModel { Id = 1, Pseudonyme = "Gamer1" });
+            var gamer2 = new GamerItemViewModel(new GamerModel { Id = 2, Pseudonyme = "Gamer2" });
+
+            _gamersViewModel.GamersList = new ObservableCollection<GamerItemViewModel>
+            {
+                gamer1
+                , gamer2
+            };
+            _gamersViewModel.SelectedGamer = gamer1;
+
+            //Act
+            _gamersViewModel.DeleteCommand.Execute(null);
+
+            //Assert
+            Assert.Contains(gamer2, _gamersViewModel.GamersList);
+            Assert.DoesNotContain(gamer1, _gamersViewModel.GamersList);
+            Assert.Null(_gamersViewModel.SelectedGamer);
         }
     }
 }
