@@ -49,6 +49,11 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
         }
 
+        public bool IsPathValid(int row1, int column1, int row2, int column2)
+        {
+            return true;
+        }
+
         public MahjongTile this[int row, int col]
         {
             get { return (MahjongTile)_board[row, col]; }
