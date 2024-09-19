@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Service", "UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Service.csproj", "{FD9D5288-E1F0-4085-AAA8-54D20EDC7153}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Core", "UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Core.csproj", "{18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Business", "UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Business.csproj", "{18062C86-A6DD-4DA4-B2B4-950E2F8ABCCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MahjongGame.Verifier", "MahjongGame.Verifier\MahjongGame.Verifier.csproj", "{E30FA038-B144-48E8-92C1-5EF4284A6673}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.UI.WPF", "UltimateMahjongConnect.UI.WPF\UltimateMahjongConnect.UI.WPF.csproj", "{B5193643-8717-4856-8A23-4FD72D71D7AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMahjongConnect.UI.WPF.Tests", "UltimateMahjongConnect.UI.WPF.Tests\UltimateMahjongConnect.UI.WPF.Tests.csproj", "{AFFD7328-4BAD-4C17-89ED-71626DD913B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.UI.WPF.Tests", "UltimateMahjongConnect.UI.WPF.Tests\UltimateMahjongConnect.UI.WPF.Tests.csproj", "{AFFD7328-4BAD-4C17-89ED-71626DD913B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
