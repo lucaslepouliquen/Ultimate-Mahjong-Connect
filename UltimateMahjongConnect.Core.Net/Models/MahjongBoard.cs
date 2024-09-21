@@ -14,32 +14,26 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _mahjongTile = mahjongTile;
         }
 
-        public void InitializeBoardDeterministically()
-        {
-            InitializeBoard(randomize: false);
-        }
+        public void InitializeBoardDeterministically() => InitializeBoard(randomize: false);
 
-
-        public void InitializeBoardRandom()
-        {
-            InitializeBoard(randomize:true);
-        }
+        public void InitializeBoardRandom() => InitializeBoard(randomize: true);
 
         private void InitializeBoard(bool randomize)
         {
-            var tiles = _mahjongTile.GetTiles();
-            var random = new Random();
-
             _board = new MahjongTile[_rows, _columns];
+            var tiles = _mahjongTile.GetTiles();
+
+            if (tiles.Count < _rows * _columns)
+            {
+                throw new InvalidOperationException("Not enough tiles to fill the board");
+            }
+
+            var random = new Random();
 
             for (int i = 0; i < _rows; i++)
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if (tiles.Count == 0)
-                    {
-                        throw new InvalidOperationException("Not enough tiles to fill the board");
-                    }
                     int tileIndex = randomize ? random.Next(tiles.Count) : 0;
                     var randomTile = tiles[tileIndex];
 
@@ -51,7 +45,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
         public bool IsPathValid(int row1, int column1, int row2, int column2)
         {
-            return true;
+            if (_board[row1, column1] is MahjongTile tile1 &&
+                _board[row2, column2] is MahjongTile tile2)
+            {
+                return tile1.CanBeMatched(tile2);
+            }
+
+            return false;
         }
 
         public MahjongTile this[int row, int col]

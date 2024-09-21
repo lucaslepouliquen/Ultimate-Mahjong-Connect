@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UltimateMahjongConnect.Core.Net.Interfaces;
+﻿using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
 
 namespace UltimateMahjongConnect.Test.Core.Net
@@ -55,6 +49,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
 
             //Assert
             Assert.True(board.IsPathValid(0, 0, 0, 1));
+            Assert.False(board.IsPathValid(0, 0, 0, 10));
         }
     }
 }

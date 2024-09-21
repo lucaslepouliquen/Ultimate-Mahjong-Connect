@@ -5,5 +5,6 @@ namespace UltimateMahjongConnect.Core.Net.Interfaces
     public interface IMahjongTile
     {
         List<MahjongTile> GetTiles();
+        bool CanBeMatched(MahjongTile otherTile);
     }
 }
