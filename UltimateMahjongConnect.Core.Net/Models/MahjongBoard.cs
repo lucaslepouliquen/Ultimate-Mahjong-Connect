@@ -46,12 +46,31 @@ namespace UltimateMahjongConnect.Core.Net.Models
         public bool IsPathValid(int row1, int column1, int row2, int column2)
         {
             if (_board[row1, column1] is MahjongTile tile1 &&
-                _board[row2, column2] is MahjongTile tile2)
+                _board[row2, column2] is MahjongTile tile2 &&
+                tile1.CanBeMatched(tile2))
             {
-                return tile1.CanBeMatched(tile2);
+                if (row1 == row2)
+                {
+                    return IsHorizontalPathClear(row1, column1, column2);
+                }
+                return false;
             }
-
             return false;
+        }
+
+        private bool IsHorizontalPathClear(int row1, int column1, int column2)
+        {
+            int start = Math.Min(column1, column2) + 1;
+            int end = Math.Max(column1, column2);
+
+            for (int col = start; col < end; col++)
+            {
+                if (_board[row1, col] != null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public MahjongTile this[int row, int col]

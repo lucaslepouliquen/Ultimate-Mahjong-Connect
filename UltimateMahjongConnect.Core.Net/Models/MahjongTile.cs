@@ -85,7 +85,6 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 _isRemoved = true;
                 otherTile._isRemoved = true;
                 return true;
-            
             }
 
             return false;
