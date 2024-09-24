@@ -40,6 +40,8 @@ namespace MahjongGameVerifier
 
         static void DisplayBoard(MahjongBoard board)
         {
+            const int columnWidth = 12; // Ajuster la largeur pour chaque colonne
+
             for (int i = 0; i < 12; i++)
             {
                 for (int j = 0; j < 12; j++)
@@ -47,11 +49,11 @@ namespace MahjongGameVerifier
                     var tile = board[i, j];
                     if (tile != null)
                     {
-                        Console.Write($"[{tile.Category}-{tile.Value}] ");
+                        Console.Write($"{tile.ToString().PadRight(columnWidth)}");
                     }
                     else
                     {
-                        Console.Write("[Empty] ");
+                        Console.Write("[Empty]".PadRight(columnWidth));
                     }
                 }
                 Console.WriteLine();

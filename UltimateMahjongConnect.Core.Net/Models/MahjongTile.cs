@@ -89,5 +89,14 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             return false;
         }
+
+        public override String ToString()
+        {
+            if (_isRemoved)
+            {
+
+            }
+            return $"[{Category.ToString().Substring(0,3)}-{Value}]";
+        } 
     }
 }
