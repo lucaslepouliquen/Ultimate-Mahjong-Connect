@@ -90,6 +90,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
             return false;
         }
 
+        public void ResetState()
+        {
+            _isRemoved = false;
+            _isMatched = false;
+        }
+
+
         public override String ToString()
         {
             if (_isRemoved)

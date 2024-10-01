@@ -23,6 +23,11 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _board = new MahjongTile[_rows, _columns];
             var tiles = _mahjongTile.GetTiles();
 
+            foreach (var tile in tiles)
+            {
+                tile.ResetState();
+            }
+
             if (tiles.Count < _rows * _columns)
             {
                 throw new InvalidOperationException("Not enough tiles to fill the board");
