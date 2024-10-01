@@ -41,30 +41,37 @@ namespace UltimateMahjongConnect.Test.Core.Net
         }
 
         [Fact]
-        public void ShouldValidatePathBetweenTwoAdjacentTiles()
+        public void ShouldValidatePathBetweenAdjacentMatchingTiles()
         {
             InitializeBoardDeterministically();
+            bool isValid = _board.IsPathValid(0, 0, 0, 1);
+            Assert.True(isValid, "Path between adjacent matching tiles should be valid.");
+        }
 
-            Assert.True(_board.IsPathValid(0, 0, 0, 1));
-            Assert.False(_board.IsPathValid(0, 0, 0, 10));
+
+        [Fact]
+        public void ShouldValidatePathBetweenNonAdjacentMatchingTilesIfPathIsClear()
+        {
+            InitializeBoardDeterministically();
+            bool isValid = _board.IsPathValid(0, 0, 0, 2);
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
         }
 
         [Fact]
         public void ShouldMarkTilesAsRemovedWhenPathIsValid()
         {
             InitializeBoardDeterministically();
-
             Assert.True(_board.IsPathValid(0, 0, 0, 1));
             Assert.True(_board[0, 0].IsRemoved);
             Assert.True(_board[0, 1].IsRemoved);
         }
 
         [Fact]
-        public void ShouldNotValidatePathWhenBlockedByOtherTiles()
+        public void ShouldNotValidatePathBetweenMatchingTileWhenPathIsNotCleared()
         {
             InitializeBoardDeterministically();
 
-            Assert.False(_board.IsPathValid(1, 0, 1, 3));
+            Assert.False(_board.IsPathValid(1, 0, 1, 3), "Path between matching tiles should not be valid if it's blocked by other tiles");
         }
     }
 }
