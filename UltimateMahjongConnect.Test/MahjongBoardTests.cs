@@ -7,6 +7,8 @@ namespace UltimateMahjongConnect.Test.Core.Net
     {
         private readonly IMahjongTile _mahjongTile;
         private MahjongBoard _board;
+        private readonly int _rows = 14;
+        private readonly int _columns = 14;
 
         public MahjongBoardTests()
         {
@@ -20,6 +22,25 @@ namespace UltimateMahjongConnect.Test.Core.Net
         }
 
         [Fact]
+        public void ShouldInitializeBoardWithRemovedBorder()
+        {
+            InitializeBoardDeterministically();
+
+            // Vérifier les coins de la bordure
+            for (int i = 0; i < _columns; i++)
+            {
+                Assert.True(_board[0, i].IsRemoved, "La tuile de bordure doit être marquée comme 'Removed'.");
+                Assert.True(_board[_rows - 1, i].IsRemoved, "La tuile de bordure doit être marquée comme 'Removed'.");
+            }
+
+            for (int i = 0; i < _rows; i++)
+            {
+                Assert.True(_board[i, 0].IsRemoved, "La tuile de bordure doit être marquée comme 'Removed'.");
+                Assert.True(_board[i, _columns - 1].IsRemoved, "La tuile de bordure doit être marquée comme 'Removed'.");
+            }
+        }
+
+        [Fact]
         public void ShouldInitializeBoardDeterministically()
         {
             InitializeBoardDeterministically();
@@ -27,9 +48,9 @@ namespace UltimateMahjongConnect.Test.Core.Net
             var expectedTiles = _mahjongTile.GetTiles();
             int index = 0;
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 1; i < _rows - 1; i++)
             {
-                for (int j = 0; j < 12; j++)
+                for (int j = 1; j < _columns - 1; j++)
                 {
                     var tileOnBoard = _board[i, j];
                     var expectedTile = expectedTiles[index++];

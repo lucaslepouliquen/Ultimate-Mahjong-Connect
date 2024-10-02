@@ -5,8 +5,8 @@ namespace UltimateMahjongConnect.Core.Net.Models
     public class MahjongBoard : IMahjongBoard
     {
 
-        private readonly int _rows = 12;
-        private readonly int _columns = 12;
+        private readonly int _rows = 14;
+        private readonly int _columns = 14;
         private readonly IMahjongTile _mahjongTile;
         private IMahjongTile[,] _board;
         public MahjongBoard(IMahjongTile mahjongTile)
@@ -28,7 +28,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 tile.ResetState();
             }
 
-            if (tiles.Count < _rows * _columns)
+            if (tiles.Count < (_rows -2) * (_columns -2))
             {
                 throw new InvalidOperationException("Not enough tiles to fill the board");
             }
@@ -39,11 +39,18 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    int tileIndex = randomize ? random.Next(tiles.Count) : 0;
-                    var randomTile = tiles[tileIndex];
+                    if (i == 0 || i == _rows - 1 || j == 0 || j == _columns - 1)
+                    {
+                        _board[i, j] = new MahjongTile(true);
+                    }
+                    else
+                    {
+                        int tileIndex = randomize ? random.Next(tiles.Count) : 0;
+                        var randomTile = tiles[tileIndex];
 
-                    _board[i, j] = randomTile;
-                    tiles.RemoveAt(tileIndex);
+                        _board[i, j] = randomTile;
+                        tiles.RemoveAt(tileIndex);
+                    }
                 }
             }
         }
@@ -58,6 +65,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 {
                     return IsHorizontalPathClear(row1, column1, column2);
                 }
+
                 return false;
             }
             return false;

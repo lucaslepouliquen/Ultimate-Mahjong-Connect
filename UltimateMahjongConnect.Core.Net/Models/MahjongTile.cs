@@ -20,6 +20,12 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _isMatched = false;
         }
 
+        public MahjongTile(Boolean isRemoved)
+        {
+            _isRemoved = isRemoved;
+            _isMatched = false;
+        }
+
         public MahjongTile(MahjongTileCategory category, int value) : this()
         {
             _category = category;
