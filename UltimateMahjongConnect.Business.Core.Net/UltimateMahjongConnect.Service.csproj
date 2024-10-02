@@ -1,15 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Service.csproj" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Business.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Database.Net\UltimateMahjongConnect.Database.csproj" />
   </ItemGroup>
 
 </Project>

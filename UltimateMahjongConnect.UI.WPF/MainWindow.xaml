@@ -3,9 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UltimateMahjongConnect.UI.WPF"
+        xmlns:local="clr-namespace:UltimateMahjongConnect.UI.WPF" 
+        xmlns:controls="clr-namespace:UltimateMahjongConnect.UI.WPF.Controls"
+        xmlns:view="clr-namespace:UltimateMahjongConnect.UI.WPF.View"
+        xmlns:viewModel="clr-namespace:UltimateMahjongConnect.UI.WPF.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:GamersViewModel}">
+            <view:GamerView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,5 +21,18 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <Menu FontSize="20">
+            <MenuItem Header="_View">
+                <MenuItem Header="_Gamers"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding GamersViewModel}"/> 
+            </MenuItem>
+        </Menu>
+        <controls:HeaderControl Grid.Row="1"/>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem FontSize="20" Content=" (c) LLP Game Company"/>
+        </StatusBar>
     </Grid>
 </Window>

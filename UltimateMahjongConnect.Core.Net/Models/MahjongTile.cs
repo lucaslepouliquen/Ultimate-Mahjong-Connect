@@ -20,6 +20,12 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _isMatched = false;
         }
 
+        public MahjongTile(Boolean isRemoved)
+        {
+            _isRemoved = isRemoved;
+            _isMatched = false;
+        }
+
         public MahjongTile(MahjongTileCategory category, int value) : this()
         {
             _category = category;
@@ -85,10 +91,25 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 _isRemoved = true;
                 otherTile._isRemoved = true;
                 return true;
-            
             }
 
             return false;
         }
+
+        public void ResetState()
+        {
+            _isRemoved = false;
+            _isMatched = false;
+        }
+
+
+        public override String ToString()
+        {
+            if (_isRemoved)
+            {
+
+            }
+            return $"[{Category.ToString().Substring(0,3)}-{Value}]";
+        } 
     }
 }

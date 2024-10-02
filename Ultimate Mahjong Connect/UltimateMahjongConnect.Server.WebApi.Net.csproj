@@ -10,16 +10,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Business.Core.Net.csproj" />
-    <ProjectReference Include="..\UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Core.Net.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Service.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Business.csproj" />
   </ItemGroup>
 
 </Project>
