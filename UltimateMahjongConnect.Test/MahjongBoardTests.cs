@@ -65,7 +65,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
         public void ShouldValidatePathBetweenAdjacentMatchingTiles()
         {
             InitializeBoardDeterministically();
-            bool isValid = _board.IsPathValid(0, 0, 0, 1);
+            bool isValid = _board.IsPathValid(1, 1, 1, 2);
             Assert.True(isValid, "Path between adjacent matching tiles should be valid.");
         }
 
@@ -74,7 +74,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
         public void ShouldValidatePathBetweenNonAdjacentMatchingTilesIfPathIsClear()
         {
             InitializeBoardDeterministically();
-            bool isValid = _board.IsPathValid(0, 0, 0, 2);
+            bool isValid = _board.IsPathValid(1, 1, 1, 3);
             Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
         }
 
@@ -82,7 +82,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
         public void ShouldMarkTilesAsRemovedWhenPathIsValid()
         {
             InitializeBoardDeterministically();
-            Assert.True(_board.IsPathValid(0, 0, 0, 1));
+            Assert.True(_board.IsPathValid(1, 1, 1, 2));
             Assert.True(_board[0, 0].IsRemoved);
             Assert.True(_board[0, 1].IsRemoved);
         }
@@ -92,7 +92,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
         {
             InitializeBoardDeterministically();
 
-            Assert.False(_board.IsPathValid(1, 0, 1, 3), "Path between matching tiles should not be valid if it's blocked by other tiles");
+            Assert.False(_board.IsPathValid(2, 1, 2, 4), "Path between matching tiles should not be valid if it's blocked by other tiles");
         }
     }
 }

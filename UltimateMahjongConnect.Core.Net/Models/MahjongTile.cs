@@ -84,16 +84,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             if (otherTile == null || this._isRemoved || otherTile._isRemoved)
                 return false;
 
-            if(otherTile is { _category: var category, _value: var value } && _category == category && _value == value)
-            {
-                _isMatched = true;
-                otherTile._isMatched = true;
-                _isRemoved = true;
-                otherTile._isRemoved = true;
-                return true;
-            }
-
-            return false;
+            return otherTile is { _category: var category, _value: var value } && _category == category && _value == value;
         }
 
         public void ResetState()
@@ -109,7 +100,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
 
             }
-            return $"[{Category.ToString().Substring(0,3)}-{Value}]";
-        } 
+            return $"[{Category.ToString().Substring(0, 3)}-{Value}]";
+        }
+
+        public void MarkAsMatched()
+        {
+            _isMatched = true;
+            _isRemoved = true;
+        }
     }
 }
