@@ -55,6 +55,26 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
         }
 
+        public void ReverseInitializeBoardDeterministically()
+        {
+            InitializeBoardDeterministically();
+            TransposeBoard();
+        }
+
+        public void TransposeBoard()
+        {
+            var transposedBoard = new IMahjongTile[_columns, _rows];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    transposedBoard[j, i] = _board[i, j];
+                }
+            }
+            _board = transposedBoard;
+        }
+
         public bool IsPathValid(int row1, int column1, int row2, int column2)
         {
             if (_board[row1, column1] is MahjongTile tile1 &&
