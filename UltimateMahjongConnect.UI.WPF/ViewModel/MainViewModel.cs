@@ -3,11 +3,13 @@
     public class MainViewModel : ViewModelBase
     {
         private ViewModelBase? _selectedViewModel;
-        public MainViewModel(GamersViewModel gamersViewModel) 
+        public MainViewModel(GamersViewModel gamersViewModel, MahjongBoardViewModel mahjongBoardViewModel) 
         {
             GamersViewModel = gamersViewModel;
-            SelectedViewModel = gamersViewModel;
+            MahjongBoardViewModel = mahjongBoardViewModel;
+            SelectedViewModel = mahjongBoardViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
+
         }
 
         public ViewModelBase? SelectedViewModel
@@ -22,6 +24,7 @@
         }
 
         public GamersViewModel GamersViewModel { get; }
+        public MahjongBoardViewModel MahjongBoardViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
         public async override Task LoadAsync()
         {

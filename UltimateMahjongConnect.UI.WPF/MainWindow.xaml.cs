@@ -1,13 +1,5 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
@@ -34,6 +26,14 @@ namespace UltimateMahjongConnect.UI.WPF
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             await _viewModel.LoadAsync();
+        }
+
+        private void InitializeRandomBoard_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel.SelectedViewModel is MahjongBoardViewModel mahjongViewModel)
+            {
+                mahjongViewModel.InitializeRandomCommand.Execute(null);
+            }
         }
     }
 }
