@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
@@ -21,12 +20,12 @@ namespace UltimateMahjongConnect.UI.WPF
             _viewModel = viewModel;
             DataContext = _viewModel;
             Loaded += MainWindow_Loaded;
-        }
+    }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             await _viewModel.LoadAsync();
-        }
+}
 
         private void InitializeRandomBoard_Click(object sender, RoutedEventArgs e)
         {

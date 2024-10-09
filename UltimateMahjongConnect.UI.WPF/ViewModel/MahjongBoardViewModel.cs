@@ -41,6 +41,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         public async override Task LoadAsync()
         {
+            InitializeRandomBoard();
             await Task.CompletedTask;
         }
     }

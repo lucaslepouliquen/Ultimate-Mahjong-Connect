@@ -1,4 +1,5 @@
-﻿using UltimateMahjongConnect.Core.Net.Interfaces;
+﻿using System.Windows.Input;
+using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
@@ -11,11 +12,17 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         public string DisplayText => _tile.ToString();
 
+        public ICommand TileCommand { get; }
         public MahjongTileViewModel(IMahjongTile tile, int row, int column)
         {
             _tile = tile;
             Row = row;
             Column = column;
+
+            TileCommand = new RelayCommand(_ => OnTileClicked());
+        }
+        private void OnTileClicked()
+        {
         }
     }
 }

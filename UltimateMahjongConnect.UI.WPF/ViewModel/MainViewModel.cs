@@ -9,7 +9,6 @@
             MahjongBoardViewModel = mahjongBoardViewModel;
             SelectedViewModel = mahjongBoardViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
-
         }
 
         public ViewModelBase? SelectedViewModel
