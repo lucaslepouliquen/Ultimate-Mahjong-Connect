@@ -18,11 +18,6 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             _tile = tile;
             Row = row;
             Column = column;
-
-            TileCommand = new RelayCommand(_ => OnTileClicked());
-        }
-        private void OnTileClicked()
-        {
         }
     }
 }

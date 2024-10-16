@@ -18,7 +18,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Content="{Binding DisplayText}"
-                            Command="{Binding TileCommand}"
+                            Command="{Binding DataContext.TileCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
                             Margin="2"
                             Padding="10"
                             Background="LightGray"/>

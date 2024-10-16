@@ -17,6 +17,9 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _mahjongTile = mahjongTile;
         }
 
+        public int GetRows() => _rows;
+
+        public int GetColumns() => _columns;
         public void InitializeBoardDeterministically() => InitializeBoard(randomize: false);
 
         public void InitializeBoardRandom() => InitializeBoard(randomize: true);
