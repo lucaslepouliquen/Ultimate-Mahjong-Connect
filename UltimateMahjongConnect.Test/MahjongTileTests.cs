@@ -32,10 +32,6 @@ namespace UltimateMahjongConnect.Test
 
             // Assert
             Assert.Equal(expectedResult, result);
-            Assert.Equal(expectedResult, tile1.IsMatched);
-            Assert.Equal(expectedResult, tile2.IsMatched);
-            Assert.Equal(expectedResult, tile1.IsRemoved);
-            Assert.Equal(expectedResult,tile2.IsRemoved);
         }
     }
 }
