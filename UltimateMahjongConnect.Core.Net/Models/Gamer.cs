@@ -30,7 +30,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
         public void AddScore(int score)
         {
-            Score += score;
+            _score += score;
         }
 
         public void LevelCompleted()
@@ -39,7 +39,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             if (_completedLevels == 5)
             {
-                Score *= 2;
+                _score *= 2;
             }
         }
     }
