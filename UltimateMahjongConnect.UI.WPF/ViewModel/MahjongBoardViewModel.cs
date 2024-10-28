@@ -1,20 +1,24 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using UltimateMahjongConnect.Business.Interfaces;
 using UltimateMahjongConnect.Core.Net.Interfaces;
+using UltimateMahjongConnect.Core.Net.Models;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class MahjongBoardViewModel : ViewModelBase
     {
+        private readonly Gamer _gamer;
         private readonly IMahjongBoard _mahjongBoard;
-        private MahjongTileViewModel _selectedTile1;
-        private MahjongTileViewModel _selectedTile2;
+        private MahjongTileViewModel? _selectedTile1;
+        private MahjongTileViewModel? _selectedTile2;
         public ObservableCollection<MahjongTileViewModel> Tiles { get; set; }
         public ICommand InitializeRandomCommand { get; }
         public ICommand TileCommand { get; }
 
-        public MahjongBoardViewModel(IMahjongBoard mahjongBoard)
+        public MahjongBoardViewModel(IMahjongBoard mahjongBoard, Gamer gamer)
         {
+            _gamer = gamer;
             _mahjongBoard = mahjongBoard;
             Tiles = new ObservableCollection<MahjongTileViewModel>();
             TileCommand = new RelayCommand<MahjongTileViewModel>(OnTileClicked);
@@ -58,6 +62,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                 _selectedTile2 = clickedTile;
                 if (_mahjongBoard.IsPathValid(_selectedTile1.Row, _selectedTile1.Column, _selectedTile2.Row, _selectedTile2.Column))
                 {
+                    _gamer.AddScore(10);
                     UpdateView();
                 }
                 _selectedTile1 = null;

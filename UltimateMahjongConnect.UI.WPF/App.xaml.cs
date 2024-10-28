@@ -48,6 +48,7 @@ namespace UltimateMahjongConnect.UI.WPF
             services.AddTransient<IGamerService, MockGamerService>();
             services.AddTransient<IMahjongTile, MahjongTile>();
             services.AddTransient<IMahjongBoard, MahjongBoard>();
+            services.AddTransient<Gamer>();
             services.AddTransient<GamerService>();
             services.AddTransient<GamersViewModel>();
             services.AddTransient<MahjongBoardViewModel>();

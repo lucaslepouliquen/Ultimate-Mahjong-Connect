@@ -10,7 +10,6 @@ namespace UltimateMahjongConnect.Core.Net.Models
         private readonly int _columns = 14;
         private readonly IMahjongTile _mahjongTile;
         private IMahjongTile[,] _board;
-        private readonly IGamer _gamer;
 
         IMahjongTile IMahjongBoard.this[int row, int col] => this[row, col];
 
