@@ -28,9 +28,9 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _completedLevels = 0;
         }
 
-        public void AddScore(int score)
+        public void AddScore(int points)
         {
-            score += score;
+            score += points;
         }
 
         public void LevelCompleted()

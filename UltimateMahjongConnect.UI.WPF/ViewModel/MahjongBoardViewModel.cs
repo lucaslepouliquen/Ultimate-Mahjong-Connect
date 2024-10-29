@@ -15,6 +15,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         public ObservableCollection<MahjongTileViewModel> Tiles { get; set; }
         public ICommand InitializeRandomCommand { get; }
         public ICommand TileCommand { get; }
+        public int Score => _gamer.Score;
 
         public MahjongBoardViewModel(IMahjongBoard mahjongBoard, Gamer gamer)
         {
@@ -63,6 +64,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                 if (_mahjongBoard.IsPathValid(_selectedTile1.Row, _selectedTile1.Column, _selectedTile2.Row, _selectedTile2.Column))
                 {
                     _gamer.AddScore(10);
+                    RaisePropertyChanged(nameof(Score));
                     UpdateView();
                 }
                 _selectedTile1 = null;
