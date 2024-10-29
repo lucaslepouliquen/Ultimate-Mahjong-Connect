@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using UltimateMahjongConnect.Business.Models;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
 
@@ -23,6 +24,12 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             Tiles = new ObservableCollection<MahjongTileViewModel>();
             TileCommand = new RelayCommand<MahjongTileViewModel>(OnTileClicked);
             InitializeRandomCommand = new RelayCommand(_ => InitializeRandomBoard());
+        }
+
+        private void InitializeBoardDeterministically()
+        {
+            _mahjongBoard.InitializeBoardDeterministically();
+            UpdateTiles();
         }
 
         private void InitializeRandomBoard()
@@ -51,7 +58,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             await Task.CompletedTask;
         }
 
-        private void OnTileClicked(MahjongTileViewModel clickedTile)
+        private async void OnTileClicked(MahjongTileViewModel clickedTile)
         {
             if (_selectedTile1 == null)
             {
@@ -60,9 +67,13 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             else if (_selectedTile2 == null)
             {
                 _selectedTile2 = clickedTile;
-                if (_mahjongBoard.IsPathValid(_selectedTile1.Row, _selectedTile1.Column, _selectedTile2.Row, _selectedTile2.Column))
-                {
+                var mahjongPath = _mahjongBoard.GetValidatedPath(_selectedTile1.Row, _selectedTile1.Column, _selectedTile2.Row, _selectedTile2.Column);
+                bool isPathValid = mahjongPath.IsValid;
+                if (isPathValid) {
+                    var pathTiles = GetPathTiles(mahjongPath);
+                    await HighlightAndRemoveTilesIfPathValid(pathTiles);
                     _gamer.AddScore(10);
+                    _mahjongBoard.MatchTiles(_selectedTile1.GetTile(), _selectedTile2.GetTile());
                     RaisePropertyChanged(nameof(Score));
                     UpdateView();
                 }
@@ -96,15 +107,34 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         {
             foreach (var tile in pathTiles)
             {
-                tile.IsPathLighted = true;
+                tile.IsPathHighlighted = true;
             }
 
             await Task.Delay(500); 
 
             foreach (var tile in pathTiles)
             {
-                tile.IsPathLighted = false; 
+                tile.IsPathHighlighted = false; 
             }
+        }
+
+        private List<MahjongTileViewModel> GetPathTiles(MahjongPath mahjongPath)
+        {
+            var pathTiles = new List<MahjongTileViewModel>();
+
+            for (int i = 0; i < mahjongPath.PathRows.Count; i++)
+            {
+                int row = mahjongPath.PathRows[i];
+                int col = mahjongPath.PathColumns[i];
+
+                int index = row * _mahjongBoard.GetColumns() + col;
+
+                if (index >= 0 && index < Tiles.Count)
+                {
+                    pathTiles.Add(Tiles[index]);
+                }
+            }
+            return pathTiles;
         }
     }
 }

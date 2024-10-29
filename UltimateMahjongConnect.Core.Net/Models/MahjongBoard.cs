@@ -118,9 +118,9 @@ namespace UltimateMahjongConnect.Core.Net.Models
             return false;
         }
 
-        public ValidatedPath GetValidatedPath(int row1, int column1, int row2, int column2)
+        public MahjongPath GetValidatedPath(int row1, int column1, int row2, int column2)
         {
-            var validatedPath = new ValidatedPath();
+            var mahjongPath = new MahjongPath();
 
             if (_board[row1, column1] is MahjongTile tile1 &&
                 _board[row2, column2] is MahjongTile tile2 &&
@@ -128,47 +128,47 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 if (row1 == row2 && IsHorizontalPathClear(row1, column1, column2))
                 {
-                    validatedPath.IsValid = true;
-                    validatedPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column2 - column1) + 1));
-                    validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
-                    return validatedPath;
+                    mahjongPath.IsValid = true;
+                    mahjongPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column2 - column1) + 1));
+                    mahjongPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
+                    return mahjongPath;
                 }
 
                 if (column1 == column2 && IsVerticalPathClear(column1, row1, row2))
                 {
-                    validatedPath.IsValid = true;
-                    validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
-                    validatedPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row2 - row1) + 1));
-                    return validatedPath;
+                    mahjongPath.IsValid = true;
+                    mahjongPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
+                    mahjongPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row2 - row1) + 1));
+                    return mahjongPath;
                 }
 
                 if (IsLShapedPathClear(row1, column1, row2, column2))
                 {
-                    validatedPath.IsValid = true;
-                    validatedPath.PathRows.AddRange(new[] { row1, row1, row2 });
-                    validatedPath.PathColumns.AddRange(new[] { column1, column2, column2 });
-                    return validatedPath;
+                    mahjongPath.IsValid = true;
+                    mahjongPath.PathRows.AddRange(new[] { row1, row1, row2 });
+                    mahjongPath.PathColumns.AddRange(new[] { column1, column2, column2 });
+                    return mahjongPath;
                 }
 
                 if (IsThreeSegmentPathClear(row1, column1, row2, column2))
                 {
-                    validatedPath.IsValid = true;
+                    mahjongPath.IsValid = true;
                     for (int intermediateRow = 0; intermediateRow < _rows; intermediateRow++)
                     {
                         if (IsVerticalPathClear(column1, row1, intermediateRow) &&
                             IsHorizontalPathClear(intermediateRow, column1, column2) &&
                             IsVerticalPathClear(column2, intermediateRow, row2))
                         {
-                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, intermediateRow), Math.Abs(row1 - intermediateRow) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row1 - intermediateRow) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, intermediateRow), Math.Abs(row1 - intermediateRow) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row1 - intermediateRow) + 1));
 
-                            validatedPath.PathRows.AddRange(Enumerable.Repeat(intermediateRow, Math.Abs(column2 - column1) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Repeat(intermediateRow, Math.Abs(column2 - column1) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
 
-                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(intermediateRow, row2), Math.Abs(row2 - intermediateRow) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(column2, Math.Abs(row2 - intermediateRow) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Range(Math.Min(intermediateRow, row2), Math.Abs(row2 - intermediateRow) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Repeat(column2, Math.Abs(row2 - intermediateRow) + 1));
 
-                            return validatedPath;
+                            return mahjongPath;
                         }
                     }
 
@@ -178,21 +178,21 @@ namespace UltimateMahjongConnect.Core.Net.Models
                             IsVerticalPathClear(intermediateCol, row1, row2) &&
                             IsHorizontalPathClear(row2, intermediateCol, column2))
                         {
-                            validatedPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column1 - intermediateCol) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, intermediateCol), Math.Abs(column1 - intermediateCol) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column1 - intermediateCol) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, intermediateCol), Math.Abs(column1 - intermediateCol) + 1));
 
-                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(intermediateCol, Math.Abs(row2 - row1) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Repeat(intermediateCol, Math.Abs(row2 - row1) + 1));
 
-                            validatedPath.PathRows.AddRange(Enumerable.Repeat(row2, Math.Abs(column2 - intermediateCol) + 1));
-                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(intermediateCol, column2), Math.Abs(column2 - intermediateCol) + 1));
+                            mahjongPath.PathRows.AddRange(Enumerable.Repeat(row2, Math.Abs(column2 - intermediateCol) + 1));
+                            mahjongPath.PathColumns.AddRange(Enumerable.Range(Math.Min(intermediateCol, column2), Math.Abs(column2 - intermediateCol) + 1));
 
-                            return validatedPath;
+                            return mahjongPath;
                         }
                     }
                 }
             }
-            return validatedPath;
+            return mahjongPath;
         }
 
 
@@ -266,8 +266,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             return false;
         }
 
-
-        private void MatchTiles(MahjongTile tile1, MahjongTile tile2)
+        public void MatchTiles(IMahjongTile tile1, IMahjongTile tile2)
         {
             tile1.MarkAsMatched();
             tile2.MarkAsMatched();

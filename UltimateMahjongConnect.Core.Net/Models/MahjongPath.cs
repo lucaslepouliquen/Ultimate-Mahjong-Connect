@@ -1,8 +1,8 @@
 ﻿namespace UltimateMahjongConnect.Business.Models
 {
-    public class ValidatedPath
+    public class MahjongPath
     {
-        public ValidatedPath()
+        public MahjongPath()
         {
             IsValid = false;
             PathRows = new List<int>();
