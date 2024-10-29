@@ -1,4 +1,5 @@
 ﻿using UltimateMahjongConnect.Business.Interfaces;
+using UltimateMahjongConnect.Business.Models;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 
 namespace UltimateMahjongConnect.Core.Net.Models
@@ -116,6 +117,84 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
             return false;
         }
+
+        public ValidatedPath GetValidatedPath(int row1, int column1, int row2, int column2)
+        {
+            var validatedPath = new ValidatedPath();
+
+            if (_board[row1, column1] is MahjongTile tile1 &&
+                _board[row2, column2] is MahjongTile tile2 &&
+                tile1.CanBeMatched(tile2))
+            {
+                if (row1 == row2 && IsHorizontalPathClear(row1, column1, column2))
+                {
+                    validatedPath.IsValid = true;
+                    validatedPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column2 - column1) + 1));
+                    validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
+                    return validatedPath;
+                }
+
+                if (column1 == column2 && IsVerticalPathClear(column1, row1, row2))
+                {
+                    validatedPath.IsValid = true;
+                    validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
+                    validatedPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row2 - row1) + 1));
+                    return validatedPath;
+                }
+
+                if (IsLShapedPathClear(row1, column1, row2, column2))
+                {
+                    validatedPath.IsValid = true;
+                    validatedPath.PathRows.AddRange(new[] { row1, row1, row2 });
+                    validatedPath.PathColumns.AddRange(new[] { column1, column2, column2 });
+                    return validatedPath;
+                }
+
+                if (IsThreeSegmentPathClear(row1, column1, row2, column2))
+                {
+                    validatedPath.IsValid = true;
+                    for (int intermediateRow = 0; intermediateRow < _rows; intermediateRow++)
+                    {
+                        if (IsVerticalPathClear(column1, row1, intermediateRow) &&
+                            IsHorizontalPathClear(intermediateRow, column1, column2) &&
+                            IsVerticalPathClear(column2, intermediateRow, row2))
+                        {
+                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, intermediateRow), Math.Abs(row1 - intermediateRow) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(column1, Math.Abs(row1 - intermediateRow) + 1));
+
+                            validatedPath.PathRows.AddRange(Enumerable.Repeat(intermediateRow, Math.Abs(column2 - column1) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, column2), Math.Abs(column2 - column1) + 1));
+
+                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(intermediateRow, row2), Math.Abs(row2 - intermediateRow) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(column2, Math.Abs(row2 - intermediateRow) + 1));
+
+                            return validatedPath;
+                        }
+                    }
+
+                    for (int intermediateCol = 0; intermediateCol < _columns; intermediateCol++)
+                    {
+                        if (IsHorizontalPathClear(row1, column1, intermediateCol) &&
+                            IsVerticalPathClear(intermediateCol, row1, row2) &&
+                            IsHorizontalPathClear(row2, intermediateCol, column2))
+                        {
+                            validatedPath.PathRows.AddRange(Enumerable.Repeat(row1, Math.Abs(column1 - intermediateCol) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(column1, intermediateCol), Math.Abs(column1 - intermediateCol) + 1));
+
+                            validatedPath.PathRows.AddRange(Enumerable.Range(Math.Min(row1, row2), Math.Abs(row2 - row1) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Repeat(intermediateCol, Math.Abs(row2 - row1) + 1));
+
+                            validatedPath.PathRows.AddRange(Enumerable.Repeat(row2, Math.Abs(column2 - intermediateCol) + 1));
+                            validatedPath.PathColumns.AddRange(Enumerable.Range(Math.Min(intermediateCol, column2), Math.Abs(column2 - intermediateCol) + 1));
+
+                            return validatedPath;
+                        }
+                    }
+                }
+            }
+            return validatedPath;
+        }
+
 
         private bool IsHorizontalPathClear(int row, int column1, int column2)
         {

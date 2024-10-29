@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using UltimateMahjongConnect.Business.Interfaces;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
 
@@ -91,6 +90,21 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             if (index >= 0 && index < Tiles.Count)
 
                 Tiles[index] = new MahjongTileViewModel(tile, row, col);
+        }
+
+        public async Task HighlightAndRemoveTilesIfPathValid(List<MahjongTileViewModel> pathTiles)
+        {
+            foreach (var tile in pathTiles)
+            {
+                tile.IsPathLighted = true;
+            }
+
+            await Task.Delay(500); 
+
+            foreach (var tile in pathTiles)
+            {
+                tile.IsPathLighted = false; 
+            }
         }
     }
 }

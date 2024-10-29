@@ -98,7 +98,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
             bool isValid = true;
             for(int i=1; i < 13; i++)
             {
-                if( isValid = true)
+                if( isValid)
                 {
                     isValid = _board.IsPathValid(i, 1, i, 3);
                 }

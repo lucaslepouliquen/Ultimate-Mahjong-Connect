@@ -98,7 +98,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
         {
             if (_isRemoved)
             {
-                return "0";
+                return String.Empty;
             }
             return $"[{Category.ToString().Substring(0, 3)}-{Value}]";
         }

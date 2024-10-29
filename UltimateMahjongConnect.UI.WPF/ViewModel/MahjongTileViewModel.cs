@@ -12,6 +12,8 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         public string DisplayText => _tile.ToString();
 
+        public bool IsPathLighted { get; set; } = false;
+
         public ICommand TileCommand { get; }
         public MahjongTileViewModel(IMahjongTile tile, int row, int column)
         {
