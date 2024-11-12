@@ -26,7 +26,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok();
         }
 
-        [HttpPost("Initialize/Random")]
+        [HttpPost("Reverse/Initialize/Random")]
         public IActionResult ReverseInitializeBoardDeterministically()
         {
             _mahjongBoard.ReverseInitializeBoardDeterministically();
