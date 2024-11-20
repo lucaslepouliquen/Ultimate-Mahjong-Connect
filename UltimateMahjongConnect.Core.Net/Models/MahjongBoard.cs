@@ -85,37 +85,27 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
         public bool IsPathValid(int row1, int column1, int row2, int column2)
         {
+            if (row1 == row2 && column1 == column2)
+                return false;
+
             if (_board[row1, column1] is MahjongTile tile1 &&
                 _board[row2, column2] is MahjongTile tile2 &&
-                tile1.CanBeMatched(tile2))
+                tile1.CanBeMatched(tile2) &&
+                IsPathClear(row1, column1, row2, column2))
             {
-                if (row1 == row2 && IsHorizontalPathClear(row1, column1, column2))
-                {
-                    MatchTiles(tile1, tile2);
-                    return true;
-                }
-
-                if (column1 == column2 && IsVerticalPathClear(column1, row1, row2))
-                {
-                    MatchTiles(tile1, tile2);
-                    return true;
-                }
-
-                if (IsLShapedPathClear(row1, column1, row2, column2))
-                {
-                    MatchTiles(tile1, tile2);
-                    return true;
-                }
-
-                if (IsThreeSegmentPathClear(row1, column1, row2, column2))
-                {
-                    MatchTiles(tile1, tile2);
-                    return true;
-                }
-
-                return false;
+                MatchTiles(tile1, tile2);
+                return true;
             }
+
             return false;
+        }
+
+        private bool IsPathClear(int row1, int column1, int row2, int column2)
+        {
+            return (row1 == row2 && IsHorizontalPathClear(row1, column1, column2)) ||
+                   (column1 == column2 && IsVerticalPathClear(column1, row1, row2)) ||
+                   IsLShapedPathClear(row1, column1, row2, column2) ||
+                   IsThreeSegmentPathClear(row1, column1, row2, column2);
         }
 
         public MahjongPath GetValidatedPath(int row1, int column1, int row2, int column2)

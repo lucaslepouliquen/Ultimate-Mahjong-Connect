@@ -67,6 +67,15 @@ namespace UltimateMahjongConnect.Test.Core.Net
         }
 
         [Fact]
+        public void ShouldInvalidatePathForSingleTile()
+        {
+            InitializeBoardDeterministically();
+            bool isValid = _board.IsPathValid(1, 1, 1, 1);
+            Assert.False(isValid, "A path starting and ending on the same tile should be invalid.");
+        }
+
+
+        [Fact]
         public void ShouldValidatePathHorizontallyBetweenAdjacentMatchingTiles()
         {
             InitializeBoardDeterministically();
