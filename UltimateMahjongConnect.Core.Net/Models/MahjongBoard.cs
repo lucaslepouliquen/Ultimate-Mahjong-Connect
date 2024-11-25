@@ -112,6 +112,9 @@ namespace UltimateMahjongConnect.Core.Net.Models
         {
             var mahjongPath = new MahjongPath();
 
+            if(row1 == row2 && column1 == column2)
+                return mahjongPath;
+
             if (_board[row1, column1] is MahjongTile tile1 &&
                 _board[row2, column2] is MahjongTile tile2 &&
                 tile1.CanBeMatched(tile2))

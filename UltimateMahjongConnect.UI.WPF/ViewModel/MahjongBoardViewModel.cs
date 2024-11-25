@@ -22,7 +22,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             _gamer = gamer;
             _mahjongBoard = mahjongBoard;
             Tiles = new ObservableCollection<MahjongTileViewModel>();
-            TileCommand = new RelayCommand<MahjongTileViewModel>(OnTileClicked);
+            TileCommand = new AsyncRelayCommand<MahjongTileViewModel>(OnTileClicked);
             InitializeRandomCommand = new RelayCommand(_ => InitializeRandomBoard());
         }
 
@@ -32,7 +32,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             UpdateTiles();
         }
 
-        private void InitializeRandomBoard()
+        public void InitializeRandomBoard()
         {
             _mahjongBoard.InitializeBoardRandom();
             UpdateTiles();
@@ -58,7 +58,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             await Task.CompletedTask;
         }
 
-        private async void OnTileClicked(MahjongTileViewModel clickedTile)
+        private async Task OnTileClicked(MahjongTileViewModel clickedTile)
         {
             if (_selectedTile1 == null)
             {
