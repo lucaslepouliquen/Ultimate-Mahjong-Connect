@@ -6,8 +6,11 @@ namespace UltimateMahjongConnect.Database.Net.Models
     {
         public ApplicationDbSQLContext CreateDbContext(string[] args)
         {
+            var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+            var connectionString = $"Server=localhost,1433;Database=UltimateMahjongConnectDB;User Id=sa;Password={password};TrustServerCertificate=True;";
+            
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbSQLContext>();
-            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=UltimateMahjongConnectDB;User Id=sa;Password=Nap1815$; TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new ApplicationDbSQLContext(optionsBuilder.Options);
         }
