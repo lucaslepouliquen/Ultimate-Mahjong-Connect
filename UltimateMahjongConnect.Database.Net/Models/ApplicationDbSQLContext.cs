@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace UltimateMahjongConnect.Database.Net.Models
 {
@@ -15,8 +16,18 @@ namespace UltimateMahjongConnect.Database.Net.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=UltimateMahjongConnectDB;User Id=sa;Password=Nap1815$; TrustServerCertificate=True;");
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppContext.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: true)
+                    .AddEnvironmentVariables()
+                    .Build();
+
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
+#if NET8_0 && WINDOWS
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+#endif
         }
+
     }
 }

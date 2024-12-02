@@ -1,14 +1,4 @@
-﻿using Moq;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UltimateMahjongConnect.Business.Interfaces;
-using UltimateMahjongConnect.Business.Models;
-using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
+﻿using UltimateMahjongConnect.Core.Net.Models;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF.Tests
@@ -31,31 +21,46 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             _mahjongBoard.InitializeBoardDeterministically();
         }
 
+        private async Task ExecuteTileCommand(MahjongTileViewModel tileViewModel)
+        {
+            if (_viewModel.TileCommand.CanExecute(tileViewModel))
+            {
+                await ((AsyncRelayCommand<MahjongTileViewModel>)_viewModel.TileCommand).ExecuteAsync(tileViewModel);
+            }
+        }
+
+        private MahjongTileViewModel CreateTileViewModel(MahjongTileCategory category, int value, int row, int column)
+        {
+            var tile = new MahjongTile(category, value);
+            return new MahjongTileViewModel(tile, row, column);
+        }
+
+        [Fact]
+        public async Task TileCommand_ShouldNotUpdateScore_WhenTileGotSameRowAndColumn()
+        {
+            InitializeBoardDeterministically();
+
+            var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 1, 1, 1);
+            var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 2, 1, 1);
+
+            await ExecuteTileCommand(tileViewModel1);
+            await ExecuteTileCommand(tileViewModel2);
+
+            Assert.Equal(0, _viewModel.Score);
+        }
+
         [Fact]
         public async Task TileCommand_ShouldUpdateScore_WhenPathIsValid()
         {
             InitializeBoardDeterministically();
 
-            var tile1 = new MahjongTile(MahjongTileCategory.Bamboo, 1);
-            var tile2 = new MahjongTile(MahjongTileCategory.Bamboo, 2);
+            var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 1, 1, 1);
+            var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 2, 1, 2);
 
-            int row1 = 1; int column1 = 1;
-            int row2 = 1; int column2 = 2;
-            var tileViewModel1 = new MahjongTileViewModel(tile1, row1, column1);
-            var tileViewModel2 = new MahjongTileViewModel(tile2, row2, column2);
+            await ExecuteTileCommand(tileViewModel1);
+            await ExecuteTileCommand(tileViewModel2);
 
-            if (_viewModel.TileCommand.CanExecute(tileViewModel1))
-            {
-                await ((AsyncRelayCommand<MahjongTileViewModel>)_viewModel.TileCommand).ExecuteAsync(tileViewModel1);
-            }
-
-            if (_viewModel.TileCommand.CanExecute(tileViewModel2))
-            {
-                await ((AsyncRelayCommand<MahjongTileViewModel>)_viewModel.TileCommand).ExecuteAsync(tileViewModel2);
-            }
-
-            Assert.True(_viewModel.Score.Equals(10));
+            Assert.Equal(10, _viewModel.Score);
         }
-
     }
 }
