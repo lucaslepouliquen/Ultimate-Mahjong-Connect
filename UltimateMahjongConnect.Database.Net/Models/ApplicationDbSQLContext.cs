@@ -6,7 +6,10 @@ namespace UltimateMahjongConnect.Database.Net.Models
     public class ApplicationDbSQLContext : DbContext
     {
         public DbSet<GamerEntity> Gamers { get; set; } = null!;
-
+        public ApplicationDbSQLContext()
+        {
+            
+        }
         public ApplicationDbSQLContext(DbContextOptions<ApplicationDbSQLContext> options)
             : base(options)
         {
