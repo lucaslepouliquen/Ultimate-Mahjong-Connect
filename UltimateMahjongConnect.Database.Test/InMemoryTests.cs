@@ -31,5 +31,6 @@ namespace UltimateMahjongConnect.Database.Test
                 Assert.NotEqual(0, gamer.Id);
             }
         }
+        public void CanUpdateGamerIntoDatabase()
     }
 }
