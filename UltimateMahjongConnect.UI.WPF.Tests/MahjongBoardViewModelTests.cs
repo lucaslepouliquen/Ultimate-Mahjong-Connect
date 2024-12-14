@@ -50,12 +50,28 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
         }
 
         [Fact]
-        public async Task TileCommand_ShouldUpdateScore_WhenPathIsValid()
+        public async Task TileCommand_ShouldUpdateScore_WhenPathIsValid_AdjacentTiles()
         {
             InitializeBoardDeterministically();
 
             var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 1, 1, 1);
             var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 2, 1, 2);
+
+            await ExecuteTileCommand(tileViewModel1);
+            await ExecuteTileCommand(tileViewModel2);
+
+            Assert.Equal(10, _viewModel.Score);
+        }
+
+        [Theory]
+        [InlineData(1,1,1,3)]
+        [InlineData(1,1,1,4)]
+        public async Task TileCommand_ShouldUpdateScore_WhenPathIsValid_NonAdjacentTiles(int selectedRowTile1, int selectedColumnTile1, int selectedRowTile2, int selectedColumnTile2)
+        {
+            InitializeBoardDeterministically();
+
+            var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 1, selectedRowTile1, selectedColumnTile1);
+            var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 2, selectedRowTile2, selectedColumnTile2);
 
             await ExecuteTileCommand(tileViewModel1);
             await ExecuteTileCommand(tileViewModel2);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using UltimateMahjongConnect.Business.Models;
 using UltimateMahjongConnect.Core.Net.Interfaces;
@@ -13,6 +14,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         private MahjongTileViewModel? _selectedTile1;
         private MahjongTileViewModel? _selectedTile2;
         public ObservableCollection<MahjongTileViewModel> Tiles { get; set; }
+        public ICommand InitializeDeterministicallyCommand { get; }
         public ICommand InitializeRandomCommand { get; }
         public ICommand TileCommand { get; }
         public int Score => _gamer.Score;
@@ -24,6 +26,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             Tiles = new ObservableCollection<MahjongTileViewModel>();
             TileCommand = new AsyncRelayCommand<MahjongTileViewModel>(OnTileClicked);
             InitializeRandomCommand = new RelayCommand(_ => InitializeRandomBoard());
+            InitializeDeterministicallyCommand = new RelayCommand(_ => InitializeBoardDeterministically());
         }
 
         private void InitializeBoardDeterministically()
@@ -54,7 +57,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         public async override Task LoadAsync()
         {
-            InitializeRandomBoard();
+            InitializeBoardDeterministically();
             await Task.CompletedTask;
         }
 

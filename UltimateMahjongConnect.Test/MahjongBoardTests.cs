@@ -114,9 +114,9 @@ namespace UltimateMahjongConnect.Test.Core.Net
             bool isValid = true;
             for(int i=1; i < 13; i++)
             {
-                if( isValid)
+                if(isValid)
                 {
-                    isValid = _board.IsPathValid(i, 1, i, 3);
+                    isValid = _board.IsPathValid(i, 1, i, 4);
                 }
             }
             Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
