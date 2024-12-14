@@ -27,10 +27,6 @@ namespace UltimateMahjongConnect.Database.Net.Models
 
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
-#if NET8_0 && WINDOWS
-            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-#endif
         }
-
     }
 }
