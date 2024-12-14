@@ -27,6 +27,6 @@ namespace UltimateMahjongConnect.Database.Net.Models
 
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
-        }
+        } 
     }
 }
