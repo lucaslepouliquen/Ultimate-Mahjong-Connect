@@ -122,14 +122,10 @@ namespace UltimateMahjongConnect.Test.Core.Net
         }
 
         [Fact]
-        public void Troubleshooting()
+        public void ShouldValidatePathBetweenTilesAtSpecificPositions()
         {
-            InitializeBoardDeterministicallyVertically();
-            bool isValid = _board.IsPathValid(1, 2, 1, 3);
-            if (isValid)
-            {
-                isValid = _board.IsPathValid(1, 1, 1, 4);
-            }            
+            _board.SetupBoardWithTilesAtSpecificPositions();
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
             Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
         }
 

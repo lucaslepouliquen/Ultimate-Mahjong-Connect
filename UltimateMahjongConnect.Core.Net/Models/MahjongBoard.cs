@@ -63,6 +63,26 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
         }
 
+        public void SetupBoardWithTilesAtSpecificPositions()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if ((i == 1 && j == 1) || (i == 1 || j == 4))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
         public void ReverseInitializeBoardDeterministically()
         {
             InitializeBoardDeterministically();
