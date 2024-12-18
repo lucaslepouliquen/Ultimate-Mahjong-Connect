@@ -63,7 +63,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
         }
 
-        public void SetupBoardWithTilesAtSpecificPositions()
+        public void SetupBoardWithTilesInSpecificPattern()
         {
             _board = new MahjongTile[_rows, _columns];
 
@@ -72,6 +72,26 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 for (int j = 0; j < _columns; j++)
                 {
                     if ((i == 1 && j == 1) || (i == 1 || j == 4))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
+        public void SetupBoardWithTilesInRowRange()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if (i == 1 && Enumerable.Range(1,4).Contains(j))
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -216,7 +236,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             for (int col = start; col < end; col++)
             {
-                if (_board[row, col] != null)
+                if (_board[row, col] != null && !_board[row,col].IsRemoved)
                 {
                     return false;
                 }
@@ -231,7 +251,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             for (int row = start; row < end; row++)
             {
-                if (_board[row, column] != null)
+                if (_board[row, column] != null && !_board[row, column].IsRemoved)
                 {
                     return false;
                 }

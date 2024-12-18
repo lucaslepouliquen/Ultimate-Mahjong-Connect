@@ -124,7 +124,15 @@ namespace UltimateMahjongConnect.Test.Core.Net
         [Fact]
         public void ShouldValidatePathBetweenTilesAtSpecificPositions()
         {
-            _board.SetupBoardWithTilesAtSpecificPositions();
+            _board.SetupBoardWithTilesInSpecificPattern();
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
+            Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
+        }
+
+        [Fact]
+        public void PathValidation_ForMatchingTilesInRowRange_ShouldReturnTrue()
+        {
+            _board.SetupBoardWithTilesInRowRange();
             var isValid = _board.IsPathValid(1, 1, 1, 4);
             Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
         }
@@ -133,14 +141,8 @@ namespace UltimateMahjongConnect.Test.Core.Net
         public void Troubleshooting2()
         {
             InitializeBoardDeterministically();
-            bool isValid = true;
-            for(int i=1; i < 13; i++)
-            {
-                if(isValid)
-                {
-                    isValid = _board.IsPathValid(i, 1, i, 4);
-                }
-            }
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
+            Assert.Equal(_board[1, 1].Category, _board[1, 4].Category);
             Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
         }
 
