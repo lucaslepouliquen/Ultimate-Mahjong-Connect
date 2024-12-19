@@ -83,6 +83,86 @@ namespace UltimateMahjongConnect.Core.Net.Models
             }
         }
 
+        public void SetupBoardWithTilesInSpecificPattern_SouthWest_NorthEast()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if ((i == 11 && j == 3) || (i == 5 || j == 12))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
+        public void SetupBoardWithTilesInSpecificPattern_SouthEast_NorthWest()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if ((i == 11 && j == 12) || (i == 5 || j == 3))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
+        public void SetupBoardWithTilesInSpecificPattern_NorthWest_SouthEast()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if ((i == 5 && j == 3) || (i == 11 || j == 12))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
+        public void SetupBoardWithTilesInSpecificPattern_NorthEast_SouthWest()
+        {
+            _board = new MahjongTile[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if ((i == 5 && j == 12) || (i == 11 || j == 5))
+                    {
+                        _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
+                    }
+                    else
+                    {
+                        _board[i, j] = null;
+                    }
+                }
+            }
+        }
+
         public void SetupBoardWithTilesInRowRange()
         {
             _board = new MahjongTile[_rows, _columns];
