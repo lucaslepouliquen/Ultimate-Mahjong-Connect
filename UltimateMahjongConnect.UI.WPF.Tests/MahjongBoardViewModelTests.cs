@@ -84,6 +84,20 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             Assert.Equal(20, _viewModel.Score);
         }
 
+        [Fact]
+        public async Task Troubleshooting()
+        {
+            InitializeBoardDeterministically();
+
+            var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 3, 2, 1);
+            var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 3, 2, 3);
+
+            await ExecuteTileCommand(tileViewModel1);
+            await ExecuteTileCommand(tileViewModel2);
+
+            Assert.Equal(0, _viewModel.Score);
+        }
+
         [Theory]
         [InlineData(1,1,1,3)]
         [InlineData(1,1,1,4)]
