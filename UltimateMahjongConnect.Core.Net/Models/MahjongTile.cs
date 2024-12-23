@@ -4,15 +4,29 @@ namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class MahjongTile : IMahjongTile
     {
+        public event Action TileChanged;
         private readonly MahjongTileCategory _category;
         private int _value;
         private bool _isRemoved;
         private bool _isMatched;
         public MahjongTileCategory Category => _category;
         public int Value => _value;
-
-        public bool IsRemoved => _isRemoved;
-        public bool IsMatched => _isMatched;
+        public bool IsRemoved {
+            get => _isRemoved;
+            set
+            {
+                _isRemoved = value;
+                TileChanged?.Invoke();
+            }
+        }
+        public bool IsMatched { 
+            get => _isMatched;
+            set
+            {
+                _isMatched = value;
+                TileChanged?.Invoke();
+            }
+        }
 
         public MahjongTile()
         {
@@ -31,6 +45,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _category = category;
             _value = value;
         }
+        public string DisplayText => _isRemoved ? string.Empty : $"[{Category.ToString().Substring(0, 3)}-{Value}]";
 
         public List<MahjongTile> GetTiles()
         {
@@ -83,8 +98,8 @@ namespace UltimateMahjongConnect.Core.Net.Models
         {
             if (otherTile == null || this._isRemoved || otherTile._isRemoved)
                 return false;
-
-            return otherTile is { _category: var category, _value: var value } && _category == category && _value == value;
+            var IsMatched = otherTile is { _category: var category, _value: var value } && _category == category && _value == value;
+            return IsMatched;
         }
 
         public void ResetState()

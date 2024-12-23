@@ -6,7 +6,6 @@ namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class MahjongBoard : IMahjongBoard
     {
-
         private readonly int _rows = 14;
         private readonly int _columns = 14;
         private readonly IMahjongTile _mahjongTile;

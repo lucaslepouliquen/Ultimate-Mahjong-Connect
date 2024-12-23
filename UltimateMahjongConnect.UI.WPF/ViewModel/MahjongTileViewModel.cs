@@ -29,6 +29,17 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             _tile = tile;
             Row = row;
             Column = column;
+            _tile.TileChanged += OnTileChanged;
+        }
+
+        private void OnTileChanged()
+        {
+            RaisePropertyChanged(nameof(DisplayText));
+        }
+
+        ~MahjongTileViewModel()
+        {
+            _tile.TileChanged -= OnTileChanged;
         }
 
         public IMahjongTile GetTile()

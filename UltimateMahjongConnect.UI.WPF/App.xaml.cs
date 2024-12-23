@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
@@ -9,7 +10,9 @@ using UltimateMahjongConnect.Service;
 using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.Service.Profiles;
 using UltimateMahjongConnect.Service.Services;
+using UltimateMahjongConnect.UI.WPF.Interfaces;
 using UltimateMahjongConnect.UI.WPF.Profiles;
+using UltimateMahjongConnect.UI.WPF.Services;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF
@@ -48,10 +51,12 @@ namespace UltimateMahjongConnect.UI.WPF
             services.AddTransient<IGamerService, MockGamerService>();
             services.AddTransient<IMahjongTile, MahjongTile>();
             services.AddTransient<IMahjongBoard, MahjongBoard>();
+            services.AddTransient<IMahjongBoardService, MahjongBoardService>();
+            services.AddTransient<MahjongBoardViewModel>();
+
             services.AddTransient<Gamer>();
             services.AddTransient<GamerService>();
             services.AddTransient<GamersViewModel>();
-            services.AddTransient<MahjongBoardViewModel>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainWindow>(provider =>
                 new MainWindow(provider.GetRequiredService<MainViewModel>()));

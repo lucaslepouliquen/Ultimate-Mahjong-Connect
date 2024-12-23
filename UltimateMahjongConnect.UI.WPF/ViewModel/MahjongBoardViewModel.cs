@@ -4,6 +4,8 @@ using System.Windows.Input;
 using UltimateMahjongConnect.Business.Models;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.UI.WPF.Interfaces;
+using UltimateMahjongConnect.UI.WPF.Services;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
@@ -11,6 +13,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
     {
         private readonly Gamer _gamer;
         private readonly IMahjongBoard _mahjongBoard;
+        private readonly IMahjongBoardService _mahjongBoardService;
         private MahjongTileViewModel? _selectedTile1;
         private MahjongTileViewModel? _selectedTile2;
         public ObservableCollection<MahjongTileViewModel> Tiles { get; set; }
@@ -19,10 +22,12 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         public ICommand TileCommand { get; }
         public int Score => _gamer.Score;
 
-        public MahjongBoardViewModel(IMahjongBoard mahjongBoard, Gamer gamer)
+        public MahjongBoardViewModel(IMahjongBoard mahjongBoard, Gamer gamer, IMahjongBoardService mahjongBoardService)
         {
             _gamer = gamer;
-            _mahjongBoard = mahjongBoard;
+            _mahjongBoard = mahjongBoard ?? throw new ArgumentNullException(nameof(mahjongBoard));
+            _mahjongBoard.InitializeBoardDeterministically();
+            _mahjongBoardService = mahjongBoardService;
             Tiles = new ObservableCollection<MahjongTileViewModel>();
             TileCommand = new AsyncRelayCommand<MahjongTileViewModel>(OnTileClicked);
             InitializeRandomCommand = new RelayCommand(_ => InitializeRandomBoard());
@@ -31,28 +36,14 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 
         private void InitializeBoardDeterministically()
         {
-            _mahjongBoard.InitializeBoardDeterministically();
+            _mahjongBoardService.InitializeBoardDeterministically();
             UpdateTiles();
         }
 
         public void InitializeRandomBoard()
         {
-            _mahjongBoard.InitializeBoardRandom();
+            _mahjongBoardService.InitializeBoardRandomly();
             UpdateTiles();
-        }
-
-        private void UpdateTiles()
-        {
-            Tiles.Clear();
-
-            for (int row = 0; row < 14; row++)
-            {
-                for (int col = 0; col < 14; col++)
-                {
-                    var tile = _mahjongBoard[row, col];
-                    Tiles.Add(new MahjongTileViewModel(tile, row, col));
-                }
-            }
         }
 
         public async override Task LoadAsync()
@@ -75,35 +66,29 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                 if (isPathValid) {
                     var pathTiles = GetPathTiles(mahjongPath);
                     await HighlightAndRemoveTilesIfPathValid(pathTiles);
+                    _selectedTile1.GetTile().IsRemoved = true;
+                    _selectedTile2.GetTile().IsRemoved = true;
                     _gamer.AddScore(10);
                     _mahjongBoard.MatchTiles(_selectedTile1.GetTile(), _selectedTile2.GetTile());
                     RaisePropertyChanged(nameof(Score));
-                    UpdateView();
                 }
                 _selectedTile1 = null;
                 _selectedTile2 = null;
             }
         }
 
-        private void UpdateView()
+        private void UpdateTiles()
         {
-            for (int row = 0; row < _mahjongBoard.GetRows(); row++)
+            Tiles.Clear();
+
+            for (int row = 0; row < 14; row++)
             {
-                for (int col = 0; col < _mahjongBoard.GetColumns(); col++)
+                for (int col = 0; col < 14; col++)
                 {
                     var tile = _mahjongBoard[row, col];
-                    UpdateTileUI(row, col, tile);
+                    Tiles.Add(new MahjongTileViewModel(tile, row, col));
                 }
             }
-        }
-
-        private void UpdateTileUI(int row, int col, IMahjongTile tile)
-        {
-            int index = row * _mahjongBoard.GetRows() + col;
-
-            if (index >= 0 && index < Tiles.Count)
-
-                Tiles[index] = new MahjongTileViewModel(tile, row, col);
         }
 
         public async Task HighlightAndRemoveTilesIfPathValid(List<MahjongTileViewModel> pathTiles)

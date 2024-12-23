@@ -4,10 +4,12 @@ namespace UltimateMahjongConnect.Core.Net.Interfaces
 {
     public interface IMahjongTile
     {
+        event Action TileChanged;
         List<MahjongTile> GetTiles();
         bool CanBeMatched(MahjongTile otherTile);
-        bool IsRemoved{ get;}
+        bool IsRemoved{ get; set; }
         void ResetState();
         void MarkAsMatched();
+        string DisplayText { get; }
     }
 }
