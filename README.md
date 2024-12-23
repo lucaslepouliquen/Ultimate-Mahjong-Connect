@@ -1,0 +1,1 @@
+This project is a Mahjong Connect game implementation. The objective is to create a working Mahjong Connect game with a focus on clean code, test-driven development (TDD), and scalable architecture. The game features a graphical user interface (GUI) for players to interact with the Mahjong board, and its backend logic ensures the proper validation of moves.

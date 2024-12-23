@@ -6,6 +6,7 @@ namespace UltimateMahjongConnect.Core.Net.Interfaces
     {
         List<MahjongTile> GetTiles();
         bool CanBeMatched(MahjongTile otherTile);
+        bool IsRemoved{ get;}
         void ResetState();
         void MarkAsMatched();
     }

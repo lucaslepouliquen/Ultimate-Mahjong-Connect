@@ -8,26 +8,20 @@ namespace MahjongGameVerifier
     {
         static void Main(string[] args)
         {
-            // Créez une instance de MahjongTile
             var mahjongTile = new MahjongTile();
 
-            // Créez une instance de MahjongBoard avec des dimensions de plateau de 12x12
             var game = new MahjongBoard(mahjongTile);
 
-            // Initialisez le plateau de manière déterministe
             game.InitializeBoardDeterministically();
 
-            // Affichez quelques informations sur le jeu pour vérification
             Console.WriteLine("Jeu de Mahjong créé avec succès !");
             Console.WriteLine($"Nombre de lignes : 12");
             Console.WriteLine($"Nombre de colonnes : 12");
 
-            // Affichez le plateau initialisé
             DisplayBoard(game);
 
             game.InitializeBoardRandom();
 
-            // Affichez quelques informations sur le jeu pour vérification
             Console.WriteLine("Jeu de Mahjong créé avec succès !");
             Console.WriteLine($"Nombre de lignes : 12");
             Console.WriteLine($"Nombre de colonnes : 12");
@@ -40,7 +34,7 @@ namespace MahjongGameVerifier
 
         static void DisplayBoard(MahjongBoard board)
         {
-            const int columnWidth = 12; // Ajuster la largeur pour chaque colonne
+            const int columnWidth = 12; 
 
             for (int i = 0; i < 12; i++)
             {

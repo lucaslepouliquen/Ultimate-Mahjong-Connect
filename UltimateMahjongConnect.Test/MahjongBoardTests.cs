@@ -67,6 +67,22 @@ namespace UltimateMahjongConnect.Test.Core.Net
         }
 
         [Fact]
+        public void GetValidatedPath_ShouldReturnInvalidForSingleTile()
+        {
+            InitializeBoardDeterministically();
+            var mahjongPath = _board.GetValidatedPath(1, 1, 1, 1);
+            Assert.False(mahjongPath.IsValid);
+        }
+
+        [Fact]
+        public void ShouldInvalidatePathForSingleTile()
+        {
+            InitializeBoardDeterministically();
+            bool isValid = _board.IsPathValid(1, 1, 1, 1);
+            Assert.False(isValid, "A path starting and ending on the same tile should be invalid.");
+        }
+
+        [Fact]
         public void ShouldValidatePathHorizontallyBetweenAdjacentMatchingTiles()
         {
             InitializeBoardDeterministically();
@@ -77,7 +93,7 @@ namespace UltimateMahjongConnect.Test.Core.Net
         [Fact]
         public void ShouldValidateVerticallyBetweenAdjacentMatchingTiles()
         {
-            _board.TransposeBoard();
+            InitializeBoardDeterministicallyVertically();
             bool isValid = _board.IsPathValid(2, 1, 1, 1);
             Assert.True(isValid, "Path between horizontally adjacent matching tiles should be valid.");
         }
@@ -90,19 +106,75 @@ namespace UltimateMahjongConnect.Test.Core.Net
             Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
         }
 
-
         [Fact]
         public void ShouldValidatePathBetweenNonAdjacentMatchingTilesIfPathIsClear()
         {
             InitializeBoardDeterministically();
             bool isValid = true;
-            for(int i=1; i < 13; i++)
+            for (int i = 1; i < 13; i++)
             {
-                if( isValid = true)
+                if (isValid)
                 {
                     isValid = _board.IsPathValid(i, 1, i, 3);
                 }
             }
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetweenTilesAtSpecificPositions()
+        {
+            _board.SetupBoardWithTilesInSpecificPattern();
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
+            Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
+        }
+
+        [Fact]
+        public void PathValidation_ForMatchingTilesInRowRange_ShouldReturnTrue()
+        {
+            _board.SetupBoardWithTilesInRowRange();
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
+            Assert.True(isValid, "Path between vertically adjacent matching tiles should be valid.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetweenNonAdjacentTilesWithSameCategory()
+        {
+            InitializeBoardDeterministically();
+            var isValid = _board.IsPathValid(1, 1, 1, 4);
+            Assert.Equal(_board[1, 1].Category, _board[1, 4].Category);
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetween_SouthWest_NorthEast()
+        {
+            _board.SetupBoardWithTilesInSpecificPattern_SouthWest_NorthEast();
+            var isValid = _board.IsPathValid(11, 3, 5, 12);
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetween_SouthEast_NorthWest()
+        {
+            _board.SetupBoardWithTilesInSpecificPattern_SouthWest_NorthEast();
+            var isValid = _board.IsPathValid(11, 12, 5, 3);
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetween_NorthWest_SouthEast()
+        {
+            _board.SetupBoardWithTilesInSpecificPattern_SouthWest_NorthEast();
+            var isValid = _board.IsPathValid(5, 3, 11, 12);
+            Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
+        }
+
+        [Fact]
+        public void ShouldValidatePathBetween_NorthEast_SouthWest()
+        {
+            _board.SetupBoardWithTilesInSpecificPattern_NorthEast_SouthWest();
+            var isValid = _board.IsPathValid(5, 12, 11, 5);
             Assert.True(isValid, "Path between non-adjacent matching tiles should be valid if path is clear.");
         }
 

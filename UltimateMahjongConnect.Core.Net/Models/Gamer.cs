@@ -5,13 +5,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
 {
     public class Gamer : IGamer
     {
-        private string _pseudonyme;
-        private int _age;
-        private string _email;
-        private int _score;
-        private string _password;
+        private readonly string _pseudonyme;
+        private readonly int _age;
+        private readonly string _email;
+        private readonly string _password;
         private int _completedLevels;
-
+        private int score { get; set; }
+        public int Score => score;
         public Gamer()
         {
             _pseudonyme = "test";
@@ -24,13 +24,13 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _pseudonyme = pseudonyme;
             _age = age;
             _email = email;
-            _score = 0; 
+            score = 0; 
             _completedLevels = 0;
         }
 
-        public void AddScore(int score)
+        public void AddScore(int points)
         {
-            _score += score;
+            score += points;
         }
 
         public void LevelCompleted()
@@ -39,7 +39,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
             if (_completedLevels == 5)
             {
-                _score *= 2;
+                score *= 2;
             }
         }
     }
