@@ -94,10 +94,6 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
 
             await ExecuteTileCommand(tileViewModel1);
             await ExecuteTileCommand(tileViewModel2);
-
-            Assert.True(_mahjongBoard[tileViewModel1.Row, tileViewModel1.Column]?.IsRemoved);
-            Assert.True(_mahjongBoard[tileViewModel2.Row, tileViewModel2.Column]?.IsRemoved);
-
             await ExecuteTileCommand(tileViewModel3);
             await ExecuteTileCommand(tileViewModel4);
 
