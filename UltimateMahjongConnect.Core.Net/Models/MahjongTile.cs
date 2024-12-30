@@ -118,10 +118,11 @@ namespace UltimateMahjongConnect.Core.Net.Models
             return $"[{Category.ToString().Substring(0, 3)}-{Value}]";
         }
 
-        public void MarkAsMatched()
+        public void MarkAsMatchedAndRemoved()
         {
             _isMatched = true;
             _isRemoved = true;
+            IsRemoved = true;
         }
     }
 }

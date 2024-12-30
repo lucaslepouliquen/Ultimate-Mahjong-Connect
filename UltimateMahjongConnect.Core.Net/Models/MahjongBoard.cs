@@ -212,7 +212,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
                 tile1.CanBeMatched(tile2) &&
                 IsPathClear(row1, column1, row2, column2))
             {
-                MatchTiles(tile1, tile2);
+                MatchAndRemoveTiles(tile1, tile2);
                 return true;
             }
 
@@ -312,7 +312,6 @@ namespace UltimateMahjongConnect.Core.Net.Models
         {
             int start = Math.Min(column1, column2) + 1;
             int end = Math.Max(column1, column2);
-
             for (int col = start; col < end; col++)
             {
                 if (_board[row, col] != null && !_board[row,col].IsRemoved)
@@ -327,15 +326,18 @@ namespace UltimateMahjongConnect.Core.Net.Models
         {
             int start = Math.Min(row1, row2) + 1;
             int end = Math.Max(row1, row2);
-
-            for (int row = start; row < end; row++)
+            if(start <= end)
             {
-                if (_board[row, column] != null && !_board[row, column].IsRemoved)
+                for (int row = start; row < end; row++)
                 {
-                    return false;
+                    if (_board[row, column] != null && !_board[row, column].IsRemoved)
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            return false;
         }
 
         private bool IsLShapedPathClear(int row1, int column1, int row2, int column2)
@@ -378,10 +380,10 @@ namespace UltimateMahjongConnect.Core.Net.Models
             return false;
         }
 
-        public void MatchTiles(IMahjongTile tile1, IMahjongTile tile2)
+        public void MatchAndRemoveTiles(IMahjongTile tile1, IMahjongTile tile2)
         {
-            tile1.MarkAsMatched();
-            tile2.MarkAsMatched();
+            tile1.MarkAsMatchedAndRemoved();
+            tile2.MarkAsMatchedAndRemoved();
         }
 
         public MahjongTile this[int row, int col]

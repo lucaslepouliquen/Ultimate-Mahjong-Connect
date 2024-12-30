@@ -9,7 +9,7 @@ namespace UltimateMahjongConnect.Core.Net.Interfaces
         bool CanBeMatched(MahjongTile otherTile);
         bool IsRemoved{ get; set; }
         void ResetState();
-        void MarkAsMatched();
+        void MarkAsMatchedAndRemoved();
         string DisplayText { get; }
     }
 }

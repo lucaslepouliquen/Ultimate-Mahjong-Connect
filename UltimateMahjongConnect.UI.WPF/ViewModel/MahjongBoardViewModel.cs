@@ -37,13 +37,13 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
         private void InitializeBoardDeterministically()
         {
             _mahjongBoardService.InitializeBoardDeterministically();
-            UpdateTiles();
+            LoadTilesFromBoard();
         }
 
         public void InitializeRandomBoard()
         {
             _mahjongBoardService.InitializeBoardRandomly();
-            UpdateTiles();
+            LoadTilesFromBoard();
         }
 
         public async override Task LoadAsync()
@@ -66,10 +66,9 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
                 if (isPathValid) {
                     var pathTiles = GetPathTiles(mahjongPath);
                     await HighlightAndRemoveTilesIfPathValid(pathTiles);
-                    _selectedTile1.GetTile().IsRemoved = true;
-                    _selectedTile2.GetTile().IsRemoved = true;
                     _gamer.AddScore(10);
-                    _mahjongBoard.MatchTiles(_selectedTile1.GetTile(), _selectedTile2.GetTile());
+                    _mahjongBoard.MatchAndRemoveTiles(_selectedTile1.GetTile(), _selectedTile2.GetTile());
+                    _mahjongBoard.MatchAndRemoveTiles(_mahjongBoard[_selectedTile1.Row, _selectedTile1.Column], _mahjongBoard[_selectedTile2.Row, _selectedTile2.Column]);
                     RaisePropertyChanged(nameof(Score));
                 }
                 _selectedTile1 = null;
@@ -77,7 +76,7 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
             }
         }
 
-        private void UpdateTiles()
+        private void LoadTilesFromBoard()
         {
             Tiles.Clear();
 
