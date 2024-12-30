@@ -48,6 +48,7 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             await ExecuteTileCommand(tileViewModel2);
 
             Assert.Equal(0, _viewModel.Score);
+
         }
 
         [Theory]
@@ -67,6 +68,21 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
         }
 
         [Fact]
+        public async Task TileCommand_ShouldMarkTilesAsRemoved_WhenPathIsValid()
+        {
+            InitializeBoardDeterministically();
+
+            var tileViewModel1 = CreateTileViewModel(MahjongTileCategory.Bamboo, 3, 2, 2);
+            var tileViewModel2 = CreateTileViewModel(MahjongTileCategory.Bamboo, 3, 2, 3);
+
+            await ExecuteTileCommand(tileViewModel1);
+            await ExecuteTileCommand(tileViewModel2);
+
+            Assert.True(_mahjongBoard[tileViewModel1.Row, tileViewModel1.Column]?.IsRemoved);
+            Assert.True(_mahjongBoard[tileViewModel2.Row, tileViewModel2.Column]?.IsRemoved);
+        }
+
+        [Fact]
         public async Task TileCommand_ShouldUpdateScore_WhenHorizontalPathIsValid()
         {
             InitializeBoardDeterministically();
@@ -78,6 +94,10 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
 
             await ExecuteTileCommand(tileViewModel1);
             await ExecuteTileCommand(tileViewModel2);
+
+            Assert.True(_mahjongBoard[tileViewModel1.Row, tileViewModel1.Column]?.IsRemoved);
+            Assert.True(_mahjongBoard[tileViewModel2.Row, tileViewModel2.Column]?.IsRemoved);
+
             await ExecuteTileCommand(tileViewModel3);
             await ExecuteTileCommand(tileViewModel4);
 
@@ -85,7 +105,7 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
         }
 
         [Fact]
-        public async Task Troubleshooting()
+        public async Task ShouldNotIncreaseScoreWhenPathIsInvalidButConsideredValid()
         {
             InitializeBoardDeterministically();
 
