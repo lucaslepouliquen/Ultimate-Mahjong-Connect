@@ -7,6 +7,7 @@ namespace UltimateMahjongConnect.Core.Net.Interfaces
     {
         int GetRows();
         int GetColumns();
+        IMahjongTile[,] GetBoard();
         void InitializeBoardDeterministically();
         void TransposeBoard();
         void InitializeBoardRandom();

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using UltimateMahjongConnect.Core.Net.Interfaces;
+using UltimateMahjongConnect.Service.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
@@ -16,21 +18,24 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         public IActionResult InitializeBoardDeterministically()
         {
             _mahjongBoard.InitializeBoardDeterministically();
-            return Ok();
+            var board = _mahjongBoard.GetBoard();
+            return Ok(board);
         }
 
         [HttpPost("Initialize/Random")]
         public IActionResult InitializeBoardRandom()
         {
             _mahjongBoard.InitializeBoardRandom();
-            return Ok();
+            var board = _mahjongBoard.GetBoard();
+            return Ok(board);
         }
 
         [HttpPost("Reverse/Initialize/Random")]
         public IActionResult ReverseInitializeBoardDeterministically()
         {
             _mahjongBoard.ReverseInitializeBoardDeterministically();
-            return Ok();
+            var board = _mahjongBoard.GetBoard();
+            return Ok(board);
         }
     }
 }
