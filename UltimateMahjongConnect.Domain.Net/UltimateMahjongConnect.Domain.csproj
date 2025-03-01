@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateMahjongConnect.Database.Net\UltimateMahjongConnect.Database.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Infrastructure.Net\UltimateMahjongConnect.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

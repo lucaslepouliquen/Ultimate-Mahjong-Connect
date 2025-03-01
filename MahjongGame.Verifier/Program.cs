@@ -1,5 +1,4 @@
-﻿using System;
-using UltimateMahjongConnect.Core.Net.Models;
+﻿using UltimateMahjongConnect.Core.Net.Models;
 
 namespace MahjongGameVerifier
 

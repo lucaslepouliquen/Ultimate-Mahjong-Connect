@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UltimateMahjongConnect.Service.DTO;
 using UltimateMahjongConnect.Service.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
@@ -13,17 +14,23 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             _gamerService = gamerService;
         }
 
-        [HttpGet]
+        [HttpPost("gamers")]
         public async Task<IActionResult> GetAllGamers() 
         {
             var gamers = await _gamerService.GetAllGamerAsync();
             return Ok(gamers);
         }
 
-        [HttpGet("{pseudonyme}")]
-        public async Task<IActionResult> GetGamerByPseudonyme(string pseudonyme)
+        [HttpPost]
+        public ActionResult CreateGamer([FromBody] GamerDTO gamer)
         {
-            var gamer = await _gamerService.GetGamerByPseudonymeAsync(pseudonyme);
+            return Ok(_gamerService.AddGamerAsync(gamer));
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetGamerById(int Id)
+        {
+            var gamer = await _gamerService.GetGamerByIdAsync(Id);
             if(gamer ==null)
             {
                 return NotFound();

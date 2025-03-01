@@ -14,13 +14,12 @@
 
   <ItemGroup>
 	  <PackageReference Include="Ardalis.GuardClauses" Version="4.6.0" />
-	  <PackageReference Include="AutoMapper" Version="12.0.1" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateMahjongConnect.Business.Core.Net\UltimateMahjongConnect.Service.csproj" />
-    <ProjectReference Include="..\UltimateMahjongConnect.Core.Net\UltimateMahjongConnect.Business.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Application.Net\UltimateMahjongConnect.Application.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Domain.Net\UltimateMahjongConnect.Domain.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Infrastructure.Net\UltimateMahjongConnect.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

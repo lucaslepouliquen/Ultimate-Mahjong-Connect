@@ -1,4 +1,5 @@
 ﻿using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Service.DTO;
 using UltimateMahjongConnect.Service.Interface;
 
 namespace UltimateMahjongConnect.Service.Services
@@ -40,6 +41,16 @@ namespace UltimateMahjongConnect.Service.Services
         }
 
         public Task<GamerEntity?> GetGamerByPseudonymeAsync(string pseudonyme)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IGamerService.AddGamerAsync(GamerDTO gamerDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<GamerEntity?> IGamerService.GetGamerByIdAsync(int Id)
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,6 @@ using UltimateMahjongConnect.Core.Net.Models;
 using UltimateMahjongConnect.Database.Net.Models;
 using UltimateMahjongConnect.Service;
 using UltimateMahjongConnect.Service.Interface;
-using UltimateMahjongConnect.Service.Profiles;
 using UltimateMahjongConnect.Service.Services;
 using UltimateMahjongConnect.UI.WPF.Interfaces;
 using UltimateMahjongConnect.UI.WPF.Profiles;

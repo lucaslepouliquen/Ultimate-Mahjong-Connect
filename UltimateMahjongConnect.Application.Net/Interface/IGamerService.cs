@@ -1,11 +1,12 @@
 ﻿using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Service.DTO;
 
 namespace UltimateMahjongConnect.Service.Interface
 {
     public interface IGamerService
     {
-        Task AddGamerAsync(GamerEntity gamer);
+        Task<int> AddGamerAsync(GamerDTO gamerDTO);
         Task<List<GamerEntity>> GetAllGamerAsync();
-        Task<GamerEntity?> GetGamerByPseudonymeAsync(string pseudonyme);
+        Task<GamerEntity?> GetGamerByIdAsync(int Id);
     }
 }

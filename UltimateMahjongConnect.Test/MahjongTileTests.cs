@@ -1,3 +1,4 @@
+
 using UltimateMahjongConnect.Core.Net.Models;
 
 namespace UltimateMahjongConnect.Test

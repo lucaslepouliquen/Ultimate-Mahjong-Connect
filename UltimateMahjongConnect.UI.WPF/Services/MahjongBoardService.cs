@@ -1,7 +1,5 @@
 ﻿using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
 using UltimateMahjongConnect.UI.WPF.Interfaces;
-using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF.Services
 {
