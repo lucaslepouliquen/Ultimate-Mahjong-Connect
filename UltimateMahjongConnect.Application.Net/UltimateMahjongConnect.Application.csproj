@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateMahjongConnect.Infrastructure.Net\UltimateMahjongConnect.Infrastructure.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Domain.Net\UltimateMahjongConnect.Domain.csproj" />
   </ItemGroup>
 
 </Project>
