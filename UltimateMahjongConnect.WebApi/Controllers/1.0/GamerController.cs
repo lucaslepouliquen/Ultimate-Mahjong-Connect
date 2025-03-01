@@ -8,8 +8,8 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
     [Route("api/[controller]")]
     public class GamerController : Controller
     {
-        private readonly GamerRepositorie _gamerService;
-        public  GamerController(GamerRepositorie gamerService)
+        private readonly GamerRepository _gamerService;
+        public  GamerController(GamerRepository gamerService)
         {
             _gamerService = gamerService;
         }

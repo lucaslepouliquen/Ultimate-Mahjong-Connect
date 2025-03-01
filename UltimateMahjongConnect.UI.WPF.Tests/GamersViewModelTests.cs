@@ -5,6 +5,7 @@ using UltimateMahjongConnect.UI.WPF.ViewModel;
 using UltimateMahjongConnect.UI.WPF.Model;
 using UltimateMahjongConnect.Application.Interface;
 using UltimateMahjongConnect.Domain.Models;
+using UltimateMahjongConnect.Infrastructure.Persistence;
 
 namespace UltimateMahjongConnect.UI.WPF.Tests
 {

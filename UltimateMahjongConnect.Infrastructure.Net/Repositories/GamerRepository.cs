@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
 using UltimateMahjongConnect.Infrastructure.Models;
+using UltimateMahjongConnect.Domain.Models;
+using UltimateMahjongConnect.Domain.Interfaces; 
 
 namespace UltimateMahjongConnect.Infrastructure.Repositories
 {
-    public class GamerRepositorie : IGamerService
+    public class GamerRepository : IGamerRepository
     {
         private readonly ApplicationDbSQLContext _context;
-        public GamerRepositorie(ApplicationDbSQLContext context)
+        public GamerRepository(ApplicationDbSQLContext context)
         {
             _context = context;
         }
 
-        public async Task<int> AddGamerAsync(GamerEntity gamer)
+        public async Task<int> AddGamerAsync(Gamer gamer)
         {
             try
             {
@@ -25,12 +26,12 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<GamerEntity>> GetAllGamerAsync()
+        public async Task<List<Gamer>> GetAllGamerAsync()
         {
             return await _context.Gamers.ToListAsync();
         }
 
-        public async Task<GamerEntity?> GetGamerByIdAsync(int Id)
+        public async Task<Gamer?> GetGamerByIdAsync(int Id)
         {
             return await _context.Gamers.FirstOrDefaultAsync(g => g.Id == Id);
         }

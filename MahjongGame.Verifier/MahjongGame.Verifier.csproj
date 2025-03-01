@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UltimateMahjongConnect.Application.Net\UltimateMahjongConnect.Application.csproj" />
-    <ProjectReference Include="..\UltimateMahjongConnect.Domain.Net\UltimateMahjongConnect.Domain.csproj" />
   </ItemGroup>
 
 </Project>

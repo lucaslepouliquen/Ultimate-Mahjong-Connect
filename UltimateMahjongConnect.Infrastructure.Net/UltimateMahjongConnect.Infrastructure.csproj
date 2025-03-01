@@ -19,4 +19,8 @@
 	<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UltimateMahjongConnect.Application.Net\UltimateMahjongConnect.Application.csproj" />
+  </ItemGroup>
+
 </Project>
