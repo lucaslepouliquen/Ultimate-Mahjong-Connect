@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UltimateMahjongConnect.Service.Profiles;
+using UltimateMahjongConnect.Application.Profiles;
 using UltimateMahjongConnect.UI.WPF.Profiles;
 
 namespace UltimateMahjongConnect.UI.WPF.Tests

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using UltimateMahjongConnect.Service.Profiles;
+using UltimateMahjongConnect.Application.Profiles;
 
-namespace UltimateMahjongConnect.Service
+namespace UltimateMahjongConnect.Application
 {
     public class AutoMapperConfig
     {

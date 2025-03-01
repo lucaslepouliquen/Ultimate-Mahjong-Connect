@@ -1,7 +1,7 @@
-﻿using UltimateMahjongConnect.Database.Net.Models;
-using UltimateMahjongConnect.Service.DTO;
+﻿using UltimateMahjongConnect.Application.DTO;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Service.Interface
+namespace UltimateMahjongConnect.Application.Interface
 {
     public interface IGamerService
     {

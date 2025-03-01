@@ -1,4 +1,4 @@
-﻿namespace UltimateMahjongConnect.Business.Interfaces
+﻿namespace UltimateMahjongConnect.Domain.Interfaces
 {
     public interface IGamer
     {

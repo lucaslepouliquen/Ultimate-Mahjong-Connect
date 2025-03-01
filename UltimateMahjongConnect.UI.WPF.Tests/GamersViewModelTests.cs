@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Moq;
 using System.Collections.ObjectModel;
-using UltimateMahjongConnect.Service.Interface;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
-using UltimateMahjongConnect.Database.Net.Models;
 using UltimateMahjongConnect.UI.WPF.Model;
-using UltimateMahjongConnect.UI.WPF.Tests;
+using UltimateMahjongConnect.Application.Interface;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Test
+namespace UltimateMahjongConnect.UI.WPF.Tests
 {
     public class GamersViewModelTests
     {

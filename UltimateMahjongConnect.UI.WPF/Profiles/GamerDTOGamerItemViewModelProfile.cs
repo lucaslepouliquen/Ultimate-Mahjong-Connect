@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UltimateMahjongConnect.Service.DTO;
+using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.UI.WPF.Model;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 

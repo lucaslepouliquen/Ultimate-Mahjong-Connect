@@ -1,4 +1,4 @@
-﻿namespace UltimateMahjongConnect.Business.Models
+﻿namespace UltimateMahjongConnect.Domain.Models
 {
     public class MahjongPath
     {

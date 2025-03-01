@@ -1,7 +1,7 @@
-﻿using UltimateMahjongConnect.Business.Models;
-using UltimateMahjongConnect.Core.Net.Models;
+﻿using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Core.Net.Interfaces
+namespace UltimateMahjongConnect.Domain.Interfaces
 {
     public interface IMahjongBoard
     {

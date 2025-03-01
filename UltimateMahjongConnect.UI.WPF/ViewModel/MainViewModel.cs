@@ -1,4 +1,6 @@
-﻿namespace UltimateMahjongConnect.UI.WPF.ViewModel
+﻿using UltimateMahjongConnect.UI.WPF.Command;
+
+namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Infrastructure.Models;
 
 #nullable disable
 

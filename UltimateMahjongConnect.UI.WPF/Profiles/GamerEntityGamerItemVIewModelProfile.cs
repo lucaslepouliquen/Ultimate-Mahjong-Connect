@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
 namespace UltimateMahjongConnect.UI.WPF.Profiles

@@ -1,4 +1,4 @@
-﻿using UltimateMahjongConnect.Core.Net.Interfaces;
+﻿using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.UI.WPF.Interfaces;
 
 namespace UltimateMahjongConnect.UI.WPF.Services

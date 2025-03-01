@@ -1,7 +1,8 @@
-﻿using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
+﻿using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Test.Core.Net
+namespace UltimateMahjongConnect.Test
 {
     public class MahjongBoardTests
     {

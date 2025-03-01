@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using UltimateMahjongConnect.Database.Net.Models;
-using UltimateMahjongConnect.Service.DTO;
+using UltimateMahjongConnect.Application.DTO;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Service.Profiles
+namespace UltimateMahjongConnect.Application.Profiles
 {
     public class GamerEntityDTOProfile : Profile
     {

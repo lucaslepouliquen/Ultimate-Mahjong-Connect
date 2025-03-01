@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
-namespace RDLoreal.Microbio.Server.WebApi.Net.Configurations;
+namespace Ultimate_Mahjong_Connect.Configurations;
 
 public class SwaggerGenConfiguration : IConfigureOptions<SwaggerGenOptions>
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UltimateMahjongConnect.Service.DTO;
-using UltimateMahjongConnect.Service.Services;
+using UltimateMahjongConnect.Application.DTO;
+using UltimateMahjongConnect.Infrastructure.Repositories;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
@@ -8,8 +8,8 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
     [Route("api/[controller]")]
     public class GamerController : Controller
     {
-        private readonly GamerService _gamerService;
-        public  GamerController(GamerService gamerService)
+        private readonly GamerRepositorie _gamerService;
+        public  GamerController(GamerRepositorie gamerService)
         {
             _gamerService = gamerService;
         }

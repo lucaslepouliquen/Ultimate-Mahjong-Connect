@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
-namespace RDLoreal.Microbio.Server.WebApi.Net.Configurations;
+namespace Ultimate_Mahjong_Connect.Configurations;
 
 public static class ServiceConfiguration
 {

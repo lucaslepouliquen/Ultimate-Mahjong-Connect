@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UltimateMahjongConnect.Service.DTO
+namespace UltimateMahjongConnect.Application.DTO
 {
     public class GamerDTO
     {

@@ -1,8 +1,8 @@
-﻿using UltimateMahjongConnect.Database.Net.Models;
-using UltimateMahjongConnect.Service.DTO;
-using UltimateMahjongConnect.Service.Interface;
+﻿using UltimateMahjongConnect.Application.DTO;
+using UltimateMahjongConnect.Application.Interface;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace UltimateMahjongConnect.Service.Services
+namespace UltimateMahjongConnect.Application.Services
 {
     public class MockGamerService : IGamerService
     {

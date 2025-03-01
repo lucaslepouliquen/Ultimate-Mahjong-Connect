@@ -1,6 +1,7 @@
 ﻿using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Models;
 
-namespace MahjongGameVerifier
+namespace MahjongGame.Verifier
 
 {
     class Program

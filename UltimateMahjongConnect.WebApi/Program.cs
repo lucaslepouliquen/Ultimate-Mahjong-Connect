@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using RDLoreal.Microbio.Server.WebApi.Net.Configurations;
+using Ultimate_Mahjong_Connect.Configurations;
 using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
-using UltimateMahjongConnect.Database.Net.Models;
+using UltimateMahjongConnect.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 
-namespace UltimateMahjongConnect.UI.WPF.Conv
+namespace UltimateMahjongConnect.UI.WPF.Converter
 {
     public class NavigationSideToGridColumnConverter : IValueConverter
     {

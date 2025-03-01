@@ -1,8 +1,7 @@
 ﻿using UltimateMahjongConnect.Business.Interfaces;
-using UltimateMahjongConnect.Business.Models;
-using UltimateMahjongConnect.Core.Net.Interfaces;
+using UltimateMahjongConnect.Domain.Interfaces;
 
-namespace UltimateMahjongConnect.Core.Net.Models
+namespace UltimateMahjongConnect.Domain.Models
 {
     public class MahjongBoard : IMahjongBoard
     {
@@ -73,7 +72,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if ((i == 1 && j == 1) || (i == 1 || j == 4))
+                    if (i == 1 && j == 1 || i == 1 || j == 4)
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -93,7 +92,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if ((i == 11 && j == 3) || (i == 5 || j == 12))
+                    if (i == 11 && j == 3 || i == 5 || j == 12)
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -113,7 +112,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if ((i == 11 && j == 12) || (i == 5 || j == 3))
+                    if (i == 11 && j == 12 || i == 5 || j == 3)
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -133,7 +132,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if ((i == 5 && j == 3) || (i == 11 || j == 12))
+                    if (i == 5 && j == 3 || i == 11 || j == 12)
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -153,7 +152,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    if ((i == 5 && j == 12) || (i == 11 || j == 5))
+                    if (i == 5 && j == 12 || i == 11 || j == 5)
                     {
                         _board[i, j] = new MahjongTile(MahjongTileCategory.Bamboo, 1);
                     }
@@ -224,8 +223,8 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
         private bool IsPathClear(int row1, int column1, int row2, int column2)
         {
-            return (row1 == row2 && IsHorizontalPathClear(row1, column1, column2)) ||
-                   (column1 == column2 && IsVerticalPathClear(column1, row1, row2)) ||
+            return row1 == row2 && IsHorizontalPathClear(row1, column1, column2) ||
+                   column1 == column2 && IsVerticalPathClear(column1, row1, row2) ||
                    IsLShapedPathClear(row1, column1, row2, column2) ||
                    IsThreeSegmentPathClear(row1, column1, row2, column2);
         }

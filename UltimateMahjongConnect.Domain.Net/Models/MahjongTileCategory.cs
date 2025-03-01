@@ -1,4 +1,4 @@
-﻿namespace UltimateMahjongConnect.Core.Net.Models
+﻿namespace UltimateMahjongConnect.Domain.Models
 {
     public enum MahjongTileCategory
     {

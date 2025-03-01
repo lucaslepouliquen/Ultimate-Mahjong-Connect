@@ -1,26 +1,21 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using UltimateMahjongConnect.Application.DTO;
-using UltimateMahjongConnect.Application.Interface;
-using UltimateMahjongConnect.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using UltimateMahjongConnect.Infrastructure.Models;
 
-namespace UltimateMahjongConnect.Application.Services
+namespace UltimateMahjongConnect.Infrastructure.Repositories
 {
-    public class GamerService : IGamerService
+    public class GamerRepositorie : IGamerService
     {
         private readonly ApplicationDbSQLContext _context;
-        private IMapper _mapper;
-        public GamerService(ApplicationDbSQLContext context)
+        public GamerRepositorie(ApplicationDbSQLContext context)
         {
             _context = context;
         }
 
-        public async Task<int> AddGamerAsync(GamerDTO gamer)
+        public async Task<int> AddGamerAsync(GamerEntity gamer)
         {
             try
             {
-                var gamerEntity = _mapper.Map<GamerEntity>(gamer);
-                _context.Gamers.Add(gamerEntity);
+                _context.Gamers.Add(gamer);
                 await _context.SaveChangesAsync();
                 return gamer.Id;
             }

@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
-using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
-using UltimateMahjongConnect.Database.Net.Models;
-using UltimateMahjongConnect.Service;
-using UltimateMahjongConnect.Service.Interface;
-using UltimateMahjongConnect.Service.Services;
+using UltimateMahjongConnect.Application;
+using UltimateMahjongConnect.Application.Interface;
+using UltimateMahjongConnect.Application.Services;
+using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.Domain.Models;
+using UltimateMahjongConnect.Infrastructure.Models;
+using UltimateMahjongConnect.Infrastructure.Repositories;
 using UltimateMahjongConnect.UI.WPF.Interfaces;
 using UltimateMahjongConnect.UI.WPF.Profiles;
 using UltimateMahjongConnect.UI.WPF.Services;
@@ -54,7 +55,7 @@ namespace UltimateMahjongConnect.UI.WPF
             services.AddTransient<MahjongBoardViewModel>();
 
             services.AddTransient<Gamer>();
-            services.AddTransient<GamerService>();
+            services.AddTransient<GamerRepositorie>();
             services.AddTransient<GamersViewModel>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainWindow>(provider =>

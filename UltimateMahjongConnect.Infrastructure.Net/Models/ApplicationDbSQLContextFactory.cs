@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace UltimateMahjongConnect.Database.Net.Models
+namespace UltimateMahjongConnect.Infrastructure.Models
 {
     public class ApplicationDbSQLContextFactory : IDesignTimeDbContextFactory<ApplicationDbSQLContext>
     {

@@ -1,6 +1,6 @@
-﻿using UltimateMahjongConnect.Core.Net.Interfaces;
+﻿using UltimateMahjongConnect.Domain.Interfaces;
 
-namespace UltimateMahjongConnect.Core.Net.Models
+namespace UltimateMahjongConnect.Domain.Models
 {
     public class MahjongTile : IMahjongTile
     {
@@ -34,7 +34,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             _isMatched = false;
         }
 
-        public MahjongTile(Boolean isRemoved)
+        public MahjongTile(bool isRemoved)
         {
             _isRemoved = isRemoved;
             _isMatched = false;
@@ -68,7 +68,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
             {
                 for (int i = 0; i < repetitions; i++)
                 {
-                    var tileValue = (category == MahjongTileCategory.Flowers || category == MahjongTileCategory.Seasons) ? 1 : value;
+                    var tileValue = category == MahjongTileCategory.Flowers || category == MahjongTileCategory.Seasons ? 1 : value;
                     yield return new MahjongTile(category, tileValue);
                 }
             }
@@ -96,7 +96,7 @@ namespace UltimateMahjongConnect.Core.Net.Models
 
         public bool CanBeMatched(MahjongTile otherTile)
         {
-            if (otherTile == null || this._isRemoved || otherTile._isRemoved)
+            if (otherTile == null || _isRemoved || otherTile._isRemoved)
                 return false;
             var IsMatched = otherTile is { _category: var category, _value: var value } && _category == category && _value == value;
             return IsMatched;
@@ -109,11 +109,11 @@ namespace UltimateMahjongConnect.Core.Net.Models
         }
 
 
-        public override String ToString()
+        public override string ToString()
         {
             if (_isRemoved)
             {
-                return String.Empty;
+                return string.Empty;
             }
             return $"[{Category.ToString().Substring(0, 3)}-{Value}]";
         }

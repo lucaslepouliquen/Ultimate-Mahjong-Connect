@@ -1,4 +1,4 @@
-﻿namespace UltimateMahjongConnect.Database.Net.Models
+﻿namespace UltimateMahjongConnect.Domain.Models
 {
     public class GamerEntity
     {

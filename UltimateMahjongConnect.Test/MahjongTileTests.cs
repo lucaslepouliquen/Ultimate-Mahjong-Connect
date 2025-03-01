@@ -1,5 +1,6 @@
 
 using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Models;
 
 namespace UltimateMahjongConnect.Test
 {

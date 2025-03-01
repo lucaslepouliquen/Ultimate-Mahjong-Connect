@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using System.Collections.ObjectModel;
-using UltimateMahjongConnect.Service.DTO;
-using UltimateMahjongConnect.Service.Interface;
+using UltimateMahjongConnect.Application.DTO;
+using UltimateMahjongConnect.Application.Interface;
+using UltimateMahjongConnect.UI.WPF.Command;
 using UltimateMahjongConnect.UI.WPF.Model;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel

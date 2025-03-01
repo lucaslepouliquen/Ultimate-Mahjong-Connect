@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using UltimateMahjongConnect.Business.Models;
-using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.UI.WPF.Interfaces;
 using UltimateMahjongConnect.UI.WPF.Services;
 

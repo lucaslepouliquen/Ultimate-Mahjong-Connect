@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
+using UltimateMahjongConnect.UI.WPF.ViewModel;
 
-namespace UltimateMahjongConnect.UI.WPF.ViewModel
+namespace UltimateMahjongConnect.UI.WPF.Command
 {
     public class DelegateCommand : ICommand
     {

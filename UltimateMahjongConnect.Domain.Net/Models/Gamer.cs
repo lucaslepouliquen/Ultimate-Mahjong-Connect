@@ -1,7 +1,7 @@
 ﻿using System;
-using UltimateMahjongConnect.Business.Interfaces;
+using UltimateMahjongConnect.Domain.Interfaces;
 
-namespace UltimateMahjongConnect.Core.Net.Models
+namespace UltimateMahjongConnect.Domain.Models
 {
     public class Gamer : IGamer
     {

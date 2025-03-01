@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using UltimateMahjongConnect.Business.Models;
-using UltimateMahjongConnect.Core.Net.Interfaces;
 using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
