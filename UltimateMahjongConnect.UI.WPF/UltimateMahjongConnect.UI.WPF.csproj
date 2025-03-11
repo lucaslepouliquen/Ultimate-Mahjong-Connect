@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UltimateMahjongConnect.Application.Net\UltimateMahjongConnect.Application.csproj" />
+    <ProjectReference Include="..\UltimateMahjongConnect.Infrastructure.Net\UltimateMahjongConnect.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

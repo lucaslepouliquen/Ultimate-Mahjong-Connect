@@ -1,5 +1,4 @@
-﻿using UltimateMahjongConnect.Core.Net.Models;
-using UltimateMahjongConnect.Domain.Models;
+﻿using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.UI.WPF.Services;
 using UltimateMahjongConnect.UI.WPF.ViewModel;
 

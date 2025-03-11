@@ -1,5 +1,4 @@
-﻿using UltimateMahjongConnect.Core.Net.Models;
-using UltimateMahjongConnect.Domain.Interfaces;
+﻿using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.Domain.Models;
 
 namespace UltimateMahjongConnect.Test

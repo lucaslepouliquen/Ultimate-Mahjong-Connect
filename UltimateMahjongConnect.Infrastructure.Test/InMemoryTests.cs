@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using UltimateMahjongConnect.Infrastructure.Models;
+using UltimateMahjongConnect.Infrastructure.Persistence;
 namespace UltimateMahjongConnect.Infrastructure.Test
 {
     public class InMemoryTests

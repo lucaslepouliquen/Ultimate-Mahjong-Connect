@@ -7,7 +7,7 @@ namespace UltimateMahjongConnect.Application
     {
         public static void RegisterMappings(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(GamerEntityDTOProfile));
+            services.AddAutoMapper(typeof(GamerDTOProfile));
         }
     }
 }

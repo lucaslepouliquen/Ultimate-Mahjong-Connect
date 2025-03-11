@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Ultimate_Mahjong_Connect.Configurations;
-using UltimateMahjongConnect.Core.Net.Interfaces;
-using UltimateMahjongConnect.Core.Net.Models;
+using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 

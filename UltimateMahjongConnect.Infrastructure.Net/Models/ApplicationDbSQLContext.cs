@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using UltimateMahjongConnect.Infrastructure.Persistence;
 
 namespace UltimateMahjongConnect.Infrastructure.Models
 {

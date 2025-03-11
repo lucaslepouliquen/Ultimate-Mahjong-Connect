@@ -1,24 +1,32 @@
 using UltimateMahjongConnect.Infrastructure.Models;
+using UltimateMahjongConnect.Application.Interface;
+using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.Domain.Models;
-using UltimateMahjongConnect.Domain.Interfaces; 
+using UltimateMahjongConnect.Infrastructure.Persistence;
+using AutoMapper;
 
 namespace UltimateMahjongConnect.Infrastructure.Repositories
 {
     public class GamerRepository : IGamerRepository
     {
         private readonly ApplicationDbSQLContext _context;
-        public GamerRepository(ApplicationDbSQLContext context)
+        private readonly IMapper _mapper;
+
+        public GamerRepository(ApplicationDbSQLContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         public async Task<int> AddGamerAsync(Gamer gamer)
         {
             try
             {
-                _context.Gamers.Add(gamer);
+                var entity = _mapper.Map<GamerEntity>(gamer);
+                _context.Gamers.Add(entity);
                 await _context.SaveChangesAsync();
-                return gamer.Id;
+                return entity.Id;
             }
             catch (Exception)
             {
@@ -26,14 +34,26 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<Gamer>> GetAllGamerAsync()
+        public async Task<List<GamerDTO>> GetAllGamerAsync()
         {
-            return await _context.Gamers.ToListAsync();
+            var entities = await _context.Gamers.ToListAsync();
+            return _mapper.Map<List<GamerDTO>>(entities);
         }
 
-        public async Task<Gamer?> GetGamerByIdAsync(int Id)
+        public async Task<GamerDTO?> GetGamerByIdAsync(int id)
         {
-            return await _context.Gamers.FirstOrDefaultAsync(g => g.Id == Id);
+            var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
+            return entity != null ? _mapper.Map<GamerDTO>(entity) : null;
+        }
+
+        Task<List<Gamer>> IGamerRepository.GetAllGamerAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Gamer?> IGamerRepository.GetGamerByIdAsync(int Id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

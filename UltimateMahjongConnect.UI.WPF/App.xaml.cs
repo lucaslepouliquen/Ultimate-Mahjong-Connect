@@ -5,7 +5,6 @@ using System;
 using System.Windows;
 using UltimateMahjongConnect.Application;
 using UltimateMahjongConnect.Application.Interface;
-using UltimateMahjongConnect.Application.Services;
 using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
@@ -20,7 +19,7 @@ namespace UltimateMahjongConnect.UI.WPF
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private IServiceProvider? _serviceProvider;
 
@@ -48,14 +47,12 @@ namespace UltimateMahjongConnect.UI.WPF
             
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddTransient<IGamerService, MockGamerService>();
             services.AddTransient<IMahjongTile, MahjongTile>();
             services.AddTransient<IMahjongBoard, MahjongBoard>();
             services.AddTransient<IMahjongBoardService, MahjongBoardService>();
             services.AddTransient<MahjongBoardViewModel>();
 
             services.AddTransient<Gamer>();
-            services.AddTransient<GamerRepository>();
             services.AddTransient<GamersViewModel>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainWindow>(provider =>

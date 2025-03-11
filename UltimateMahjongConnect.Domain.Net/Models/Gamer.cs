@@ -1,5 +1,4 @@
-﻿using System;
-using UltimateMahjongConnect.Domain.Interfaces;
+﻿using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace UltimateMahjongConnect.Domain.Models
 {

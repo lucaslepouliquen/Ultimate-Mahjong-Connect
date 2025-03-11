@@ -10,7 +10,7 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<GamerEntityDTOProfile>();
+                cfg.AddProfile<GamerDTOProfile>();
                 cfg.AddProfile<GamerDTOGamerItemViewModelProfile>();
                 cfg.AddProfile<GamerEntityGamerItemVIewModelProfile>();
             });

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UltimateMahjongConnect.Core.Net.Interfaces;
+using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {

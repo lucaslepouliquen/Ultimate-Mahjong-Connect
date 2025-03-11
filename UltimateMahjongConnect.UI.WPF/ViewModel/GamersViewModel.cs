@@ -9,12 +9,12 @@ namespace UltimateMahjongConnect.UI.WPF.ViewModel
 {
     public class GamersViewModel : ValidationViewModelBase
     {
-        private readonly IGamerService _gamerService;
+        private readonly IGamerRepository _gamerService;
         private readonly IMapper _mapper;
         private GamerItemViewModel? _selectedGamer;
         private NavigationSide _navigationSide;
 
-        public GamersViewModel(IGamerService gamerService, IMapper mapper)
+        public GamersViewModel(IGamerRepository gamerService, IMapper mapper)
         {
             _gamerService = gamerService;
             _mapper = mapper;
