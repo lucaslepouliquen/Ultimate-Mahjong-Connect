@@ -13,7 +13,7 @@ namespace UltimateMahjongConnect.Infrastructure.Models
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 
             return new ApplicationDbSQLContext(optionsBuilder.Options);
         }

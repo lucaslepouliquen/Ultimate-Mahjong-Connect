@@ -38,7 +38,7 @@ namespace UltimateMahjongConnect.Infrastructure.Models
                     .AddEnvironmentVariables()
                     .Build();
 
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
             }
         } 
     }

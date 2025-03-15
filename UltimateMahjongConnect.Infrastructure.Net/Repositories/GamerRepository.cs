@@ -34,26 +34,16 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<GamerDTO>> GetAllGamerAsync()
+        public async Task<List<Gamer>> GetAllGamerAsync()
         {
             var entities = await _context.Gamers.ToListAsync();
-            return _mapper.Map<List<GamerDTO>>(entities);
+            return _mapper.Map<List<Gamer>>(entities);
         }
 
-        public async Task<GamerDTO?> GetGamerByIdAsync(int id)
+        public async Task<Gamer?> GetGamerByIdAsync(int id)
         {
             var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
-            return entity != null ? _mapper.Map<GamerDTO>(entity) : null;
-        }
-
-        Task<List<Gamer>> IGamerRepository.GetAllGamerAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Gamer?> IGamerRepository.GetGamerByIdAsync(int Id)
-        {
-            throw new NotImplementedException();
+            return entity != null ? _mapper.Map<Gamer>(entity) : null;
         }
     }
 }

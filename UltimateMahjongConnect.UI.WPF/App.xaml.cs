@@ -36,7 +36,7 @@ namespace UltimateMahjongConnect.UI.WPF
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbSQLContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=UltimateMahjongConnect;Trusted_Connection=True;MultipleActiveResultSets=true"));
+                options.UseSqlite("Server=(localdb)\\mssqllocaldb;Database=UltimateMahjongConnect;Trusted_Connection=True;MultipleActiveResultSets=true"));
             AutoMapperConfig.RegisterMappings(services);
             
             var mappingConfig = new MapperConfiguration(mc =>

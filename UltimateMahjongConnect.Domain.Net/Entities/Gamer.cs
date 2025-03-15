@@ -10,6 +10,9 @@ namespace UltimateMahjongConnect.Domain.Models
         private readonly string _password;
         private int _completedLevels;
         private int score { get; set; }
+        public int Age => _age;
+        public string Email => _email;
+        public string Pseudonyme => _pseudonyme;
         public int Score => score;
         public Gamer()
         {
