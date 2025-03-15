@@ -1,53 +1,34 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using UltimateMahjongConnect.Application.Interface;
-using UltimateMahjongConnect.Domain.Models;
-using UltimateMahjongConnect.Infrastructure.Models;
-using UltimateMahjongConnect.Infrastructure.Persistence;
+﻿using Microsoft.AspNetCore.Mvc;
+using UltimateMahjongConnect.Application.Services;
 
-namespace UltimateMahjongConnect.Infrastructure.Repositories
+namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
-    public class GamerRepository : IGamerRepository
+    [ApiController]
+    [Route("api/[controller]")]
+    public class GamerController : Controller
     {
-        private readonly ApplicationDbSQLContext _context;
-        private readonly IMapper _mapper;
-
-        public GamerRepository(ApplicationDbSQLContext context, IMapper mapper)
+        private readonly GamerService _gamerService;
+        public GamerController(GamerService gamerService)
         {
-            _context = context;
-            _mapper = mapper;
+            _gamerService = gamerService;
         }
 
-        public async Task<int> AddGamerAsync(Gamer gamer)
+        [HttpGet]
+        public async Task<IActionResult> GetAllGamers()
         {
-            try
+            var gamers = await _gamerService.GetAllGamerAsync();
+            return Ok(gamers);
+        }
+
+        [HttpGet("{pseudonyme}")]
+        public async Task<IActionResult> GetGamerByPseudonyme(string pseudonyme)
+        {
+            var gamer = await _gamerService.GetGamerByPseudonymeAsync(pseudonyme);
+            if (gamer == null)
             {
-                var entity = _mapper.Map<GamerEntity>(gamer);
-                _context.Gamers.Add(entity);
-                await _context.SaveChangesAsync();
-                return entity.Id;
+                return NotFound();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public Task<List<Gamer>> GetAllGamerAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Gamer>> GetAllGamersAsync()
-        {
-            var entities = await _context.Gamers.ToListAsync();
-            return _mapper.Map<List<Gamer>>(entities);
-        }
-
-        public async Task<Gamer?> GetGamerByIdAsync(int id)
-        {
-            var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
-            return entity != null ? _mapper.Map<Gamer>(entity) : null;
+            return Ok(gamer);
         }
     }
 }
