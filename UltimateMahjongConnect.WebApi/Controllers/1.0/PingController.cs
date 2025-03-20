@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
 namespace Ultimate_Mahjong_Connect.Controllers.V1;
@@ -8,6 +9,7 @@ namespace Ultimate_Mahjong_Connect.Controllers.V1;
 [ApiController]
 public class PingController : ControllerBase
 {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<string>> Get()
     {

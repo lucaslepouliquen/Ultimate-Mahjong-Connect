@@ -26,16 +26,16 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
         {
             yield return new object[]
             {
-                new List<GamerEntity>(),
+                new List<Gamer>(),
                 new List<GamerModel>() 
             };
 
             yield return new object[]
             {
-                new List<GamerEntity>
+                new List<Gamer>
                 {
-                    new GamerEntity { Id = 1, Pseudonyme = "Gamer1" },
-                    new GamerEntity { Id = 2, Pseudonyme = "Gamer2" }
+                    new Gamer("Joueur1", 25, "joueur1@example.com"),
+                    new Gamer("Joueur2", 30, "joueur2@example.com")
                 },
                 new List<GamerModel>
                 {
@@ -45,20 +45,20 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             };
         }
 
-        //[Theory]
-        //[MemberData(nameof(GetGamerEntityAndViewModelsTestData))]
-        //public async Task LoadGamerAsync_ShouldLoadCorrectGamers(List<GamerEntity> gamersEntity, List<GamerModel> expectedGamers)
-        //{
-        //    // Arrange
-        //    _gamerServiceMock.Setup(x => x.GetAllGamerAsync()).ReturnsAsync(gamersEntity);
+        [Theory]
+        [MemberData(nameof(GetGamerEntityAndViewModelsTestData))]
+        public async Task LoadGamerAsync_ShouldLoadCorrectGamers(List<Gamer> gamers, List<GamerModel> expectedGamers)
+        {
+            // Arrange
+            _gamerServiceMock.Setup(x => x.GetAllGamerAsync()).ReturnsAsync(gamers);
 
-        //    // Act
-        //    await _gamersViewModel.LoadGamerAsync();
+            // Act
+            await _gamersViewModel.LoadGamerAsync();
 
-        //    // Assert
-        //    Assert.Equal(expectedGamers.Select(g => g.Id), _gamersViewModel.Gamers.Select(g => g.Id));
-        //    Assert.Equal(expectedGamers.Select(g => g.Pseudonyme), _gamersViewModel.Gamers.Select(g => g.Pseudonyme));
-        //}
+            // Assert
+            Assert.Equal(expectedGamers.Select(g => g.Id), _gamersViewModel.Gamers.Select(g => g.Id));
+            Assert.Equal(expectedGamers.Select(g => g.Pseudonyme), _gamersViewModel.Gamers.Select(g => g.Pseudonyme));
+        }
 
         [Fact]
         public void MoveNavigation_ShouldChangeNavigationSide()

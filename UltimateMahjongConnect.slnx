@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="UltimateMahjongConnect.WebApi/UltimateMahjongConnect.Server.WebApi.Net.csproj" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="MahjongGame.Verifier/MahjongGame.Verifier.csproj" />
+    <Project Path="UltimateMahjongConnect.Application.Net/UltimateMahjongConnect.Application.csproj" />
+    <Project Path="UltimateMahjongConnect.Domain.Net/UltimateMahjongConnect.Domain.csproj" />
+    <Project Path="UltimateMahjongConnect.Test/UltimateMahjongConnect.Test.csproj">
+      <BuildDependency Project="UltimateMahjongConnect.Application.Net/UltimateMahjongConnect.Application.csproj" />
+      <BuildDependency Project="UltimateMahjongConnect.Domain.Net/UltimateMahjongConnect.Domain.csproj" />
+    </Project>
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="UltimateMahjongConnect.Infrastructure.Net/UltimateMahjongConnect.Infrastructure.csproj" />
+    <Project Path="UltimateMahjongConnect.Infrastructure.Test/UltimateMahjongConnect.Infrastructure.Test.csproj" />
+  </Folder>
+  <Folder Name="/UI/">
+    <Project Path="UltimateMahjongConnect.UI.WPF.Tests/UltimateMahjongConnect.UI.WPF.Tests.csproj" />
+    <Project Path="UltimateMahjongConnect.UI.WPF/UltimateMahjongConnect.UI.WPF.csproj" />
+  </Folder>
+</Solution>
