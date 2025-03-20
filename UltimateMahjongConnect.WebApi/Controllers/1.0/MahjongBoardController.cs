@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
@@ -13,6 +14,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             _mahjongBoard = mahjongBoard;
         }
 
+        [AllowAnonymous]
         [HttpGet("board")]
         public IActionResult InitializeBoardRandom([FromQuery] string mode= "deterministic")
         {
@@ -27,6 +29,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok(_mahjongBoard.GetBoard());
         }
 
+        [AllowAnonymous]
         [HttpGet("boards/path")]
         public IActionResult GetPath([FromQuery] int row1, [FromQuery] int column1, [FromQuery] int row2, [FromQuery] int column2)
         {

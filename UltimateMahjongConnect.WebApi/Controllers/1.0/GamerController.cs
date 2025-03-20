@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UltimateMahjongConnect.Application.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
@@ -13,6 +14,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             _gamerService = gamerService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllGamers()
         {
@@ -20,6 +22,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok(gamers);
         }
 
+        [AllowAnonymous]
         [HttpGet("{pseudonyme}")]
         public async Task<IActionResult> GetGamerByPseudonyme(string pseudonyme)
         {
