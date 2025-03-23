@@ -23,12 +23,7 @@ builder.Services.AddDbContext<ApplicationDbSQLContext>(options =>
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.DefaultPolicy = new AuthorizationPolicyBuilder()
-    .RequireAuthenticatedUser().Build();
-    options.AddPolicy("AllowAnonymous", policy => {});
-});
+builder.Services.AddAuthorization();
 
 
 builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
