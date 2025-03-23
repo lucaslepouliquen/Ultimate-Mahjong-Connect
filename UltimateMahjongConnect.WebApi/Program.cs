@@ -25,8 +25,12 @@ builder.Services.AddDbContext<ApplicationDbSQLContext>(options =>
 
 builder.Services.AddAuthorization();
 
-
-builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddAuthentication(options => {
+    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+}).AddCookie(IdentityConstants.ApplicationScheme);
 
 builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbSQLContext>()
@@ -113,18 +117,16 @@ if (app.Environment.IsDevelopment())
       });
 }
 
+app.UseRouting();
 app.UseHttpsRedirection();
-
 app.UseCors(policy => policy
     .WithOrigins("http://localhost:4200")
+    .WithOrigins("http://localhost:9876")
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials());
-
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
