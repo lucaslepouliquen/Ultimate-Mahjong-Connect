@@ -5,6 +5,7 @@ using UltimateMahjongConnect.Application.Interface;
 using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.Domain.Models;
 using AutoMapper;
+using System.Data.Common;
 
 namespace UltimateMahjongConnect.Application.Services
 {
@@ -52,6 +53,23 @@ namespace UltimateMahjongConnect.Application.Services
             }
         }
 
+        public async Task<GamerDTO?> GetGamerByIdAsync(int id)
+        {
+            if (id <= 0) throw new ArgumentException("L'identifiant du joueur doit être supérieur à 0", nameof(id));
+            else
+            {
+                try
+                {
+                    var gamer = await _gamerRepository.GetGamerByIdAsync(id);
+                    return gamer != null ? _mapper.Map<GamerDTO>(gamer) : null;
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException($"Une erreur est survenue lors de la récupération du joueur avec le pseudonyme '{id}'", ex);
+                }
+            }
+        }
+
         public async Task<int> CreateGamerAsync(GamerDTO gamerDTO)
         {
             if (gamerDTO == null)
@@ -72,6 +90,35 @@ namespace UltimateMahjongConnect.Application.Services
             catch (Exception ex)
             {
                 throw new ApplicationException("Une erreur est survenue lors de la création du joueur", ex);
+            }
+        }
+
+        public async Task<Gamer> UpdateGamerAsync(GamerDTO gamerDTO)
+        {
+            if (gamerDTO == null)
+            {
+                throw new ArgumentNullException(nameof(gamerDTO));
+            }
+            if (gamerDTO.Id <= 0)
+            {
+                throw new ArgumentException("L'identifiant du joueur doit être supérieur à 0", nameof(gamerDTO));
+            }
+            try
+            {
+                var foundGamer = await GetGamerByIdAsync(gamerDTO.Id);
+                if (foundGamer != null)
+                {
+                    var gamer = _mapper.Map<Gamer>(gamerDTO);
+                    return await _gamerRepository.UpdatedGamerAsync(gamer);
+                }
+                else
+                {
+                    throw new ApplicationException($"Le joueur avec l'identifiant '{gamerDTO.Id}' n'existe pas");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Une erreur est survenue lors de la mise à jour du joueur", ex);
             }
         }
     }
