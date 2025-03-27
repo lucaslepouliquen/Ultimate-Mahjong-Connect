@@ -13,7 +13,14 @@ public class PingController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<string>> Get()
     {
-        var result = await Task.FromResult($"Pong from {Assembly.GetExecutingAssembly().GetName().Name} : server is alive !");
-        return Ok(result);
+        try
+        {
+            var result = await Task.FromResult($"Pong from {Assembly.GetExecutingAssembly().GetName().Name} : server is alive !");
+            return Ok(result);
+        } catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        
     }
 }
