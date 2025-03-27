@@ -45,5 +45,13 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
             return entity != null ? _mapper.Map<Gamer>(entity) : null;
         }
+
+        public async Task<Gamer?> UpdatedGamerAsync(Gamer gamer)
+        {
+            var entity = _mapper.Map<GamerEntity>(gamer);
+            _context.Gamers.Update(entity);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<Gamer>(entity);
+        }
     }
 }

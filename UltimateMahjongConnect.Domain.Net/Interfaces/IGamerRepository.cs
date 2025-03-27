@@ -7,5 +7,6 @@ namespace UltimateMahjongConnect.Domain.Interfaces
         Task AddAsync(Gamer gamer);
         Task<List<Gamer>> GetAllAsync();
         Task<Gamer?> GetByIdAsync(int id);
+        Task<Gamer?> UpdatedGamerAsync(Gamer gamer);
     }
 }
