@@ -4,8 +4,9 @@ using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
+    [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:ApiVersion}/board")]
     public class MahjongBoardController : Controller
     {
         private readonly IMahjongBoard _mahjongBoard;
@@ -15,7 +16,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         }
 
         [AllowAnonymous]
-        [HttpGet("board")]
+        [HttpGet()]
         public IActionResult InitializeBoardRandom([FromQuery] string mode = "deterministic")
         {
             try
@@ -38,7 +39,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         }
 
         [AllowAnonymous]
-        [HttpGet("boards/path")]
+        [HttpGet("path")]
         public IActionResult GetPath([FromQuery] int row1, [FromQuery] int column1, [FromQuery] int row2, [FromQuery] int column2)
         {
             try {
