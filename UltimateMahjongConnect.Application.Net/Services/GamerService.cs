@@ -9,7 +9,7 @@ using System.Data.Common;
 
 namespace UltimateMahjongConnect.Application.Services
 {
-    public class GamerService
+    public class GamerService : IGamerService
     {
         private readonly IGamerRepository _gamerRepository;
         private readonly IMapper _mapper;

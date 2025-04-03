@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using Ultimate_Mahjong_Connect.Configurations;
 using UltimateMahjongConnect.Application.Interface;
 using UltimateMahjongConnect.Application.Profiles;
@@ -76,7 +78,13 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
 });
 
-builder.Services.AddApiVersioningService().AddSwaggerGen().ConfigureOptions<SwaggerGenConfiguration>();
+builder.Services.AddApiVersioningService().AddSwaggerGen(options =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+})
+    .ConfigureOptions<SwaggerGenConfiguration>();
 
 builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
 
@@ -87,7 +95,7 @@ builder.Services.AddAutoMapper(
     typeof(GamerEntityProfile).Assembly
     );
 builder.Services.AddTransient<IGamerRepository,GamerRepository>();
-builder.Services.AddTransient<GamerService>();
+builder.Services.AddTransient<IGamerService,GamerService>();
 builder.Services.AddTransient<IMahjongTile, MahjongTile>();
 builder.Services.AddTransient<IMahjongBoard, MahjongBoard>();
 
@@ -109,6 +117,7 @@ if (app.Environment.IsDevelopment())
     _ = app.UseSwagger()
       .UseSwaggerUI(options =>
       {
+          options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
           IApiVersionDescriptionProvider provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
           foreach (ApiVersionDescription item in provider.ApiVersionDescriptions)
           {
