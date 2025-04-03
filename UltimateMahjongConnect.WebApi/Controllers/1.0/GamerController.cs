@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.Application.Services;
@@ -11,12 +13,21 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
     [Route("api/v{version:ApiVersion}/gamers")]
     public class GamerController : Controller
     {
-        private readonly GamerService _gamerService;
-        public GamerController(GamerService gamerService)
+        private readonly IGamerService _gamerService;
+        public GamerController(IGamerService gamerService)
         {
             _gamerService = gamerService;
         }
 
+        /// <summary>
+        /// Get all gamers
+        /// </summary>
+        /// <returns>A list of all gamers</returns>
+        /// <remarks>
+        /// Sample request:
+        ///     Get /api/v1/gamers
+        /// </remarks>
+        /// <response code="200">Returns the list of all gamers</response>
         [AllowAnonymous]
         [HttpGet()]
         public async Task<IActionResult> GetAllGamers()
@@ -25,9 +36,16 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok(gamers);
         }
 
+        /// <summary>
+        /// Get gamer by pseudonyme
+        /// </summary>
+        /// <param name="pseudonyme"></param>
+        /// <returns></returns>
+        /// <response code="200">Returns the gamer by is pseudonyme</response>
+        /// <response code="400">The gamer is not found</response>
         [AllowAnonymous]
-        [HttpGet("{pseudonyme}")]
-        public async Task<IActionResult> GetGamerByPseudonyme(string pseudonyme)
+        [HttpGet("byPseudonyme")]
+        public async Task<IActionResult> GetGamerByPseudonyme([FromQuery][Required] string pseudonyme)
         {
             var gamer = await _gamerService.GetGamerByPseudonymeAsync(pseudonyme);
             if (gamer == null)
@@ -37,6 +55,11 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok(gamer);
         }
 
+        /// <summary>
+        /// Create a new gamer
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">Returns the new gamer</response>
         [AllowAnonymous]
         [HttpPost()]
         public async Task<IActionResult> CreateGamer([FromBody] GamerDTO gamerDTO)
@@ -52,6 +75,12 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Created(url, gamerDTO);
         }
 
+        /// <summary>
+        /// Get gamer by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">Returns the new gamer</response>
         [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGamerById(int id)
@@ -64,6 +93,9 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             return Ok(gamer);
         }
 
+        /// <summary>
+        /// Update the selected gamer
+        /// </summary>
         [Authorize]
         [HttpPut()]
         public async Task<IActionResult> UpdateGamer([FromBody] GamerDTO gamerDTO)
@@ -81,6 +113,27 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
                     return NotFound();
                 }
                 await _gamerService.UpdateGamerAsync(gamer);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGamer(int id)
+        {
+            try
+            {
+                var gamer = await _gamerService.GetGamerByIdAsync(id);
+                if (gamer == null)
+                {
+                    return BadRequest();
+                }
+
+                await _gamerService.DeleteGamerAsync(gamer);
                 return NoContent();
             }
             catch (Exception ex)
