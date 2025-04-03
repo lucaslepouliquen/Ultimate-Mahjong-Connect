@@ -6,8 +6,9 @@ using UltimateMahjongConnect.Application.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
+    [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:ApiVersion}/gamers")]
     public class GamerController : Controller
     {
         private readonly GamerService _gamerService;
@@ -17,7 +18,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> GetAllGamers()
         {
             var gamers = await _gamerService.GetAllGamerAsync();
@@ -25,7 +26,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         }
 
         [AllowAnonymous]
-        [HttpGet("by-pseudonyme/{pseudonyme}")]
+        [HttpGet("{pseudonyme}")]
         public async Task<IActionResult> GetGamerByPseudonyme(string pseudonyme)
         {
             var gamer = await _gamerService.GetGamerByPseudonymeAsync(pseudonyme);
@@ -37,7 +38,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost()]
         public async Task<IActionResult> CreateGamer([FromBody] GamerDTO gamerDTO)
         {
             var createdGamerId = await _gamerService.CreateGamerAsync(gamerDTO);
