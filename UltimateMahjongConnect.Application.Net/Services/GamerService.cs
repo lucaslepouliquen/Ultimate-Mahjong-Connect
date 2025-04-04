@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UltimateMahjongConnect.Application.Interface;
+﻿using UltimateMahjongConnect.Application.Interface;
 using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.Domain.Models;
 using AutoMapper;
-using System.Data.Common;
 
 namespace UltimateMahjongConnect.Application.Services
 {
-    public class GamerService
+    public class GamerService : IGamerService
     {
         private readonly IGamerRepository _gamerRepository;
         private readonly IMapper _mapper;
@@ -55,18 +51,14 @@ namespace UltimateMahjongConnect.Application.Services
 
         public async Task<GamerDTO?> GetGamerByIdAsync(int id)
         {
-            if (id <= 0) throw new ArgumentException("L'identifiant du joueur doit être supérieur à 0", nameof(id));
-            else
+            try
             {
-                try
-                {
-                    var gamer = await _gamerRepository.GetGamerByIdAsync(id);
-                    return gamer != null ? _mapper.Map<GamerDTO>(gamer) : null;
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException($"Une erreur est survenue lors de la récupération du joueur avec le pseudonyme '{id}'", ex);
-                }
+                var gamer = await _gamerRepository.GetGamerByIdAsync(id);
+                return gamer != null ? _mapper.Map<GamerDTO>(gamer) : null;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Une erreur est survenue lors de la récupération du joueur avec le pseudonyme '{id}'", ex);
             }
         }
 
@@ -93,23 +85,20 @@ namespace UltimateMahjongConnect.Application.Services
             }
         }
 
-        public async Task<Gamer> UpdateGamerAsync(GamerDTO gamerDTO)
+        public async Task<GamerDTO> UpdateGamerAsync(GamerDTO gamerDTO)
         {
             if (gamerDTO == null)
             {
                 throw new ArgumentNullException(nameof(gamerDTO));
             }
-            if (gamerDTO.Id <= 0)
-            {
-                throw new ArgumentException("L'identifiant du joueur doit être supérieur à 0", nameof(gamerDTO));
-            }
             try
             {
-                var foundGamer = await GetGamerByIdAsync(gamerDTO.Id);
+                var foundGamer = await _gamerRepository.GetGamerByIdAsync(gamerDTO.Id);
                 if (foundGamer != null)
                 {
                     var gamer = _mapper.Map<Gamer>(gamerDTO);
-                    return await _gamerRepository.UpdatedGamerAsync(gamer);
+                    var updatedGamer = await _gamerRepository.UpdatedGamerAsync(gamer);
+                    return _mapper.Map<GamerDTO>(updatedGamer);
                 }
                 else
                 {
@@ -121,5 +110,27 @@ namespace UltimateMahjongConnect.Application.Services
                 throw new ApplicationException("Une erreur est survenue lors de la mise à jour du joueur", ex);
             }
         }
+
+        public async Task DeleteGamerAsync(GamerDTO gamerDTO)
+        {
+            if (gamerDTO == null)
+            {
+                throw new ArgumentNullException(nameof(gamerDTO));
+            }
+            try
+            {
+                var foundGamer = await _gamerRepository.GetGamerByIdAsync(gamerDTO.Id);
+                if (foundGamer != null)
+                {
+                    var gamer = _mapper.Map<Gamer>(gamerDTO);
+                    await _gamerRepository.DeleteGamerAsync(gamer);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Une erreur est survenue lors de la suppression du joueur", ex);
+            }
+        }
+
     }
 }

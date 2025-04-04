@@ -17,6 +17,7 @@ public class SwaggerGenConfiguration : IConfigureOptions<SwaggerGenOptions>
 
     public void Configure(SwaggerGenOptions options)
     {
+        
         foreach (ApiVersionDescription description in _apiVersionDescriptionProvider.ApiVersionDescriptions)
         {
             options.SwaggerDoc(description.GroupName, CreateOpenApiInfo(description));
@@ -30,7 +31,7 @@ public class SwaggerGenConfiguration : IConfigureOptions<SwaggerGenOptions>
         {
             Title = assemblyName,
             Version = description.ApiVersion.ToString(),
-            Description = $"Api for {assemblyName}"
+            Description = $"An ASP.NET Core Web API for Api for {assemblyName}"
         };
 
         if (description.IsDeprecated)
