@@ -15,6 +15,14 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             _mahjongBoard = mahjongBoard;
         }
 
+        /// <summary>
+        /// Initialize random Mahjong board
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// Get /api/v1/board/?mode=deterministic
+        /// Get /api/v1/board/?mode=random
+        /// </remarks>
         [AllowAnonymous]
         [HttpGet()]
         public IActionResult InitializeBoardRandom([FromQuery] string mode = "deterministic")
@@ -38,6 +46,13 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             }
         }
 
+        /// <summary>
+        /// Check if selected path is valid
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// Get /api/v1/board/path
+        /// </remarks>
         [AllowAnonymous]
         [HttpGet("path")]
         public IActionResult GetPath([FromQuery] int row1, [FromQuery] int column1, [FromQuery] int row2, [FromQuery] int column2)
