@@ -36,29 +36,57 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
 
         public async Task DeleteGamerAsync(Gamer gamer)
         {
-            var entity = _mapper.Map<GamerEntity>(gamer);
-            _context.Entry(entity).State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
+            try
+            {
+                var entity = _mapper.Map<GamerEntity>(gamer);
+                _context.Entry(entity).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw; 
+            }
         }
 
         public async Task<List<Gamer>> GetAllGamerAsync()
         {
-            var entities = await _context.Gamers.ToListAsync();
-            return _mapper.Map<List<Gamer>>(entities);
+            try
+            {
+                var entities = await _context.Gamers.ToListAsync();
+                return _mapper.Map<List<Gamer>>(entities);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<Gamer?> GetGamerByIdAsync(int id)
         {
-            var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
-            return entity != null ? _mapper.Map<Gamer>(entity) : null;
+            try
+            {
+                var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
+                return entity != null ? _mapper.Map<Gamer>(entity) : null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<Gamer?> UpdatedGamerAsync(Gamer gamer)
         {
-            var entity = _mapper.Map<GamerEntity>(gamer);
-            _context.Gamers.Update(entity);
-            await _context.SaveChangesAsync();
-            return _mapper.Map<Gamer>(entity);
+            try
+            {
+                var entity = _mapper.Map<GamerEntity>(gamer);
+                _context.Gamers.Update(entity);
+                await _context.SaveChangesAsync();
+                return _mapper.Map<Gamer>(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
