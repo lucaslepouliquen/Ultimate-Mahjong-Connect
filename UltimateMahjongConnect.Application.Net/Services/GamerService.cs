@@ -85,7 +85,7 @@ namespace UltimateMahjongConnect.Application.Services
             }
         }
 
-        public async Task<Gamer> UpdateGamerAsync(GamerDTO gamerDTO)
+        public async Task<GamerDTO> UpdateGamerAsync(GamerDTO gamerDTO)
         {
             if (gamerDTO == null)
             {
@@ -97,7 +97,8 @@ namespace UltimateMahjongConnect.Application.Services
                 if (foundGamer != null)
                 {
                     var gamer = _mapper.Map<Gamer>(gamerDTO);
-                    return await _gamerRepository.UpdatedGamerAsync(gamer);
+                    var updatedGamer = await _gamerRepository.UpdatedGamerAsync(gamer);
+                    return _mapper.Map<GamerDTO>(updatedGamer);
                 }
                 else
                 {
