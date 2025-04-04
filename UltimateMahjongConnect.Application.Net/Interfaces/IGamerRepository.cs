@@ -9,5 +9,6 @@ namespace UltimateMahjongConnect.Application.Interface
         Task<List<Gamer>> GetAllGamerAsync();
         Task<Gamer?> GetGamerByIdAsync(int Id);
         Task<Gamer?> UpdatedGamerAsync(Gamer gamer);
+        Task DeleteGamerAsync(Gamer gamer);
     }
 }
