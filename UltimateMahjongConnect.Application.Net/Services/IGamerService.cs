@@ -10,5 +10,7 @@ namespace UltimateMahjongConnect.Application.Services
         Task<GamerDTO?> GetGamerByIdAsync(int id);
         Task<int> CreateGamerAsync(GamerDTO gamerDTO);
         Task<Gamer> UpdateGamerAsync(GamerDTO gamerDTO);
+        Task DeleteGamerAsync(GamerDTO gamerDTO);
+
     }
 }

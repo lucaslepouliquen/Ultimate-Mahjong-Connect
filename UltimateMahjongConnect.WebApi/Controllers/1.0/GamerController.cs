@@ -121,6 +121,9 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             }
         }
 
+        /// <summary>
+        /// Delete the selected gamer
+        /// </summary>
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGamer(int id)

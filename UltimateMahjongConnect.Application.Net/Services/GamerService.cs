@@ -121,5 +121,23 @@ namespace UltimateMahjongConnect.Application.Services
                 throw new ApplicationException("Une erreur est survenue lors de la mise à jour du joueur", ex);
             }
         }
+
+        public async Task DeleteGamerAsync(GamerDTO gamerDTO)
+        {
+            try
+            {
+                var foundGamer = await GetGamerByIdAsync(gamerDTO.Id);
+                if (foundGamer != null)
+                {
+                    var gamer = _mapper.Map<Gamer>(gamerDTO);
+                    await _gamerRepository.DeleteGamerAsync(gamer);
+                }
+            } 
+            catch(Exception ex)
+            {
+                throw new ApplicationException();
+            }
+        }
+
     }
 }

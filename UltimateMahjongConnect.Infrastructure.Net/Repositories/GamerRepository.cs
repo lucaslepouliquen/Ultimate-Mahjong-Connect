@@ -34,6 +34,13 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             }
         }
 
+        public async Task DeleteGamerAsync(Gamer gamer)
+        {
+            var entity = _mapper.Map<GamerEntity>(gamer);
+            _context.Entry(entity).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<List<Gamer>> GetAllGamerAsync()
         {
             var entities = await _context.Gamers.ToListAsync();
