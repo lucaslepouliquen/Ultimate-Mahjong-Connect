@@ -15,8 +15,4 @@
     <Project Path="UltimateMahjongConnect.Infrastructure.Net/UltimateMahjongConnect.Infrastructure.csproj" />
     <Project Path="UltimateMahjongConnect.Infrastructure.Test/UltimateMahjongConnect.Infrastructure.Test.csproj" />
   </Folder>
-  <Folder Name="/UI/">
-    <Project Path="UltimateMahjongConnect.UI.WPF.Tests/UltimateMahjongConnect.UI.WPF.Tests.csproj" />
-    <Project Path="UltimateMahjongConnect.UI.WPF/UltimateMahjongConnect.UI.WPF.csproj" />
-  </Folder>
 </Solution>
