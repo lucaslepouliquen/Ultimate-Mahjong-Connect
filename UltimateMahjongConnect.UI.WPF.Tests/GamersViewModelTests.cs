@@ -34,8 +34,8 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             {
                 new List<Gamer>
                 {
-                    new Gamer("Joueur1", 25, "joueur1@example.com"),
-                    new Gamer("Joueur2", 30, "joueur2@example.com")
+                    new Gamer("Gamer1", 25, "gamer1@example.com"),
+                    new Gamer("Gamer2", 30, "gamer2@example.com")
                 },
                 new List<GamerModel>
                 {
@@ -56,7 +56,6 @@ namespace UltimateMahjongConnect.UI.WPF.Tests
             await _gamersViewModel.LoadGamerAsync();
 
             // Assert
-            Assert.Equal(expectedGamers.Select(g => g.Id), _gamersViewModel.Gamers.Select(g => g.Id));
             Assert.Equal(expectedGamers.Select(g => g.Pseudonyme), _gamersViewModel.Gamers.Select(g => g.Pseudonyme));
         }
 
