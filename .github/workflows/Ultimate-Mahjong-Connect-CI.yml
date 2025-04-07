@@ -1,0 +1,45 @@
+name: Ultimate-Mahjong-Connect-Front CI
+
+on: 
+  push:
+    branches: [main, develop, feature/*]
+  workflow_dispatch: 
+jobs:
+  build:
+
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '9.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+          
+      - name: Clean solution
+        working-directory: ${{ github.workspace }}
+        run: dotnet clean UltimateMahjongConnect.slnx --configuration Debug
+          
+      - name: Install dependencies
+        working-directory: ${{ github.workspace }}
+        run: dotnet restore UltimateMahjongConnect.slnx
+        
+      - name: Build
+        working-directory: ${{ github.workspace }}
+        run: dotnet test UltimateMahjongConnect.slnx --framework net9.0
+        
+      - name: Test with dotnet
+        working-directory: ${{ github.workspace }}
+        run: dotnet test UltimateMahjongConnect.slnx --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults-${{ matrix.dotnet-version }}
+          # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
