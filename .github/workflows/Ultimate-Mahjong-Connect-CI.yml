@@ -44,6 +44,9 @@ jobs:
           # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v3.10.0 
   
