@@ -5,7 +5,7 @@ on:
     branches: [main, develop, feature/*]
   workflow_dispatch: 
 jobs:
-  build:
+  build-and-push:
 
     runs-on: windows-latest
     strategy:
@@ -43,3 +43,26 @@ jobs:
           path: TestResults-${{ matrix.dotnet-version }}
           # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Raspberry Pi
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RASPBERRY_HOST }}
+          username: ${{ secrets.RASPBERRY_USER }}
+          key: ${{ secrets.RASPBERRY_SSH_KEY }}
+          script: |
+            docker pull ghcr.io/${{ github.repository_owner }}/counter-image:latest
+            docker stop mon-api || true
+            docker rm mon-api || true
+            docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/counter-image:latest
