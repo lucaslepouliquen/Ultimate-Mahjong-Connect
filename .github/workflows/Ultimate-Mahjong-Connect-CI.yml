@@ -77,9 +77,15 @@ jobs:
           host: ${{ secrets.RASPBERRY_HOST }}
           username: ${{ secrets.RASPBERRY_USER }}
           password: ${{ secrets.RASPBERRY_PASSWORD }}
+          port: 22
           script: |
+            echo "Start"
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-            docker pull ghcr.io/${{ github.repository_owner }}/counter-image:latest
-            docker stop mon-api || true
-            docker rm mon-api || true
-            docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/counter-image:latest
+            echo "Before docker pull"
+            docker pull ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
+            echo "Before docker stop"
+            docker stop ultimate-mahjong-connect-back-end || true
+            echo "Before docker rm"
+            docker rm ultimate-mahjong-connect-back-end || true
+            echo "Before docker run"
+            docker run -d -p 8080:8080 --restart unless-stopped --name ultimate-mahjong-connect-back-end ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
