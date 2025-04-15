@@ -89,3 +89,14 @@ jobs:
             docker stop mon-api || true
             docker rm mon-api || true
             docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/counter-image:latest
+
+      - name: Install kubectl CLI
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.26.0'
+        
+      - name: Fetch Kubernetes Cluster Details
+        run: |
+          kubectl version --short
+          echo "----------------------------------------"
+          kubectl get nodes
