@@ -15,9 +15,9 @@ jobs:
           port: 50022 
           script: |
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-            docker pull ghcr.io/${{ github.repository_owner }}/counter-image:latest
+            docker pull ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
             if docker ps -a | grep -q "xxx-api"; then
               docker stop mon-api || true
               docker rm mon-api || true
             fi
-            docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/counter-image:latest
+            docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
