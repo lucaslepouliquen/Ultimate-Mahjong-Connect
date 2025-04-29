@@ -2,7 +2,7 @@ name: Ultimate-Mahjong-Connect-Front CICD
 
 on: 
   push:
-    branches: [main, develop, feature/*]
+    branches: [main, develop]
   workflow_dispatch: 
 jobs:
   build-and-push:
@@ -70,7 +70,7 @@ jobs:
 
   deploy:
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4 
         
@@ -89,20 +89,9 @@ jobs:
               docker rm mon-api || true
             fi
             docker run -d -p 8080:8080 --restart unless-stopped --name mon-api ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
-
-      - name: Install kubectl CLI
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.26.0'
-
-      - name: Set Kubeconfig file
-        uses: azure/k8s-set-context@v3
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
           
       - name: Fetch Kubernetes Cluster Details
         run: |
-          kubectl version --short
+          kubectl version
           echo "----------------------------------------"
           kubectl get nodes
