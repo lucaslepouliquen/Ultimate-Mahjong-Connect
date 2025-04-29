@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 EXPOSE 80
