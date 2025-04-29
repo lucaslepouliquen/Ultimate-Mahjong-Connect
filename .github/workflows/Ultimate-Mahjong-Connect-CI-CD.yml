@@ -84,7 +84,7 @@ jobs:
           script: |
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
             docker pull ghcr.io/${{ github.repository_owner }}/ultimate-mahjong-connect-back-end-image:latest
-            if docker ps -a | grep -q "xxx-api"; then
+            if docker ps -a | grep -q "mon-api"; then
               docker stop mon-api || true
               docker rm mon-api || true
             fi
