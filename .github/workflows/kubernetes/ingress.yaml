@@ -15,7 +15,7 @@ spec:
             service:
               name: ultimate-mahjong-connect
               port:
-                number: 3000
+                number: 8080
           path: /
           pathType: Prefix
     tls:
