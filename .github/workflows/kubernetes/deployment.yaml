@@ -1,26 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ultimate-mahjong-connect
+  namespace: game-dev
   labels:
     app: ultimate-mahjong-connect
-  name: ultimate-mahjong-connect
-  namespace: _{_NAMESPACE_}_
 spec:
-  replicas: _{_REPLICAS_}_
+  replicas: 1
   selector:
     matchLabels:
       app: ultimate-mahjong-connect
-  strategy: {}
   template:
     metadata:
       labels:
         app: ultimate-mahjong-connect
     spec:
       containers:
-      - image: _{_IMAGE_}_
+      - name: ultimate-mahjong-connect
+        image: ghcr.io/lucaslepouliquen/ultimate-mahjong-connect-back-end-image:latest
         imagePullPolicy: Always
-        name: ultimate-mahjong-connect
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
           name: http
           protocol: TCP
