@@ -1,9 +1,12 @@
-name: Ultimate-Mahjong-Connect-Front CICD 
+name: Ultimate-Mahjong-Connect CICD 
 
 on: 
   push:
     branches: [main, develop]
   workflow_dispatch: 
+env:
+  DEPLOYMENT_NAME: ultimate-mahjong-connect
+  K8S_NAMESPACE: ultimate-mahjong-connect
 jobs:
   build-and-push:
 
@@ -33,7 +36,7 @@ jobs:
         
       - name: Build
         working-directory: ${{ github.workspace }}
-        run: dotnet test UltimateMahjongConnect.slnx --framework net9.0
+        run: dotnet build UltimateMahjongConnect.slnx --framework net9.0
         
       - name: Test with dotnet
         working-directory: ${{ github.workspace }}
@@ -58,7 +61,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

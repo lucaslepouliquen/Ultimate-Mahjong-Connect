@@ -4,7 +4,7 @@ metadata:
   labels:
     app: ultimate-mahjong-connect
   name: ultimate-mahjong-connect
-  namespace: game-dev
+  namespace: ultimate-mahjong-connect
 spec:
   ports:
   - port: 8080

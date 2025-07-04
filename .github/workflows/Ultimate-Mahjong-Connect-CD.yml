@@ -1,11 +1,11 @@
-name: Ultimate-Mahjong-Connect-Front-CD
+name: Ultimate-Mahjong-Connect-CD
 
 on: 
   workflow_dispatch: 
 
 env:
-  DEPLOYMENT_NAME: ultimate-mahjong-connect-front
-  K8S_NAMESPACE: default
+  DEPLOYMENT_NAME: ultimate-mahjong-connect
+  K8S_NAMESPACE: ultimate-mahjong-connect
 
 jobs:
   deploy:

@@ -5,10 +5,10 @@ metadata:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   name: ultimate-mahjong-connect
-  namespace: game-dev
+  namespace: ultimate-mahjong-connect
 spec:
     rules:
-    - host: ultimate-mahjong-connect-_{_NAMESPACE_}_._{_INGRESS_IP_}_.nip.io
+    - host: ultimate-mahjong-connect.local
       http:
         paths:
         - backend:
@@ -20,5 +20,5 @@ spec:
           pathType: Prefix
     tls:
     - hosts:
-      - ultimate-mahjong-connect-_{_NAMESPACE_}_._{_INGRESS_IP_}_.nip.io
+      - ultimate-mahjong-connect.local
       secretName: ingress-local-tls
