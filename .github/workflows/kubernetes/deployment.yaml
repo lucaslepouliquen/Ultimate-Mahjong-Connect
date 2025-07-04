@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ultimate-mahjong-connect
-  namespace: game-dev
+  namespace: ultimate-mahjong-connect
   labels:
     app: ultimate-mahjong-connect
 spec:
