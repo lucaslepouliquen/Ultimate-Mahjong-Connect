@@ -4,6 +4,9 @@ on:
   push:
     branches: [main, develop]
   workflow_dispatch: 
+env:
+  DEPLOYMENT_NAME: ultimate-mahjong-connect
+  K8S_NAMESPACE: ultimate-mahjong-connect
 jobs:
   build-and-push:
 
@@ -58,7 +61,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
