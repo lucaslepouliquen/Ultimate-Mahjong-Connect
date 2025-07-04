@@ -1,4 +1,4 @@
-name: Ultimate-Mahjong-Connect-Front CICD 
+name: Ultimate-Mahjong-Connect CICD 
 
 on: 
   push:

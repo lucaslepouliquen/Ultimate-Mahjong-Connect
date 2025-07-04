@@ -1,4 +1,4 @@
-name: Ultimate-Mahjong-Connect-Front-CD
+name: Ultimate-Mahjong-Connect-CD
 
 on: 
   workflow_dispatch: 
