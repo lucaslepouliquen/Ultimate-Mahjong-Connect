@@ -33,7 +33,7 @@ jobs:
         
       - name: Build
         working-directory: ${{ github.workspace }}
-        run: dotnet test UltimateMahjongConnect.slnx --framework net9.0
+        run: dotnet build UltimateMahjongConnect.slnx --framework net9.0
         
       - name: Test with dotnet
         working-directory: ${{ github.workspace }}
