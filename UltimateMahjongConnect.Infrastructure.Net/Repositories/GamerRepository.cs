@@ -4,6 +4,7 @@ using UltimateMahjongConnect.Application.DTO;
 using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Persistence;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace UltimateMahjongConnect.Infrastructure.Repositories
 {
@@ -19,7 +20,7 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
 
         }
 
-        public async Task<int> AddGamerAsync(Gamer gamer)
+        public async Task<int> CreateGamerAsync(Gamer gamer)
         {
             try
             {
@@ -66,6 +67,32 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
             try
             {
                 var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Id == id);
+                return entity != null ? _mapper.Map<Gamer>(entity) : null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Gamer?> GetGamerByPseudonymeAsync(string pseudonyme)
+        {
+            try
+            {
+                var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Pseudonyme == pseudonyme);
+                return entity != null ? _mapper.Map<Gamer>(entity) : null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Gamer?> GetGamerByEmailAsync(string email)
+        {
+            try
+            {
+                var entity = await _context.Gamers.FirstOrDefaultAsync(g => g.Email == email);
                 return entity != null ? _mapper.Map<Gamer>(entity) : null;
             }
             catch (Exception)

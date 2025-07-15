@@ -14,6 +14,10 @@ using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
 using UltimateMahjongConnect.Infrastructure.Profiles;
 using UltimateMahjongConnect.Infrastructure.Repositories;
+using UltimateMahjongConnect.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,19 +29,69 @@ builder.Services.AddDbContext<ApplicationDbSQLContext>(options =>
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT SecretKey not configured");
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddAuthentication(options => {
-    options.DefaultScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-}).AddCookie(IdentityConstants.ApplicationScheme);
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        ValidateIssuer = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidateAudience = true,
+        ValidAudience = jwtSettings["Audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+var authBuilder = builder.Services.AddAuthentication();
+
+var googleClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID") ?? 
+                    builder.Configuration["Authentication:Google:ClientId"] ?? "";
+var googleClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET") ?? 
+                        builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
+
+if (!string.IsNullOrEmpty(googleClientId) && !string.IsNullOrEmpty(googleClientSecret))
+{
+    authBuilder.AddGoogle(options =>
+    {
+        options.ClientId = googleClientId;
+        options.ClientSecret = googleClientSecret;
+        options.CallbackPath = "/auth/google/callback";
+    });
+}
+
+// Facebook OAuth - only if credentials are provided
+var facebookAppId = Environment.GetEnvironmentVariable("FACEBOOK_APP_ID") ?? 
+                   builder.Configuration["Authentication:Facebook:AppId"] ?? "";
+var facebookAppSecret = Environment.GetEnvironmentVariable("FACEBOOK_APP_SECRET") ?? 
+                       builder.Configuration["Authentication:Facebook:AppSecret"] ?? "";
+
+if (!string.IsNullOrEmpty(facebookAppId) && !string.IsNullOrEmpty(facebookAppSecret))
+{
+    authBuilder.AddFacebook(options =>
+    {
+        options.AppId = facebookAppId;
+        options.AppSecret = facebookAppSecret;
+        options.CallbackPath = "/auth/facebook/callback";
+    });
+}
 
 builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbSQLContext>()
-    .AddApiEndpoints();
-builder.Services.AddRazorPages();
+    .AddSignInManager()
+    .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -58,17 +112,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    // Cookie settings
-    options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-
-    options.LoginPath = "/Identity/Account/Login";
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    options.SlidingExpiration = true;
-});
-
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddApiVersioning(options =>
@@ -87,6 +130,9 @@ builder.Services.AddApiVersioningService().AddSwaggerGen(options =>
     .ConfigureOptions<SwaggerGenConfiguration>();
 
 builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 //Register Mahjong services
 builder.Services.AddAutoMapper(
@@ -129,7 +175,12 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors(policy => policy
-    .WithOrigins("http://localhost:4200", "http://localhost:9876","http://localhost:8080")
+    .WithOrigins(
+        "http://localhost:4200", 
+        "http://localhost:9876",
+        "http://localhost:8080",
+        "http://192.168.1.186:31328"
+    )
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials());

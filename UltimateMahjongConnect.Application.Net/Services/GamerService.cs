@@ -77,7 +77,7 @@ namespace UltimateMahjongConnect.Application.Services
             try
             {
                 var gamer = _mapper.Map<Gamer>(gamerDTO);
-                return await _gamerRepository.AddGamerAsync(gamer);
+                return await _gamerRepository.CreateGamerAsync(gamer);
             }
             catch (Exception ex)
             {
