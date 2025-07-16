@@ -20,6 +20,21 @@ namespace UltimateMahjongConnect.Infrastructure.Repositories
 
         }
 
+        public async Task<int> AddGamerAsync(Gamer gamer)
+        {
+            try
+            {
+                var entity = _mapper.Map<GamerEntity>(gamer);
+                _context.Gamers.Add(entity);
+                await _context.SaveChangesAsync();
+                return entity.Id;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<int> CreateGamerAsync(Gamer gamer)
         {
             try

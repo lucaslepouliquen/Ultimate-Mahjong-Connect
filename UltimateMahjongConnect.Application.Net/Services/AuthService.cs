@@ -82,7 +82,8 @@ namespace UltimateMahjongConnect.Application.Services
                 
                 if (existingGamer != null)
                 {
-                    var token = _jwtTokenService.GenerateToken(existingGamer.Pseudonyme);
+                    var gamerDto = _mapper.Map<GamerDTO>(existingGamer);
+                    var token = _jwtTokenService.GenerateToken(gamerDto);
                     var response = new AuthResponseDTO
                     {
                         Token = token,
@@ -106,7 +107,8 @@ namespace UltimateMahjongConnect.Application.Services
                     var gamerId = await _gamerRepository.CreateGamerAsync(newGamer);
                     newGamer.Id = gamerId;
 
-                    var token = _jwtTokenService.GenerateToken(newGamer.Pseudonyme);
+                    var gamerDto = _mapper.Map<GamerDTO>(newGamer);
+                    var token = _jwtTokenService.GenerateToken(gamerDto);
                     var response = new AuthResponseDTO
                     {
                         Token = token,
