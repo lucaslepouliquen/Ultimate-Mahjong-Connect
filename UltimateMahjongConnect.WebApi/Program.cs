@@ -151,7 +151,21 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true;
 });
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:4200", 
+            "http://localhost:9876",
+            "http://localhost:8080",
+            "http://192.168.1.186:31328"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -190,18 +204,8 @@ if (app.Environment.IsDevelopment())
       });
 }
 
+app.UseCors();
 app.UseRouting();
-app.UseHttpsRedirection();
-app.UseCors(policy => policy
-    .WithOrigins(
-        "http://localhost:4200", 
-        "http://localhost:9876",
-        "http://localhost:8080",
-        "http://192.168.1.186:31328"
-    )
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials());
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
