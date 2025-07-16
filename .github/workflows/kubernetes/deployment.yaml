@@ -23,3 +23,22 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
+        volumeMounts:
+        - name: database-storage
+          mountPath: /app/data
+      volumes:
+      - name: database-storage
+        persistentVolumeClaim:
+          claimName: database-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+  namespace: ultimate-mahjong-connect
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

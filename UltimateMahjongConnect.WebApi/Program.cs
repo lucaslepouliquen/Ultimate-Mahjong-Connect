@@ -158,6 +158,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbSQLContext>();
+    
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
+    {
+        var dbPath = connectionString.Split("Data Source=")[1].Split(';')[0];
+        var dbDir = Path.GetDirectoryName(dbPath);
+        if (!string.IsNullOrEmpty(dbDir) && !Directory.Exists(dbDir))
+        {
+            Directory.CreateDirectory(dbDir);
+        }
+    }
+    
     dbContext.Database.EnsureCreated();
 }
 

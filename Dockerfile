@@ -41,4 +41,6 @@ RUN dotnet publish "UltimateMahjongConnect.Server.WebApi.Net.csproj" -c Release 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN mkdir -p /app/data
 ENTRYPOINT ["dotnet", "UltimateMahjongConnect.Server.WebApi.Net.dll"]
