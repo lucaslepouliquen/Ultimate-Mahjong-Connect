@@ -151,22 +151,16 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true;
 });
 
-// CORS temporairement désactivé pour debug
-// builder.Services.AddCors(options =>
-// {
-//     options.AddDefaultPolicy(policy =>
-//     {
-//         policy.WithOrigins(
-//             "http://localhost:4200", 
-//             "http://localhost:9876",
-//             "http://localhost:8080",
-//             "http://192.168.1.186:31328"
-//         )
-//         .AllowAnyMethod()
-//         .AllowAnyHeader()
-//         .AllowCredentials();
-//     });
-// });
+// CORS configuration très permissive pour debug
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -205,8 +199,7 @@ if (app.Environment.IsDevelopment())
       });
 }
 
-// CORS temporairement désactivé pour debug
-// app.UseCors();
+app.UseCors();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
