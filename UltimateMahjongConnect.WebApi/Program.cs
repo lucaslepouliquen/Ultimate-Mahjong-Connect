@@ -199,6 +199,32 @@ if (app.Environment.IsDevelopment())
       });
 }
 
+// Middleware CORS sécurisé avec origine spécifique
+app.Use(async (context, next) =>
+{
+    var origin = context.Request.Headers.Origin.FirstOrDefault();
+    
+    if (!string.IsNullOrEmpty(origin) && (
+        origin.StartsWith("http://192.168.") || 
+        origin.StartsWith("https://192.168.") ||
+        origin.StartsWith("http://localhost") ||
+        origin.StartsWith("https://localhost")))
+    {
+        context.Response.Headers.Add("Access-Control-Allow-Origin", origin);
+        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        context.Response.Headers.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+    }
+    
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 200;
+        return;
+    }
+    
+    await next();
+});
+
 app.UseCors();
 app.UseRouting();
 app.UseAuthentication();
