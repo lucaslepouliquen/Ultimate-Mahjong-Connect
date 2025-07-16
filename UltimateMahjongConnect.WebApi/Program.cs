@@ -145,6 +145,12 @@ builder.Services.AddTransient<IGamerService,GamerService>();
 builder.Services.AddTransient<IMahjongTile, MahjongTile>();
 builder.Services.AddTransient<IMahjongBoard, MahjongBoard>();
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
+
 builder.Services.AddCors();
 
 var app = builder.Build();
