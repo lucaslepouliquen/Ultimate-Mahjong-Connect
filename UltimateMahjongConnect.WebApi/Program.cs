@@ -151,7 +151,6 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true;
 });
 
-// CORS configuration très permissive pour debug
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -167,19 +166,34 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbSQLContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    logger.LogInformation("Database setup - Connection string: {ConnectionString}", connectionString);
+    
     if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
     {
         var dbPath = connectionString.Split("Data Source=")[1].Split(';')[0];
         var dbDir = Path.GetDirectoryName(dbPath);
+        
+        logger.LogInformation("Database path: {DbPath}", dbPath);
+        logger.LogInformation("Database directory: {DbDir}", dbDir);
+        
         if (!string.IsNullOrEmpty(dbDir) && !Directory.Exists(dbDir))
         {
+            logger.LogInformation("Creating database directory...");
             Directory.CreateDirectory(dbDir);
+            logger.LogInformation("Database directory created successfully");
+        }
+        else if (!string.IsNullOrEmpty(dbDir))
+        {
+            logger.LogInformation("Database directory already exists");
         }
     }
     
+    logger.LogInformation("Ensuring database is created...");
     dbContext.Database.EnsureCreated();
+    logger.LogInformation("Database EnsureCreated completed");
 }
 
 // Configure the HTTP request pipeline.
@@ -199,7 +213,6 @@ if (app.Environment.IsDevelopment())
       });
 }
 
-// Middleware CORS sécurisé avec origine spécifique
 app.Use(async (context, next) =>
 {
     var origin = context.Request.Headers.Origin.FirstOrDefault();
