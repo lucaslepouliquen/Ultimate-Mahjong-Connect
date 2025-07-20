@@ -168,35 +168,61 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbSQLContext>();
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    logger.LogInformation("Database setup - Connection string: {ConnectionString}", connectionString);
-    
-    if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
+    try
     {
-        var dbPath = connectionString.Split("Data Source=")[1].Split(';')[0];
-        var dbDir = Path.GetDirectoryName(dbPath);
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") ??
+                              builder.Configuration.GetConnectionString("DefaultConnection") ??
+                              "Data Source=/app/data/app.db";
+        logger.LogInformation("Database setup - Connection string: {ConnectionString}", connectionString);
+        logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);
+        logger.LogInformation("Current directory: {CurrentDirectory}", Directory.GetCurrentDirectory());
         
-        logger.LogInformation("Database path: {DbPath}", dbPath);
-        logger.LogInformation("Database directory: {DbDir}", dbDir);
+        if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
+        {
+            var dbPath = connectionString.Split("Data Source=")[1].Split(';')[0];
+            var dbDir = Path.GetDirectoryName(dbPath);
+            
+            logger.LogInformation("Database path: {DbPath}", dbPath);
+            logger.LogInformation("Database directory: {DbDir}", dbDir);
+            
+            if (!string.IsNullOrEmpty(dbDir) && !Directory.Exists(dbDir))
+            {
+                logger.LogInformation("Creating database directory...");
+                Directory.CreateDirectory(dbDir);
+                logger.LogInformation("Database directory created successfully");
+            }
+            else if (!string.IsNullOrEmpty(dbDir))
+            {
+                logger.LogInformation("Database directory already exists");
+                logger.LogInformation("Directory permissions: {Permissions}", new DirectoryInfo(dbDir).Attributes);
+            }
+        }
         
-        if (!string.IsNullOrEmpty(dbDir) && !Directory.Exists(dbDir))
+        logger.LogInformation("Ensuring database is created...");
+        
+        if (dbContext.Database.CanConnect())
         {
-            logger.LogInformation("Creating database directory...");
-            Directory.CreateDirectory(dbDir);
-            logger.LogInformation("Database directory created successfully");
+            logger.LogInformation("Database connection test successful");
         }
-        else if (!string.IsNullOrEmpty(dbDir))
+        else
         {
-            logger.LogInformation("Database directory already exists");
+            logger.LogWarning("Database connection test failed, attempting to create...");
         }
+        
+        dbContext.Database.EnsureCreated();
+        logger.LogInformation("Database EnsureCreated completed successfully");
+        
+        var tablesExist = dbContext.Database.GetDbConnection().State == System.Data.ConnectionState.Closed ? 
+            false : dbContext.Gamers.Any();
+        logger.LogInformation("Database tables verification: {TablesExist}", tablesExist ? "SUCCESS" : "FAILED");
     }
-    
-    logger.LogInformation("Ensuring database is created...");
-    dbContext.Database.EnsureCreated();
-    logger.LogInformation("Database EnsureCreated completed");
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Database initialization failed: {ErrorMessage}", ex.Message);
+        throw;
+    }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();

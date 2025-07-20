@@ -83,6 +83,11 @@ jobs:
             FACEBOOK_APP_SECRET=${{ secrets.FACEBOOK_APP_SECRET }}
             INSTAGRAM_CLIENT_ID=${{ secrets.INSTAGRAM_CLIENT_ID }}
             INSTAGRAM_CLIENT_SECRET=${{ secrets.INSTAGRAM_CLIENT_SECRET }}
+            CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            JWT_ISSUER=${{ secrets.JWT_ISSUER }}
+            JWT_AUDIENCE=${{ secrets.JWT_AUDIENCE }}
+            JWT_EXPIRED_MINUTES=${{ secrets.JWT_EXPIRED_MINUTES }}
 
   deploy:
     needs: build-and-push
