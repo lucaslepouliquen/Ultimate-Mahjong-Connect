@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Reflection;
+using System.Text;
 using Ultimate_Mahjong_Connect.Configurations;
 using UltimateMahjongConnect.Application.Interface;
 using UltimateMahjongConnect.Application.Profiles;
@@ -13,12 +17,9 @@ using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
 using UltimateMahjongConnect.Infrastructure.Profiles;
-using UltimateMahjongConnect.WebApi.Services;
 using UltimateMahjongConnect.Infrastructure.Repositories;
 using UltimateMahjongConnect.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using UltimateMahjongConnect.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);   
 
@@ -173,10 +174,10 @@ builder.Services.AddCors(options =>
     });
     options.AddPolicy("RaspberryDevelopmentPolicy", policy =>
     {
-        policy.SetIsOriginAllowed(origin => origin.StartsWith("http://192.168.") || origin.StartsWith("https://192.168."))
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
+        policy.WithOrigins("http://192.168.1.186:31328", "https://192.168.1.186:31328")
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials();
     });
     options.AddPolicy("ProductionPolicy", policy =>
     {
