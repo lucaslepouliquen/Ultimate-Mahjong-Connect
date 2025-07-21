@@ -242,6 +242,26 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Configure Swagger middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        
+        // Configure Swagger UI for each API version
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", 
+                                   $"Ultimate Mahjong Connect API {description.GroupName.ToUpperInvariant()}");
+        }
+        
+        options.RoutePrefix = "swagger";
+        options.DocumentTitle = "Ultimate Mahjong Connect API";
+    });
+}
+
 if (app.Environment.IsDevelopment())
 {
     var debugMode = builder.Configuration["DebugMode"];
