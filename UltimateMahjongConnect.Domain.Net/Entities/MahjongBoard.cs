@@ -1,4 +1,5 @@
 ﻿using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.Domain.Models;
 
 namespace UltimateMahjongConnect.Domain.Models
 {
@@ -390,6 +391,76 @@ namespace UltimateMahjongConnect.Domain.Models
         public MahjongTile this[int row, int col]
         {
             get { return (MahjongTile)_board[row, col]; }
+        }
+
+        public MahjongBoardData ToData()
+        {
+            if (_board == null)
+                return new MahjongBoardData { Rows = _rows, Columns = _columns };
+
+            var boardData = new MahjongTileData[_rows, _columns];
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    var tile = _board[i, j] as MahjongTile;
+                    if (tile != null)
+                    {
+                        boardData[i, j] = new MahjongTileData
+                        {
+                            Category = (int)tile.Category,
+                            Value = tile.Value,
+                            IsRemoved = tile.IsRemoved,
+                            IsMatched = tile.IsMatched,
+                            DisplayText = tile.DisplayText
+                        };
+                    }
+                }
+            }
+
+            return MahjongBoardData.FromMultidimensionalArray(boardData, _rows, _columns);
+        }
+
+        public void LoadFromData(MahjongBoardData boardData)
+        {
+            if (boardData?.Board == null)
+            {
+                Console.WriteLine("LoadFromData: boardData or Board is null");
+                return;
+            }
+
+            Console.WriteLine($"LoadFromData: Loading board with {boardData.Rows}x{boardData.Columns}");
+            _board = new MahjongTile[_rows, _columns];
+            
+            var multidimensionalBoard = boardData.ToMultidimensionalArray();
+            
+            int removedCount = 0;
+            int matchedCount = 0;
+            
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    var tileData = multidimensionalBoard[i, j];
+                    if (tileData != null)
+                    {
+                        var tile = new MahjongTile(
+                            (MahjongTileCategory)tileData.Category,
+                            tileData.Value
+                        );
+                        
+                        tile.IsRemoved = tileData.IsRemoved;
+                        tile.IsMatched = tileData.IsMatched;
+                        
+                        if (tileData.IsRemoved) removedCount++;
+                        if (tileData.IsMatched) matchedCount++;
+                        
+                        _board[i, j] = tile;
+                    }
+                }
+            }
+            
+            Console.WriteLine($"LoadFromData: Restored {removedCount} removed tiles and {matchedCount} matched tiles");
         }
     }
 }

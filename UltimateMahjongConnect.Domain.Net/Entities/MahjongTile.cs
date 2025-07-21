@@ -120,8 +120,7 @@ namespace UltimateMahjongConnect.Domain.Models
 
         public void MarkAsMatchedAndRemoved()
         {
-            _isMatched = true;
-            _isRemoved = true;
+            IsMatched = true;
             IsRemoved = true;
         }
     }

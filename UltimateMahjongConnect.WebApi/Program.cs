@@ -13,15 +13,15 @@ using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
 using UltimateMahjongConnect.Infrastructure.Profiles;
+using UltimateMahjongConnect.WebApi.Services;
 using UltimateMahjongConnect.Infrastructure.Repositories;
 using UltimateMahjongConnect.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);   
 
-// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbSQLContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -72,7 +72,6 @@ if (!string.IsNullOrEmpty(googleClientId) && !string.IsNullOrEmpty(googleClientS
     });
 }
 
-// Facebook OAuth - only if credentials are provided
 var facebookAppId = Environment.GetEnvironmentVariable("FACEBOOK_APP_ID") ?? 
                    builder.Configuration["Authentication:Facebook:AppId"] ?? "";
 var facebookAppSecret = Environment.GetEnvironmentVariable("FACEBOOK_APP_SECRET") ?? 
@@ -95,18 +94,15 @@ builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.Require
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Password settings.
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
 
-    // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
-    // User settings.
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = true;
@@ -134,7 +130,6 @@ builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionD
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-//Register Mahjong services
 builder.Services.AddAutoMapper(
     typeof(Program).Assembly,
     typeof(GamerDTOProfile).Assembly,             
@@ -143,7 +138,22 @@ builder.Services.AddAutoMapper(
 builder.Services.AddTransient<IGamerRepository,GamerRepository>();
 builder.Services.AddTransient<IGamerService,GamerService>();
 builder.Services.AddTransient<IMahjongTile, MahjongTile>();
-builder.Services.AddTransient<IMahjongBoard, MahjongBoard>();
+builder.Services.AddScoped<IMahjongBoard, MahjongBoard>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IBoardSessionService, BoardSessionService>();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.IsEssential = true;
+    options.Cookie.Name = "MahjongConnect.Session";
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.Path = "/";  
+});
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -155,14 +165,15 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("LocalDevelopmentPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "http://127.0.0.1:4200")
               .AllowAnyMethod()
               .AllowAnyHeader()
-              .AllowCredentials();
+              .AllowCredentials()
+              .SetIsOriginAllowedToAllowWildcardSubdomains();
     });
     options.AddPolicy("RaspberryDevelopmentPolicy", policy =>
     {
-        policy.WithOrigins("http://192.168.", "https://192.168.")
+        policy.SetIsOriginAllowed(origin => origin.StartsWith("http://192.168.") || origin.StartsWith("https://192.168."))
               .AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials();
@@ -264,6 +275,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseRouting();
 if (app.Environment.IsDevelopment())
 {
     var isRaspberry = Environment.GetEnvironmentVariable("ASPNETCORE_RASPBERRY") == "true" ||
@@ -283,7 +295,7 @@ else
     app.UseCors("ProductionPolicy");
 }
 
-app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UltimateMahjongConnect.Domain.Interfaces;
+using UltimateMahjongConnect.WebApi.Services;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
@@ -9,14 +9,17 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
     [Route("api/v{version:ApiVersion}/board")]
     public class MahjongBoardController : Controller
     {
-        private readonly IMahjongBoard _mahjongBoard;
-        public MahjongBoardController(IMahjongBoard mahjongBoard)
+        private readonly IBoardSessionService _boardSessionService;
+        private readonly ILogger<MahjongBoardController> _logger;
+        
+        public MahjongBoardController(IBoardSessionService boardSessionService, ILogger<MahjongBoardController> logger)
         {
-            _mahjongBoard = mahjongBoard;
+            _boardSessionService = boardSessionService;
+            _logger = logger;
         }
 
         /// <summary>
-        /// Initialize random Mahjong board
+        /// Get or initialize Mahjong board from session
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -25,46 +28,135 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
         /// </remarks>
         [AllowAnonymous]
         [HttpGet()]
-        public IActionResult InitializeBoardRandom([FromQuery] string mode = "deterministic")
+        public IActionResult GetBoard([FromQuery] string mode = "deterministic")
         {
             try
             {
-                if (mode == "deterministic")
-                {
-                    _mahjongBoard.InitializeBoardDeterministically();
-                }
-                else
-                {
-                    _mahjongBoard.ReverseInitializeBoardDeterministically();
-                }
-                return Ok(_mahjongBoard.GetBoard());
+                _logger.LogInformation("GetBoard called with mode: {Mode}", mode);
+                var board = _boardSessionService.GetOrCreateBoard();
+                var boardData = board.GetBoard();
+                
+                return Ok(boardData);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error in GetBoard: {Message}", ex.Message);
                 return BadRequest(ex.Message);
-
             }
         }
 
         /// <summary>
-        /// Check if selected path is valid
+        /// Reset board and create a new one
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost("reset")]
+        public IActionResult ResetBoard([FromQuery] string mode = "deterministic")
+        {
+            try
+            {
+                _logger.LogInformation("ResetBoard called with mode: {Mode}", mode);
+                _boardSessionService.ClearBoard();
+                
+                var board = _boardSessionService.GetOrCreateBoard();
+                
+                return Ok(new { 
+                    message = "Board reset successfully",
+                    board = board.GetBoard()
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ResetBoard: {Message}", ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Check if selected path is valid and execute the move
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// Get /api/v1/board/path
+        /// Get /api/v1/board/path?row1=1&column1=2&row2=3&column2=4
         /// </remarks>
         [AllowAnonymous]
         [HttpGet("path")]
-        public IActionResult GetPath([FromQuery] int row1, [FromQuery] int column1, [FromQuery] int row2, [FromQuery] int column2)
+        public IActionResult ValidateAndExecuteMove([FromQuery] int row1, [FromQuery] int column1, [FromQuery] int row2, [FromQuery] int column2)
         {
-            try {
-                var mahjongPath = _mahjongBoard.GetValidatedPath(row1, column1, row2, column2);
-                return Ok(mahjongPath);
-            } catch (Exception ex)
+            try 
             {
+                _logger.LogInformation("ValidateAndExecuteMove called: ({Row1},{Col1}) -> ({Row2},{Col2})", row1, column1, row2, column2);
+                
+                var board = _boardSessionService.GetOrCreateBoard();
+                var mahjongPath = board.GetValidatedPath(row1, column1, row2, column2);
+                
+                if (mahjongPath.IsValid)
+                {
+                    board.MatchAndRemoveTiles(board[row1, column1], board[row2, column2]);
+                    
+                    _boardSessionService.SaveBoard(board);
+                    _logger.LogInformation("Move executed and board saved");
+                    
+                    return Ok(new { 
+                        isValid = true, 
+                        path = mahjongPath,
+                        board = board.GetBoard(),
+                        message = "Move executed successfully"
+                    });
+                }
+                else
+                {
+                    _logger.LogInformation("Invalid move attempted");
+                    return Ok(new { 
+                        isValid = false, 
+                        path = mahjongPath,
+                        message = "Invalid move"
+                    });
+                }
+            } 
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ValidateAndExecuteMove: {Message}", ex.Message);
                 return BadRequest(ex.Message);
             }
-            
         }
-    }
+
+        /// <summary>
+        /// Debug endpoint to check session state (Development only)
+        /// </summary>
+        [AllowAnonymous]
+        [HttpGet("debug")]
+        public IActionResult GetDebugInfo()
+        {
+            // Désactiver en production
+            if (!HttpContext.RequestServices.GetRequiredService<IWebHostEnvironment>().IsDevelopment())
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var hasBoard = _boardSessionService.HasBoard();
+                var sessionId = HttpContext.Session.Id;
+                var sessionKeys = HttpContext.Session.Keys.ToList();
+                var cookies = HttpContext.Request.Cookies
+                    .Where(c => c.Key.Contains("Session") || c.Key.Contains("Mahjong"))
+                    .ToDictionary(c => c.Key, c => c.Value);
+                
+                return Ok(new
+                {
+                    SessionId = sessionId,
+                    HasBoardInSession = hasBoard,
+                    SessionKeys = sessionKeys,
+                    IncomingCookies = cookies,
+                    Timestamp = DateTime.UtcNow,
+                    Environment = "Development"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in GetDebugInfo: {Message}", ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+        }
 }
