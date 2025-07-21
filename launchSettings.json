@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "UltimateMahjongConnect.Server.WebApi.Net": {
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_RASPBERRY": "false",
+        "CorsEnvironment": "local"
+      }
+    },
+    "RaspberryTest": {
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development", 
+        "ASPNETCORE_RASPBERRY": "true",
+        "CorsEnvironment": "raspberry"
+      }
+    }
+  }
+}

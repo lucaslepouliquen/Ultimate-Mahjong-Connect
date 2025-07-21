@@ -153,17 +153,19 @@ builder.Services.Configure<RouteOptions>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("DebugProductionPolicy", policy =>
+    options.AddPolicy("LocalDevelopmentPolicy", policy =>
     {
         policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
-    options.AddPolicy("DevelopmentPolicy", policy =>
+    options.AddPolicy("RaspberryDevelopmentPolicy", policy =>
     {
         policy.WithOrigins("http://192.168.", "https://192.168.")
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
     options.AddPolicy("ProductionPolicy", policy =>
     {
@@ -264,14 +266,16 @@ if (app.Environment.IsDevelopment())
 
 if (app.Environment.IsDevelopment())
 {
-    var debugMode = builder.Configuration["DebugMode"];
-    if (debugMode == "ProductionRules")
+    var isRaspberry = Environment.GetEnvironmentVariable("ASPNETCORE_RASPBERRY") == "true" ||
+                      builder.Configuration.GetValue<bool>("IsRaspberryEnvironment");
+    
+    if (isRaspberry)
     {
-        app.UseCors("DebugProductionPolicy");
+        app.UseCors("RaspberryDevelopmentPolicy");
     }
     else
     {
-        app.UseCors("DevelopmentPolicy");
+        app.UseCors("LocalDevelopmentPolicy");
     }
 }
 else
@@ -279,7 +283,6 @@ else
     app.UseCors("ProductionPolicy");
 }
 
-app.UseCors();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

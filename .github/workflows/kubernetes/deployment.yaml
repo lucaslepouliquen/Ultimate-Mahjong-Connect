@@ -31,6 +31,13 @@ spec:
         volumeMounts:
         - name: database-storage
           mountPath: /app/data
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        - name: ASPNETCORE_RASPBERRY
+          value: "true"
+        - name: CorsEnvironment
+          value: "raspberry"
       volumes:
       - name: database-storage
         persistentVolumeClaim:
