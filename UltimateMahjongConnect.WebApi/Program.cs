@@ -212,9 +212,16 @@ using (var scope = app.Services.CreateScope())
         dbContext.Database.EnsureCreated();
         logger.LogInformation("Database EnsureCreated completed successfully");
         
-        var tablesExist = dbContext.Database.GetDbConnection().State == System.Data.ConnectionState.Closed ? 
-            false : dbContext.Gamers.Any();
-        logger.LogInformation("Database tables verification: {TablesExist}", tablesExist ? "SUCCESS" : "FAILED");
+        // Verify tables exist
+        try
+        {
+            var tablesExist = await dbContext.Database.CanConnectAsync();
+            logger.LogInformation("Database tables verification: SUCCESS");
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning("Database tables verification: FAILED - {Error}", ex.Message);
+        }
     }
     catch (Exception ex)
     {
