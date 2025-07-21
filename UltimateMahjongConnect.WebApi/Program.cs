@@ -153,9 +153,21 @@ builder.Services.Configure<RouteOptions>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("DebugProductionPolicy", policy =>
     {
-        policy.WithOrigins("http://192.168.","https://192.168.", "http://localhost", "https://localhost")
+        policy.WithOrigins("http://localhost", "https://localhost")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+    options.AddPolicy("DevelopmentPolicy", policy =>
+    {
+        policy.WithOrigins("http://192.168.", "https://192.168.")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+    options.AddPolicy("ProductionPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -232,18 +244,19 @@ using (var scope = app.Services.CreateScope())
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-
-    _ = app.UseSwagger()
-      .UseSwaggerUI(options =>
-      {
-          options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-          IApiVersionDescriptionProvider provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-          foreach (ApiVersionDescription item in provider.ApiVersionDescriptions)
-          {
-              options.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", item.ApiVersion.ToString());
-          }
-      });
+    var debugMode = builder.Configuration["DebugMode"];
+    if (debugMode == "ProductionRules")
+    {
+        app.UseCors("DebugProductionPolicy");
+    }
+    else
+    {
+        app.UseCors("DevelopmentPolicy");
+    }
+}
+else
+{
+    app.UseCors("ProductionPolicy");
 }
 
 app.Use(async (context, next) =>
