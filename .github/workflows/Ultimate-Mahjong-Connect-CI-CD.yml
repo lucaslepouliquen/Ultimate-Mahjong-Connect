@@ -18,6 +18,11 @@ env:
 jobs:
   security-code-analysis:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+      pull-requests: read 
     strategy:
       matrix:
         dotnet-version: [ '9.0.x' ]
