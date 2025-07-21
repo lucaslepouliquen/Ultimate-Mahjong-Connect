@@ -155,7 +155,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DebugProductionPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost", "https://localhost")
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
