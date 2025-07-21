@@ -462,5 +462,168 @@ namespace UltimateMahjongConnect.Domain.Models
             
             Console.WriteLine($"LoadFromData: Restored {removedCount} removed tiles and {matchedCount} matched tiles");
         }
+
+        public void InitializeBoardPlayable()
+        {
+            _board = new MahjongTile[_rows, _columns];
+            var tiles = _mahjongTile.GetTiles();
+            
+            foreach (var tile in tiles)
+            {
+                tile.ResetState();
+            }
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if (i == 0 || i == _rows - 1 || j == 0 || j == _columns - 1)
+                    {
+                        _board[i, j] = new MahjongTile(true);
+                    }
+                }
+            }
+
+            var playableArea = (_rows - 2) * (_columns - 2);
+            var tilesNeeded = Math.Min(tiles.Count, playableArea);
+            
+            if (tilesNeeded % 2 != 0) tilesNeeded--;
+            
+            var selectedTiles = new List<MahjongTile>();
+            var random = new Random();
+            
+            for (int i = 0; i < tilesNeeded / 2; i++)
+            {
+                if (tiles.Count >= 2)
+                {
+                    var tile1 = tiles[0];
+                    var matchingTile = tiles.FirstOrDefault(t => t != tile1 && t.CanBeMatched(tile1)) ?? tiles[0];
+                    
+                    selectedTiles.Add(tile1);
+                    selectedTiles.Add(matchingTile);
+                    
+                    tiles.Remove(tile1);
+                    if (matchingTile != tile1) tiles.Remove(matchingTile);
+                }
+            }
+            
+            selectedTiles = selectedTiles.OrderBy(x => random.Next()).ToList();
+            
+            PlaceTilesWithDifficulty(selectedTiles, random);
+        }
+
+        private void PlaceTilesWithDifficulty(List<MahjongTile> tiles, Random random)
+        {
+            var availablePositions = new List<(int row, int col)>();
+            
+            for (int i = 1; i < _rows - 1; i++)
+            {
+                for (int j = 1; j < _columns - 1; j++)
+                {
+                    availablePositions.Add((i, j));
+                }
+            }
+            
+            var tileIndex = 0;
+            
+            for (int phase = 0; phase < 3 && tileIndex < tiles.Count - 1; phase++)
+            {
+                if (availablePositions.Count >= 2)
+                {
+                    // Placer une paire avec chemin horizontal direct
+                    var pos1 = availablePositions[random.Next(availablePositions.Count)];
+                    availablePositions.Remove(pos1);
+                    
+                    // Chercher une position dans la même ligne pour un chemin facile
+                    var sameRowPositions = availablePositions.Where(p => p.row == pos1.row).ToList();
+                    var pos2 = sameRowPositions.Any() 
+                        ? sameRowPositions[random.Next(sameRowPositions.Count)]
+                        : availablePositions[random.Next(availablePositions.Count)];
+                    
+                    availablePositions.Remove(pos2);
+                    
+                    _board[pos1.row, pos1.col] = tiles[tileIndex++];
+                    _board[pos2.row, pos2.col] = tiles[tileIndex++];
+                }
+            }
+            
+            while (tileIndex < tiles.Count && availablePositions.Count > 0)
+            {
+                var pos = availablePositions[random.Next(availablePositions.Count)];
+                availablePositions.Remove(pos);
+                _board[pos.row, pos.col] = tiles[tileIndex++];
+            }
+        }
+
+        public void InitializeBoardWithCalculatedDifficulty()
+        {
+            _board = new MahjongTile[_rows, _columns];
+            
+            // Bordures
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if (i == 0 || i == _rows - 1 || j == 0 || j == _columns - 1)
+                    {
+                        _board[i, j] = new MahjongTile(true);
+                    }
+                }
+            }
+            
+            // Créer des patterns stratégiques
+            var patterns = new[]
+            {
+                // Pattern 1: Paires en L
+                new[] { (2, 2), (2, 5) },      // Chemin horizontal
+                new[] { (3, 3), (6, 3) },      // Chemin vertical  
+                new[] { (4, 7), (7, 4) },      // Chemin en L
+                new[] { (5, 9), (9, 5) },      // Chemin complexe
+                
+                // Pattern 2: Groupes de 4 tuiles identiques
+                new[] { (8, 2), (8, 6), (10, 2), (10, 6) },
+                
+                // Pattern 3: Paires dispersées pour chemins à 3 segments
+                new[] { (2, 10), (10, 10) },
+                new[] { (6, 8), (11, 2) }
+            };
+            
+            var tiles = _mahjongTile.GetTiles().Take(60).ToList(); // Limiter pour ne pas surcharger
+            var tileIndex = 0;
+            var random = new Random();
+            
+            // Appliquer les patterns
+            foreach (var pattern in patterns)
+            {
+                if (tileIndex >= tiles.Count - pattern.Length + 1) break;
+                
+                // Prendre des tuiles qui peuvent se matcher
+                var patternTiles = new List<MahjongTile>();
+                for (int i = 0; i < pattern.Length; i += 2)
+                {
+                    if (tileIndex < tiles.Count - 1)
+                    {
+                        // Prendre 2 tuiles identiques
+                        var baseTile = tiles[tileIndex];
+                        var matchingTile = tiles.Skip(tileIndex + 1)
+                            .FirstOrDefault(t => t.CanBeMatched(baseTile)) ?? tiles[tileIndex + 1];
+                        
+                        patternTiles.Add(baseTile);
+                        patternTiles.Add(matchingTile);
+                        tileIndex += 2;
+                    }
+                }
+                
+                // Placer les tuiles du pattern
+                for (int i = 0; i < Math.Min(pattern.Length, patternTiles.Count); i++)
+                {
+                    var (row, col) = pattern[i];
+                    if (row < _rows && col < _columns)
+                    {
+                        _board[row, col] = patternTiles[i];
+                    }
+                }
+            }
+        }
     }
 }

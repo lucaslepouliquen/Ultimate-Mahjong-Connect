@@ -158,5 +158,43 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get or initialize a playable Mahjong board with calculated difficulty
+        /// </summary>
+        /// <remarks>
+        /// Creates a board that is guaranteed to be solvable but with increasing difficulty
+        /// Sample request: GET /api/v1/board/playable
+        /// </remarks>
+        [AllowAnonymous]
+        [HttpGet("playable")]
+        public IActionResult GetPlayableBoard()
+        {
+            try
+            {
+                _logger.LogInformation("GetPlayableBoard called - creating new playable board");
+                
+                var board = _boardSessionService.GetOrCreateBoard();
+                board.InitializeBoardPlayable(); 
+                
+                _boardSessionService.SaveBoard(board);
+                
+                var boardData = board.GetBoard();
+                
+                _logger.LogInformation("Playable board created and saved");
+                
+                return Ok(new { 
+                    message = "Playable board created successfully",
+                    board = boardData,
+                    difficulty = "Progressive",
+                    guaranteed = "Solvable"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating playable board: {Message}", ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
+    }
 }
