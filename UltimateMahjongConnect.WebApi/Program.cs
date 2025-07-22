@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -189,15 +189,26 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Utiliser un logger temporaire pour le debug initial
+using (var tempScope = app.Services.CreateScope())
+{
+    var tempLogger = tempScope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    // DEBUG IMPORTANT
+    tempLogger.LogInformation("ASPNETCORE_RASPBERRY = '{RaspberryEnv}'", Environment.GetEnvironmentVariable("ASPNETCORE_RASPBERRY"));
+    tempLogger.LogInformation("IsRaspberryEnvironment config = '{RaspberryConfig}'", builder.Configuration.GetValue<bool>("IsRaspberryEnvironment"));
+    tempLogger.LogInformation("Environment.EnvironmentName = '{EnvName}'", app.Environment.EnvironmentName);
+}
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbSQLContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>(); // ✅ Garder celui-ci
     
     try
     {
         var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") ??
-                              builder.Configuration.GetConnectionString("DefaultConnection") ??
+                                builder.Configuration.GetConnectionString("DefaultConnection") ??
                               "Data Source=/app/data/app.db";
         logger.LogInformation("Database setup - Connection string: {ConnectionString}", connectionString);
         logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);
@@ -282,12 +293,17 @@ if (app.Environment.IsDevelopment())
     var isRaspberry = Environment.GetEnvironmentVariable("ASPNETCORE_RASPBERRY") == "true" ||
                       builder.Configuration.GetValue<bool>("IsRaspberryEnvironment");
     
+    // Utiliser Console.WriteLine pour éviter les conflits de scope
+    Console.WriteLine($"IsRaspberry decision = {isRaspberry}");
+    
     if (isRaspberry)
     {
+        Console.WriteLine("Using RaspberryDevelopmentPolicy");
         app.UseCors("RaspberryDevelopmentPolicy");
     }
     else
     {
+        Console.WriteLine("Using LocalDevelopmentPolicy");
         app.UseCors("LocalDevelopmentPolicy");
     }
 }
