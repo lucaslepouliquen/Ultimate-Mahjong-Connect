@@ -174,7 +174,11 @@ builder.Services.AddCors(options =>
     });
     options.AddPolicy("RaspberryDevelopmentPolicy", policy =>
     {
-        policy.WithOrigins("http://192.168.1.186:31328", "https://192.168.1.186:31328")
+        policy.WithOrigins(
+            "http://192.168.1.186:31328", 
+            "https://192.168.1.186:31328", 
+            "http://mahjong-connect.local",
+            "https://mahjong-connect.local")
           .AllowAnyMethod()
           .AllowAnyHeader()
           .AllowCredentials();
