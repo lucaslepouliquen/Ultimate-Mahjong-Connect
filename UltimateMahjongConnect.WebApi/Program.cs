@@ -287,6 +287,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseRouting();
+
 if (app.Environment.IsDevelopment())
 {
     var isRaspberry = Environment.GetEnvironmentVariable("ASPNETCORE_RASPBERRY") == "true" ||
@@ -311,7 +313,6 @@ else
     app.UseCors("ProductionPolicy");
 }
 
-app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
