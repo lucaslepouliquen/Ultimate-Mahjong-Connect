@@ -13,10 +13,99 @@ namespace Ultimate_Mahjong_Connect.Controllers.V1
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IAnonymousSessionService _anonymousSessionService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IAnonymousSessionService anonymousSessionService)
         {
             _authService = authService;
+            _anonymousSessionService = anonymousSessionService;
+        }
+
+        /// <summary>
+        /// Create an anonymous session for users who want to play without registration
+        /// </summary>
+        /// <returns>Anonymous session with JWT token</returns>
+        [HttpPost("anonymous")]
+        public async Task<IActionResult> CreateAnonymousSession()
+        {
+            try
+            {
+                var anonymousSession = await _anonymousSessionService.CreateAnonymousSessionAsync();
+                return Ok(new { 
+                    message = "Anonymous session created successfully",
+                    data = anonymousSession 
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Failed to create anonymous session: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Validate an anonymous session
+        /// </summary>
+        /// <param name="sessionId">Session ID to validate</param>
+        /// <returns>Validation result</returns>
+        [HttpGet("anonymous/validate/{sessionId}")]
+        public async Task<IActionResult> ValidateAnonymousSession(string sessionId)
+        {
+            try
+            {
+                var isValid = await _anonymousSessionService.ValidateAnonymousSessionAsync(sessionId);
+                return Ok(new { 
+                    isValid = isValid,
+                    message = isValid ? "Session is valid" : "Session is invalid or expired"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Failed to validate session: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Get anonymous session details
+        /// </summary>
+        /// <param name="sessionId">Session ID</param>
+        /// <returns>Session details</returns>
+        [HttpGet("anonymous/{sessionId}")]
+        public async Task<IActionResult> GetAnonymousSession(string sessionId)
+        {
+            try
+            {
+                var session = await _anonymousSessionService.GetAnonymousSessionAsync(sessionId);
+                if (session == null)
+                    return NotFound(new { message = "Session not found" });
+
+                return Ok(new { 
+                    message = "Session retrieved successfully",
+                    data = session 
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Failed to get session: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Delete an anonymous session
+        /// </summary>
+        /// <param name="sessionId">Session ID to delete</param>
+        /// <returns>Deletion result</returns>
+        [HttpDelete("anonymous/{sessionId}")]
+        public async Task<IActionResult> DeleteAnonymousSession(string sessionId)
+        {
+            try
+            {
+                await _anonymousSessionService.DeleteAnonymousSessionAsync(sessionId);
+                return Ok(new { message = "Session deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Failed to delete session: {ex.Message}" });
+            }
         }
 
         /// <summary>

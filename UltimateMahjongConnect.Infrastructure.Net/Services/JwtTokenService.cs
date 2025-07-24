@@ -46,6 +46,28 @@ namespace UltimateMahjongConnect.Infrastructure.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public string GenerateTokenFromClaims(IEnumerable<Claim> claims)
+        {
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var secretKey = jwtSettings["SecretKey"];
+            var issuer = jwtSettings["Issuer"];
+            var audience = jwtSettings["Audience"];
+            var expiredInMinutes = int.Parse(jwtSettings["ExpiredInMinutes"] ?? "60");
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(expiredInMinutes),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         public ClaimsPrincipal? ValidateToken(string token)
         {
             try

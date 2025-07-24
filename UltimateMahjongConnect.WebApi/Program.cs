@@ -129,6 +129,7 @@ builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionD
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IAnonymousSessionService, AnonymousSessionService>();
 
 builder.Services.AddAutoMapper(cfg =>
 {
