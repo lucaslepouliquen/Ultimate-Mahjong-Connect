@@ -19,7 +19,6 @@ using UltimateMahjongConnect.Infrastructure.Models;
 using UltimateMahjongConnect.Infrastructure.Profiles;
 using UltimateMahjongConnect.Infrastructure.Repositories;
 using UltimateMahjongConnect.Infrastructure.Services;
-using UltimateMahjongConnect.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);   
 
@@ -131,18 +130,20 @@ builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionD
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-builder.Services.AddAutoMapper(
-    typeof(Program).Assembly,
-    typeof(GamerDTOProfile).Assembly,             
-    typeof(GamerEntityProfile).Assembly
-    );
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<GamerDTOProfile>();
+    cfg.AddProfile<GamerEntityProfile>();
+}, typeof(Program).Assembly);
+
+builder.Services.AddTransient<IBoardRepository, SessionBoardRepository>();
 builder.Services.AddTransient<IGamerRepository,GamerRepository>();
 builder.Services.AddTransient<IGamerService,GamerService>();
 builder.Services.AddTransient<IMahjongTile, MahjongTile>();
 builder.Services.AddScoped<IMahjongBoard, MahjongBoard>();
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IBoardSessionService, BoardSessionService>();
+builder.Services.AddScoped<IBoardService, BoardService>();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -207,7 +208,7 @@ using (var tempScope = app.Services.CreateScope())
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbSQLContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>(); // ✅ Garder celui-ci
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>(); 
     
     try
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UltimateMahjongConnect.WebApi.Services;
+using UltimateMahjongConnect.Application.Services;
+using UltimateMahjongConnect.Domain.Interfaces;
 
 namespace Ultimate_Mahjong_Connect.Controllers._1._0
 {
@@ -9,12 +10,12 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
     [Route("api/v{version:ApiVersion}/board")]
     public class MahjongBoardController : Controller
     {
-        private readonly IBoardSessionService _boardSessionService;
+        private readonly IBoardService _boardService;
         private readonly ILogger<MahjongBoardController> _logger;
         
-        public MahjongBoardController(IBoardSessionService boardSessionService, ILogger<MahjongBoardController> logger)
+        public MahjongBoardController(IBoardService boardService, ILogger<MahjongBoardController> logger)
         {
-            _boardSessionService = boardSessionService;
+            _boardService = boardService;
             _logger = logger;
         }
 
@@ -33,7 +34,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             try
             {
                 _logger.LogInformation("GetBoard called with mode: {Mode}", mode);
-                var board = _boardSessionService.GetOrCreateBoard();
+                var board = _boardService.GetOrCreateBoard();
                 var boardData = board.GetBoard();
                 
                 return Ok(boardData);
@@ -55,9 +56,9 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             try
             {
                 _logger.LogInformation("ResetBoard called with mode: {Mode}", mode);
-                _boardSessionService.ClearBoard();
+                _boardService.ClearBoard();
                 
-                var board = _boardSessionService.GetOrCreateBoard();
+                var board = _boardService.GetOrCreateBoard();
                 
                 return Ok(new { 
                     message = "Board reset successfully",
@@ -86,14 +87,14 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             {
                 _logger.LogInformation("ValidateAndExecuteMove called: ({Row1},{Col1}) -> ({Row2},{Col2})", row1, column1, row2, column2);
                 
-                var board = _boardSessionService.GetOrCreateBoard();
+                var board = _boardService.GetOrCreateBoard();
                 var mahjongPath = board.GetValidatedPath(row1, column1, row2, column2);
                 
                 if (mahjongPath.IsValid)
                 {
                     board.MatchAndRemoveTiles(board[row1, column1], board[row2, column2]);
-                    
-                    _boardSessionService.SaveBoard(board);
+
+                    _boardService.SaveBoard(board);
                     _logger.LogInformation("Move executed and board saved");
                     
                     return Ok(new { 
@@ -135,7 +136,7 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
 
             try
             {
-                var hasBoard = _boardSessionService.HasBoard();
+                var hasBoard = _boardService.HasBoard();
                 var sessionId = HttpContext.Session.Id;
                 var sessionKeys = HttpContext.Session.Keys.ToList();
                 var cookies = HttpContext.Request.Cookies
@@ -174,10 +175,10 @@ namespace Ultimate_Mahjong_Connect.Controllers._1._0
             {
                 _logger.LogInformation("GetPlayableBoard called - creating new playable board");
                 
-                var board = _boardSessionService.GetOrCreateBoard();
-                board.InitializeBoardPlayable(); 
-                
-                _boardSessionService.SaveBoard(board);
+                var board = _boardService.GetOrCreateBoard();
+                board.InitializeBoardPlayable();
+
+                _boardService.SaveBoard(board);
                 
                 var boardData = board.GetBoard();
                 
