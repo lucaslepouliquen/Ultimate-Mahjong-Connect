@@ -1,0 +1,1419 @@
+{
+    "isValid": true,
+    "path": {
+        "isValid": true,
+        "pathRows": [
+            7,
+            7,
+            6
+        ],
+        "pathColumns": [
+            9,
+            10,
+            10
+        ]
+    },
+    "board": [
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 4,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-1]"
+            },
+            {
+                "category": 1,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-4]"
+            },
+            {
+                "category": 2,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-5]"
+            },
+            {
+                "category": 1,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-7]"
+            },
+            {
+                "category": 2,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-0]"
+            },
+            {
+                "category": 1,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-4]"
+            },
+            {
+                "category": 2,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-6]"
+            },
+            {
+                "category": 2,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-8]"
+            },
+            {
+                "category": 1,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-4]"
+            },
+            {
+                "category": 0,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-1]"
+            },
+            {
+                "category": 1,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-0]"
+            },
+            {
+                "category": 1,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-2]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-8]"
+            },
+            {
+                "category": 2,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-7]"
+            },
+            {
+                "category": 4,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-0]"
+            },
+            {
+                "category": 0,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-3]"
+            },
+            {
+                "category": 2,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-0]"
+            },
+            {
+                "category": 0,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-3]"
+            },
+            {
+                "category": 3,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-2]"
+            },
+            {
+                "category": 2,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-6]"
+            },
+            {
+                "category": 3,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-0]"
+            },
+            {
+                "category": 2,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-5]"
+            },
+            {
+                "category": 4,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-2]"
+            },
+            {
+                "category": 4,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-2]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 5,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-1]"
+            },
+            {
+                "category": 4,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-0]"
+            },
+            {
+                "category": 2,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-7]"
+            },
+            {
+                "category": 2,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-8]"
+            },
+            {
+                "category": 1,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-6]"
+            },
+            {
+                "category": 1,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-0]"
+            },
+            {
+                "category": 2,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-8]"
+            },
+            {
+                "category": 2,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-3]"
+            },
+            {
+                "category": 1,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-8]"
+            },
+            {
+                "category": 0,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-2]"
+            },
+            {
+                "category": 0,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-4]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 5,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Flo-1]"
+            },
+            {
+                "category": 0,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-5]"
+            },
+            {
+                "category": 3,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-2]"
+            },
+            {
+                "category": 0,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-2]"
+            },
+            {
+                "category": 5,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Flo-1]"
+            },
+            {
+                "category": 3,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-0]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-0]"
+            },
+            {
+                "category": 1,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-5]"
+            },
+            {
+                "category": 3,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-1]"
+            },
+            {
+                "category": 1,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-8]"
+            },
+            {
+                "category": 1,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-3]"
+            },
+            {
+                "category": 2,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-2]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-6]"
+            },
+            {
+                "category": 0,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-8]"
+            },
+            {
+                "category": 1,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-1]"
+            },
+            {
+                "category": 3,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-1]"
+            },
+            {
+                "category": 3,
+                "value": 3,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-8]"
+            },
+            {
+                "category": 1,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-3]"
+            },
+            {
+                "category": 2,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-1]"
+            },
+            {
+                "category": 0,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-4]"
+            },
+            {
+                "category": 1,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-6]"
+            },
+            {
+                "category": 4,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-1]"
+            },
+            {
+                "category": 3,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-2]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 5,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-6]"
+            },
+            {
+                "category": 1,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-1]"
+            },
+            {
+                "category": 4,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-0]"
+            },
+            {
+                "category": 6,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Sea-1]"
+            },
+            {
+                "category": 3,
+                "value": 3,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 3,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-1]"
+            },
+            {
+                "category": 5,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Flo-1]"
+            },
+            {
+                "category": 0,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-7]"
+            },
+            {
+                "category": 0,
+                "value": 6,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-7]"
+            },
+            {
+                "category": 2,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-7]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 1,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-7]"
+            },
+            {
+                "category": 1,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-2]"
+            },
+            {
+                "category": 0,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-8]"
+            },
+            {
+                "category": 2,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-6]"
+            },
+            {
+                "category": 0,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-3]"
+            },
+            {
+                "category": 1,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-1]"
+            },
+            {
+                "category": 0,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-5]"
+            },
+            {
+                "category": 1,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-0]"
+            },
+            {
+                "category": 0,
+                "value": 6,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-2]"
+            },
+            {
+                "category": 1,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-8]"
+            },
+            {
+                "category": 6,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Sea-1]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 1,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-3]"
+            },
+            {
+                "category": 0,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-1]"
+            },
+            {
+                "category": 1,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-6]"
+            },
+            {
+                "category": 0,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-7]"
+            },
+            {
+                "category": 0,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-2]"
+            },
+            {
+                "category": 3,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-3]"
+            },
+            {
+                "category": 1,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-5]"
+            },
+            {
+                "category": 2,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-7]"
+            },
+            {
+                "category": 2,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-5]"
+            },
+            {
+                "category": 1,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-7]"
+            },
+            {
+                "category": 2,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-0]"
+            },
+            {
+                "category": 0,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-2]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 3,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-2]"
+            },
+            {
+                "category": 3,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-3]"
+            },
+            {
+                "category": 3,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-0]"
+            },
+            {
+                "category": 2,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-4]"
+            },
+            {
+                "category": 4,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-1]"
+            },
+            {
+                "category": 2,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-1]"
+            },
+            {
+                "category": 4,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-2]"
+            },
+            {
+                "category": 3,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-1]"
+            },
+            {
+                "category": 4,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-0]"
+            },
+            {
+                "category": 1,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-2]"
+            },
+            {
+                "category": 1,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-1]"
+            },
+            {
+                "category": 0,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-7]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-4]"
+            },
+            {
+                "category": 2,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-1]"
+            },
+            {
+                "category": 2,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-4]"
+            },
+            {
+                "category": 2,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-5]"
+            },
+            {
+                "category": 4,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-1]"
+            },
+            {
+                "category": 1,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-5]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-0]"
+            },
+            {
+                "category": 0,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-3]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-0]"
+            },
+            {
+                "category": 4,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Dra-2]"
+            },
+            {
+                "category": 3,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Win-0]"
+            },
+            {
+                "category": 0,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-1]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 1,
+                "value": 5,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-5]"
+            },
+            {
+                "category": 0,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-8]"
+            },
+            {
+                "category": 1,
+                "value": 8,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-8]"
+            },
+            {
+                "category": 0,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-4]"
+            },
+            {
+                "category": 1,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-3]"
+            },
+            {
+                "category": 1,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-6]"
+            },
+            {
+                "category": 2,
+                "value": 3,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-2]"
+            },
+            {
+                "category": 5,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Flo-1]"
+            },
+            {
+                "category": 1,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-4]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-0]"
+            },
+            {
+                "category": 6,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Sea-1]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 2,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-0]"
+            },
+            {
+                "category": 6,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Sea-1]"
+            },
+            {
+                "category": 1,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-2]"
+            },
+            {
+                "category": 2,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-4]"
+            },
+            {
+                "category": 2,
+                "value": 1,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-1]"
+            },
+            {
+                "category": 2,
+                "value": 3,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-3]"
+            },
+            {
+                "category": 2,
+                "value": 3,
+                "isRemoved": true,
+                "isMatched": true,
+                "displayText": ""
+            },
+            {
+                "category": 1,
+                "value": 7,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-7]"
+            },
+            {
+                "category": 2,
+                "value": 2,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cha-2]"
+            },
+            {
+                "category": 0,
+                "value": 6,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-6]"
+            },
+            {
+                "category": 1,
+                "value": 0,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Cir-0]"
+            },
+            {
+                "category": 0,
+                "value": 4,
+                "isRemoved": false,
+                "isMatched": false,
+                "displayText": "[Bam-4]"
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ],
+        [
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            },
+            {
+                "category": 0,
+                "value": 0,
+                "isRemoved": true,
+                "isMatched": false,
+                "displayText": ""
+            }
+        ]
+    ],
+    "message": "Move executed successfully"
+}
