@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4DDBF299-6CA2-48D0-BB93-C5BF9EAD8AEC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMahjongConnect.WebApi.Tests", "UltimateMahjongConnect.WebApi.Tests\UltimateMahjongConnect.WebApi.Tests.csproj", "{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{A9E7826A-DA64-43B3-B8C4-E499860DCE9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9E7826A-DA64-43B3-B8C4-E499860DCE9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9E7826A-DA64-43B3-B8C4-E499860DCE9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{E4698391-84D0-4492-B0F0-6054738D0EF0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{DBFC7A75-4E09-4F4F-9452-04DC4FB69C17} = {B8422C35-CE16-48F0-A466-C847E1A2D201}
 		{A9E7826A-DA64-43B3-B8C4-E499860DCE9E} = {B8422C35-CE16-48F0-A466-C847E1A2D201}
+		{662CF8FE-64BF-4567-9E94-4D2F2BFAD1E4} = {4DDBF299-6CA2-48D0-BB93-C5BF9EAD8AEC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AAF200F-A262-4D34-A346-D9076055D0F9}

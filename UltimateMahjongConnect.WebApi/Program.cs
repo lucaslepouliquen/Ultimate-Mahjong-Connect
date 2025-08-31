@@ -16,18 +16,16 @@ using UltimateMahjongConnect.Application.Services;
 using UltimateMahjongConnect.Domain.Interfaces;
 using UltimateMahjongConnect.Domain.Models;
 using UltimateMahjongConnect.Infrastructure.Models;
+using UltimateMahjongConnect.Infrastructure.Persistence;
 using UltimateMahjongConnect.Infrastructure.Profiles;
 using UltimateMahjongConnect.Infrastructure.Repositories;
 using UltimateMahjongConnect.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);   
 
+// Database
 builder.Services.AddDbContext<ApplicationDbSQLContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-    .EnableSensitiveDataLogging()
-    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-});
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT SecretKey not configured");
@@ -117,15 +115,22 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
 });
 
-builder.Services.AddApiVersioningService().AddSwaggerGen(options =>
+builder.Services.AddVersionedApiExplorer(setup =>
+{
+    setup.GroupNameFormat = "'v'VVV";
+    setup.SubstituteApiVersionInUrl = true;
+});
+
+builder.Services.AddSwaggerGen(options =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    options.IncludeXmlComments(xmlPath);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
 })
-    .ConfigureOptions<SwaggerGenConfiguration>();
-
-builder.Services.AddTransient<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
+.ConfigureOptions<SwaggerGenConfiguration>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
@@ -138,8 +143,8 @@ builder.Services.AddAutoMapper(cfg =>
 }, typeof(Program).Assembly);
 
 builder.Services.AddTransient<IBoardRepository, SessionBoardRepository>();
-builder.Services.AddTransient<IGamerRepository,GamerRepository>();
-builder.Services.AddTransient<IGamerService,GamerService>();
+builder.Services.AddTransient<IGamerRepository, GamerRepository>();
+builder.Services.AddTransient<IGamerService, GamerService>();
 builder.Services.AddTransient<IMahjongTile, MahjongTile>();
 builder.Services.AddScoped<IMahjongBoard, MahjongBoard>();
 
@@ -325,3 +330,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
