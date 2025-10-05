@@ -365,3 +365,14 @@ FodyWeavers.xsd
 # Ignore appsettings.json files
 appsettings.json
 appsettings.*.json
+
+# SonarQube - Fichiers temporaires et données locales
+.sonar/
+.scannerwork/
+TestResults/
+coverage.opencover.xml
+coverage.cobertura.xml
+
+# Docker - Données locales SonarQube (NE PAS committer)
+docker-compose.sonarqube.yml
+SONARQUBE_GUIDE.md

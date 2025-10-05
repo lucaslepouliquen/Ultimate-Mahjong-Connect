@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <!-- Analyse de sécurité -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+    
+    <!-- Règles de sécurité -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    
+    <!-- Configuration SonarQube -->
+    <SonarQubeExclude Condition="$(MSBuildProjectName.EndsWith('.Test')) Or $(MSBuildProjectName.EndsWith('.Tests'))">true</SonarQubeExclude>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Analyseurs de sécurité -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982" PrivateAssets="all" />
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

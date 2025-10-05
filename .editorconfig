@@ -1,0 +1,92 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.{cs,csx,vb,vbx}]
+indent_size = 4
+
+[*.{json,js,ts,html,css,scss}]
+indent_size = 2
+
+# Règles de sécurité C#
+[*.cs]
+
+# Sécurité - Erreurs critiques
+dotnet_diagnostic.CA2100.severity = error  # SQL Injection
+dotnet_diagnostic.CA3001.severity = error  # XSS
+dotnet_diagnostic.CA3003.severity = error  # Path Traversal
+dotnet_diagnostic.CA3004.severity = error  # Information Disclosure
+dotnet_diagnostic.CA3006.severity = error  # Process Command Injection
+dotnet_diagnostic.CA3007.severity = error  # Open Redirect
+dotnet_diagnostic.CA3008.severity = error  # XPath Injection
+dotnet_diagnostic.CA3009.severity = error  # XML Injection
+dotnet_diagnostic.CA3010.severity = error  # XAML Injection
+dotnet_diagnostic.CA3011.severity = error  # DLL Injection
+dotnet_diagnostic.CA3012.severity = error  # Regex Injection
+
+# Cryptographie
+dotnet_diagnostic.CA5350.severity = error  # Weak Cryptographic Algorithm
+dotnet_diagnostic.CA5351.severity = error  # Broken Cryptographic Algorithm
+dotnet_diagnostic.CA5359.severity = error  # Certificate Validation
+dotnet_diagnostic.CA5360.severity = error  # Deserialization
+dotnet_diagnostic.CA5361.severity = error  # SChannel
+dotnet_diagnostic.CA5362.severity = error  # Self Referencing Class
+dotnet_diagnostic.CA5363.severity = error  # Request Validation
+dotnet_diagnostic.CA5364.severity = error  # Security Protocols
+dotnet_diagnostic.CA5365.severity = error  # HTTP Header Check
+dotnet_diagnostic.CA5366.severity = error  # DataSet ReadXml
+dotnet_diagnostic.CA5367.severity = error  # Pointer Fields
+dotnet_diagnostic.CA5368.severity = error  # ViewState UserKey
+dotnet_diagnostic.CA5369.severity = error  # XmlReader
+dotnet_diagnostic.CA5370.severity = error  # XmlReader Validation
+dotnet_diagnostic.CA5371.severity = error  # XmlSchemaSet
+dotnet_diagnostic.CA5372.severity = error  # XPathDocument
+dotnet_diagnostic.CA5373.severity = error  # Obsolete Key Derivation
+dotnet_diagnostic.CA5374.severity = error  # XslTransform
+dotnet_diagnostic.CA5375.severity = error  # Account Shared Access Signature
+dotnet_diagnostic.CA5376.severity = error  # SharedAccessProtocol HttpsOnly
+dotnet_diagnostic.CA5377.severity = error  # Container Level Access Policy
+dotnet_diagnostic.CA5378.severity = error  # ServicePointManagerSecurityProtocols
+dotnet_diagnostic.CA5379.severity = error  # Weak Key Derivation Function
+dotnet_diagnostic.CA5380.severity = error  # Root Certificate
+dotnet_diagnostic.CA5381.severity = error  # Root Certificate Store
+dotnet_diagnostic.CA5382.severity = error  # Secure Cookies ASP.NET Core
+dotnet_diagnostic.CA5383.severity = error  # Secure Cookies ASP.NET
+dotnet_diagnostic.CA5384.severity = error  # DSA
+dotnet_diagnostic.CA5385.severity = error  # RSA Key Size
+dotnet_diagnostic.CA5386.severity = error  # Hardcoded Value
+dotnet_diagnostic.CA5387.severity = error  # Weak Key Derivation Function Iterations
+dotnet_diagnostic.CA5388.severity = error  # Weak Key Derivation Function Salt
+dotnet_diagnostic.CA5389.severity = error  # Archive Item Path
+dotnet_diagnostic.CA5390.severity = error  # Hardcoded Encryption Key
+dotnet_diagnostic.CA5391.severity = error  # ANTIFORGERY Token
+dotnet_diagnostic.CA5392.severity = error  # DefaultAzureCredential
+dotnet_diagnostic.CA5393.severity = error  # Unsafe DllImportSearchPath
+dotnet_diagnostic.CA5394.severity = error  # Insecure Randomness
+dotnet_diagnostic.CA5395.severity = error  # HttpClient Certificate Revocation
+dotnet_diagnostic.CA5396.severity = error  # HttpOnly Cookie
+dotnet_diagnostic.CA5397.severity = error  # SameSite Cookie
+dotnet_diagnostic.CA5398.severity = error  # Hardcoded SAS Token
+dotnet_diagnostic.CA5399.severity = error  # HttpClient Certificate Revocation List Check
+dotnet_diagnostic.CA5400.severity = error  # HttpClient Certificate Revocation List Check
+dotnet_diagnostic.CA5401.severity = error  # CreateEncryptor Default IV
+dotnet_diagnostic.CA5402.severity = error  # CreateDecryptor Default IV
+dotnet_diagnostic.CA5403.severity = error  # HardcodedCertificate
+
+# SonarQube Security Rules
+dotnet_diagnostic.S2068.severity = error   # Hardcoded credentials
+dotnet_diagnostic.S4426.severity = error   # Cryptography
+dotnet_diagnostic.S5042.severity = error   # Zip Slip
+dotnet_diagnostic.S5334.severity = error   # Hotspot: Clear-text protocols
+dotnet_diagnostic.S4423.severity = error   # Weak SSL/TLS protocols
+dotnet_diagnostic.S4424.severity = error   # Weak SSL/TLS ciphers
+dotnet_diagnostic.S5547.severity = error   # Cipher Block Chaining IVs should be unpredictable
+dotnet_diagnostic.S2257.severity = error   # Using non-standard cryptographic algorithms is security-sensitive
+dotnet_diagnostic.S4790.severity = error   # Hashing data is security-sensitive
+dotnet_diagnostic.S5659.severity = error   # JWT should be signed and verified
